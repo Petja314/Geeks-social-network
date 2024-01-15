@@ -25,18 +25,28 @@ const ProfileStatus = (props: ProfileStatusPropsType) => {
     const activateEditMode = () => {
         setEditMode(true)
     }
-    //When status has changed => send it to reducer to update state
+
+
+    // When status has changed => send it to reducer to update state
     const deactivateEditMode = async () => {
         setEditMode(false)
       await dispatch(updateStatusThunkCreator(status))
     }
+    const handleKeyDown = async (event : any) => {
+        if (event.key === 'Enter' && event.currentTarget.blur()) {
+            console.log('Enter key pressed! Save logic goes here.');
+            setEditMode(false)
+            await dispatch(updateStatusThunkCreator(status))
+        }
+    };
     return (
 
         <div>
+
             {!editMode &&
-                <div>
+                <div >
                     <span>status : </span>
-                    <span  onDoubleClick={activateEditMode}   style={{fontWeight: "bold"}} >{status || "NO STATUS"}</span>
+                    <span onDoubleClick={activateEditMode}   style={{fontWeight: "bold"}} >{status || "NO STATUS"}</span>
                 </div>
             }
 
@@ -46,7 +56,10 @@ const ProfileStatus = (props: ProfileStatusPropsType) => {
                         onChange={onChangeStatusHandler}
                         autoFocus={true}
                         onBlur={deactivateEditMode}
-                        value={status}/>
+                        value={status}
+                        onKeyDown={handleKeyDown}
+                        tabIndex={0}
+                    />
                 </div>
             }
         </div>

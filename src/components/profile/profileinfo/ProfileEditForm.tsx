@@ -1,48 +1,47 @@
-import React, {useState} from 'react';
-import { MyInput} from '../../common/forms_controls/FormsControls';
-import {ProfileDataType, saveProfileThunk} from "../../redux/ProfileReducer";
+import React, {useEffect, useState} from 'react';
+import {MyInput} from '../../common/forms_controls/FormsControls';
+import {actionsProfile, ProfileDataType, saveProfileThunk} from "../../redux/ProfileReducer";
 import {Field, Form, Formik, FormikHelpers} from "formik";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {log} from "util";
 
 type ProfileDataFormProps = {
     initialValues: ProfileDataType;
     isOwner: boolean;
-    setEditMode : (value : boolean) => void
+    setEditMode: (value: boolean) => void
 };
 
 export const ProfileEditForm = (props: ProfileDataFormProps) => {
-    const dispatch : any = useDispatch()
-    const [error,setError] = useState<string>("")
+    const dispatch: any = useDispatch()
+    const fieldsErrors = useSelector((state: any) => state.profilePage.error)
 
-    //Sending new data from formik to thunk to update the state
-    const handleSubmit = async (values: ProfileDataType, { setFieldError, setSubmitting }: FormikHelpers<ProfileDataType>) => {
+    const handleSubmit = async (values: ProfileDataType, {setFieldError, setSubmitting}: FormikHelpers<ProfileDataType>) => {
         try {
             await dispatch(saveProfileThunk(values));
             // If successful, you can perform additional actions if needed
             props.setEditMode(false);
-        } catch (error : any) {
-            // Handle the error and set a field error for formWideError
-            setFieldError("formWideError", error.message);
-            setError(error.message)
+        } catch (error: any) {
         } finally {
             setSubmitting(false);
         }
     };
+
+
+    console.log('fieldsErrors', fieldsErrors)
     return (
         <Formik
-            enableReinitialize
+            enableReinitialize={true}
             initialValues={props.initialValues}
             onSubmit={handleSubmit}
 
         >
-            <Form >
+            <Form>
 
                 {props.isOwner && (
                     <div>
                         <button type="submit">Save</button>
                     </div>
                 )}
-
 
 
                 <ul style={{listStyle: 'none'}}>
@@ -80,10 +79,7 @@ export const ProfileEditForm = (props: ProfileDataFormProps) => {
                             placeholder="About me"
                         />
                     </li>
-                    {error && <div style={{color : "red",fontWeight : "bold"}} >{error} -
-                        <div>
-                            Please type the link in right format : example.com
-                        </div>  </div>}
+
                     <li>Contacts:{Object.keys(props.initialValues.contacts).map(key => (
                         <div key={key}>
                             <b>{key} : </b>
@@ -92,8 +88,14 @@ export const ProfileEditForm = (props: ProfileDataFormProps) => {
                                 component={MyInput}
                                 placeholder={key}
                             />
+                            {fieldsErrors &&
+                                fieldsErrors.map((item: any) => item.toLowerCase().includes(key) ?
+                                    <span style={{color: "red", fontWeight: "bold"}}>{item} , please type correct link : example.com </span> : null)
+                            }
                         </div>
                     ))} </li>
+
+
                 </ul>
             </Form>
         </Formik>

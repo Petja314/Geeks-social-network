@@ -1,0 +1,28 @@
+.post-app {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.create-post, .search {
+    margin-bottom: 20px;
+}
+
+.post-list {
+    list-style: none;
+    padding: 0;
+}
+
+.post-item {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.post-actions button {
+    margin-right: 10px;
+}
+
+.edit-post {
+    margin-top: 20px;
+}

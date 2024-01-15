@@ -4,6 +4,7 @@ import {ThunkAction, ThunkDispatch} from "redux-thunk";
 import {InferActionsTypes, RootState} from "./Redux-Store";
 import {profileAPI} from "../../api/ProfileAPI";
 import {Action, AnyAction} from "redux";
+import {act} from "react-dom/test-utils";
 
 export type ProfileDataType  = {
     "aboutMe": string,
@@ -29,9 +30,12 @@ export type ContactsType = {
 };
 export type ProfileStateTypes = {
     profile?: ProfileDataType;
-    status?: string
+    status?: string,
+    error? : { [key : string] : string } | null
 }
-let initialState: ProfileStateTypes = {}
+let initialState: ProfileStateTypes = {
+
+}
 
 
 export const ProfileReducer = (state  = initialState, action: ActionsProfileTypes) => {
@@ -42,15 +46,17 @@ export const ProfileReducer = (state  = initialState, action: ActionsProfileType
                 return {...state, status: action.status}
         case 'SAVE_PHOTO_SUCCESS' :
                 return {...state ,profile : {...state.profile , photos : action.photos}}
+        case 'SET_ERROR' :
+            return {...state, error : action.error }
         default:
             return state;
     }
 };
 
 //Actions type for the profile reducer
-type ActionsProfileTypes = InferActionsTypes<typeof actions>
+type ActionsProfileTypes = InferActionsTypes<typeof actionsProfile>
 //Actions for the profile reducer
-export const actions = {
+export const actionsProfile = {
      setUserProfileAction : (profile: ProfileDataType) => ({
             type: 'SET_USER_PROFILE',
             profile: profile
@@ -62,6 +68,10 @@ export const actions = {
      savePhotoSuccess : (photos : string)  => ({
             type : 'SAVE_PHOTO_SUCCESS',
             photos : photos
+    }as const),
+    setErrorAction : (error : any) => ({
+        type : 'SET_ERROR',
+        error : error
     }as const)
 }
 
@@ -73,13 +83,13 @@ type ThunkType = ThunkAction<Promise<void>, ProfileStateTypes  , unknown, Action
 // Thunk to fetch user profile data
 export const usersProfileAuthThunkCreator = (userId: number) : any => async (dispatch : any ) => {
         let response = await profileAPI.profileAuth(userId)
-                dispatch(actions.setUserProfileAction(response.data));
+                dispatch(actionsProfile.setUserProfileAction(response.data));
 }
 
 // Thunk to fetch user status
 export const getStatusThunkCreator = (userID: number)  : any  => async  (dispatch : any ) => {
    let response = await profileAPI.getStatus(userID)
-            dispatch(actions.setStatusAction(response.data))
+            dispatch(actionsProfile.setStatusAction(response.data))
 }
 
 // Thunk to update user status
@@ -88,7 +98,7 @@ export const updateStatusThunkCreator = (status: string) : ThunkType=> async  (d
             if (response.data.resultCode === ResultCodesEnum.Error) {
                 let errorMessage = response.data.messages[0]
                 debugger
-                dispatch(actions.setStatusAction(errorMessage))
+                dispatch(actionsProfile.setStatusAction(errorMessage))
             }
 }
 
@@ -96,7 +106,7 @@ export const updateStatusThunkCreator = (status: string) : ThunkType=> async  (d
 export const savePhotoThunk = (file : File) : ThunkType => async (dispatch ) => {
     let response = await profileAPI.savePhoto(file)
     if (response.data.resultCode === ResultCodesEnum.Success) {
-        dispatch(actions.savePhotoSuccess(response.data.data.photos))
+        dispatch(actionsProfile.savePhotoSuccess(response.data.data.photos))
     }
 }
 
@@ -108,12 +118,15 @@ export const saveProfileThunk = (profile: ProfileDataType): ThunkType => async (
         if (response.data.resultCode === ResultCodesEnum.Success) {
             if (userId != null) {
                 await dispatch(usersProfileAuthThunkCreator(userId));
+                 dispatch(actionsProfile.setErrorAction(null))
             } else {
                 // Handle the case where userId is null
                 console.error("User ID is null.");
             }
         } else {
             // Set the form-wide error message
+            const formattedErrors = response.data.messages
+            dispatch(actionsProfile.setErrorAction(formattedErrors))
             throw new Error(response.data.messages[0] || "Some error occurred.");
         }
     } catch (error) {

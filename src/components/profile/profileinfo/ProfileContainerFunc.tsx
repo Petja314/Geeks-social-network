@@ -6,6 +6,7 @@ import {getStatusThunkCreator, ProfileDataType, ProfileStateTypes, usersProfileA
 import ProfileInfo from "./ProfileInfo";
 import {RootState} from "../../redux/Redux-Store";
 import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
+import MyPosts from "../myposts/MyPosts";
 
 type QuizParams = {
     id: string | undefined
@@ -40,6 +41,7 @@ const ProfileContainerFunc = () => {
                 profile={profile}
                 status={status}
             />
+            <MyPosts userId={200}/>
         </div>
     );
 };
