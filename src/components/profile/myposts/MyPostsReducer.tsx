@@ -5,18 +5,15 @@ export type MyPostsInitialState = {
     userId : any,
     currentPage : any,
     pageSize : any,
-    editPost : null
 }
 let initialState: MyPostsInitialState = {
     posts : [],
     userId : null,
     currentPage : 1,
     pageSize : 5,
-    editPost : null
 }
 
 export const MyPostsReducer = (state = initialState, action: ActionsTypes): MyPostsInitialState => {
-    // debugger
     switch (action.type) {
         case 'SET_USER_ID' :
             return {
@@ -36,12 +33,13 @@ export const MyPostsReducer = (state = initialState, action: ActionsTypes): MyPo
             case 'DELETE_POST' :
             return {
                 ...state,
-                posts: [...state.posts.filter((item: any) => item.id !== action.postId)],
+                posts: action.deletePost
             }
                 case 'ADD_LIKE' :
                 return {
                     ...state,
-                    posts : [...state.posts.map((item: any) => (item.id === action.postId ? {...item, likes: item.likes + 1} : item))]
+                    posts : action.addLike
+                    // posts : [...state.posts.map((item: any) => (item.id === action.postId ? {...item, likes: item.likes + 1} : item))]
                 }
                 case 'DELETE_ALL_POSTS' :
                 return {
@@ -58,7 +56,6 @@ export const MyPostsReducer = (state = initialState, action: ActionsTypes): MyPo
                     ...state,
                     currentPage : action.pageNumber
                 }
-
 
         default:
             return state;
@@ -79,13 +76,13 @@ export const actionsMyPosts = {
         type: 'SET_NEW_POST',
         newPost: newPost,
     }as const),
-    deletePostAC : (postId: any) => ({
+    deletePostAC : (deletePost: any) => ({
         type: 'DELETE_POST',
-        postId: postId,
+        deletePost: deletePost,
     }as const),
-    addLikeToPostAC : (postId: any) => ({
+    addLikeToPostAC : (addLike: any) => ({
         type: 'ADD_LIKE',
-        postId: postId,
+        addLike: addLike,
     }as const),
     deleteAllPostsAC : () => ({
         type: 'DELETE_ALL_POSTS',
@@ -98,30 +95,37 @@ export const actionsMyPosts = {
         type: 'CHANGE_PAGE',
         pageNumber : pageNumber
     }as const),
+
 }
 
 
 
+export const setUserIdThunk = (userId : any) : any  => {
+    return  (dispatch: any) => {
+        dispatch(actionsMyPosts.setUserIdAC(userId))
+    }
+}
 export const fetchPostsThunk = (postData : any) : any  => {
-    return async (dispatch: any) => {
+    return  (dispatch: any) => {
         dispatch(actionsMyPosts.setPostsDataBaseAC(postData))
     }
 }
 export const createNewPostThunk = (newPost : any) : any  => {
-    return async (dispatch: any) => {
+    return  (dispatch: any) => {
         dispatch(actionsMyPosts.newPostAC(newPost))
     }
 }
 
 export const savePostThunk = (updateEditedPost : any) : any  => {
-    return async (dispatch: any) => {
-        // debugger
+    return  (dispatch: any) => {
         dispatch(actionsMyPosts.savePostAC(updateEditedPost))
     }
 }
-
-
-
+export const onPageChangeThunk = (pageNumber : any) : any  => {
+    return  (dispatch: any) => {
+        dispatch(actionsMyPosts.changePageAC(pageNumber))
+    }
+}
 
 
 

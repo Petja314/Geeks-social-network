@@ -133,7 +133,6 @@ export const UsersReducer = (state = initialState, action: ActionsTypes): UsersC
             }
         case 'SET_USERS' :
             return {...state, users: action.users}
-        // return {...state, users: [...state.users, ...action.users]}
         case 'CURRENT_PAGE' :
             return {...state, currentPage: action.currentPage}
         case 'TOTAL_USERS_COUNTS' :
@@ -257,8 +256,8 @@ export const actions = {
 // }
 
 
-export const getUsersThunkCreator = (currentPage: number, pageSize: number, filter: FilterType): ThunkType => {
-        return async (dispatch) => {
+export const getUsersThunkCreator = (currentPage: number, pageSize: number, filter: FilterType): any => {
+        return async (dispatch :  any) => {
         dispatch(actions.setToggleFetching(true))
         dispatch(actions.setFilter(filter))
         let response = await usersAPI.getUsers(currentPage, pageSize,filter.term,filter.friend )

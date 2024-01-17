@@ -41,7 +41,7 @@ const ProfileContainerFunc = () => {
                 profile={profile}
                 status={status}
             />
-            <MyPosts userId={200}/>
+            <MyPosts />
         </div>
     );
 };
