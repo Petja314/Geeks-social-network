@@ -1,10 +1,18 @@
-import { InferActionsTypes } from "../../redux/Redux-Store";
-
+import {InferActionsTypes, RootState} from "./Redux-Store";
+import {ThunkAction} from "redux-thunk";
+export type ResponseTestAPIDataType = {
+    id: number,
+    userId: number | null,
+    title: string,
+    content: string,
+    likes: number,
+    image: string
+}
 export type MyPostsInitialState = {
-    posts : any,
-    userId : any,
-    currentPage : any,
-    pageSize : any,
+    posts : Array<ResponseTestAPIDataType>,
+    userId : number | null,
+    currentPage : number,
+    pageSize : number,
 }
 let initialState: MyPostsInitialState = {
     posts : [],
@@ -39,7 +47,6 @@ export const MyPostsReducer = (state = initialState, action: ActionsTypes): MyPo
                 return {
                     ...state,
                     posts : action.addLike
-                    // posts : [...state.posts.map((item: any) => (item.id === action.postId ? {...item, likes: item.likes + 1} : item))]
                 }
                 case 'DELETE_ALL_POSTS' :
                 return {
@@ -63,73 +70,71 @@ export const MyPostsReducer = (state = initialState, action: ActionsTypes): MyPo
 };
 
 type ActionsTypes = InferActionsTypes<typeof actionsMyPosts>
-export const actionsMyPosts = {
-    setUserIdAC : (userId : any) => ({
+export const actionsMyPosts= {
+    setUserIdAC : (userId : number | null) => ({
         type : 'SET_USER_ID',
         userId : userId
     }as const),
-     setPostsDataBaseAC : (postData: any) => ({
+     setPostsDataBaseAC : (postData: Array<ResponseTestAPIDataType>) => ({
             type: 'SET_POSTS_DATABASE',
          postData: postData,
     }as const),
-    newPostAC : (newPost: any) => ({
+    newPostAC : (newPost: ResponseTestAPIDataType) => ({
         type: 'SET_NEW_POST',
         newPost: newPost,
     }as const),
-    deletePostAC : (deletePost: any) => ({
+    deletePostAC : (deletePost:  Array<ResponseTestAPIDataType>) => ({
         type: 'DELETE_POST',
         deletePost: deletePost,
     }as const),
-    addLikeToPostAC : (addLike: any) => ({
+    addLikeToPostAC : (addLike:  Array<ResponseTestAPIDataType>) => ({
         type: 'ADD_LIKE',
         addLike: addLike,
     }as const),
     deleteAllPostsAC : () => ({
         type: 'DELETE_ALL_POSTS',
     }as const),
-    savePostAC : (updateEditedPost : any) => ({
+    savePostAC : (updateEditedPost : Array<ResponseTestAPIDataType>) => ({
         type: 'SAVE_POST',
         updateEditedPost : updateEditedPost
     }as const),
-    changePageAC : (pageNumber : any) => ({
+    changePageAC : (pageNumber : number) => ({
         type: 'CHANGE_PAGE',
         pageNumber : pageNumber
     }as const),
-
 }
 
 
+type ThunkResult<R> = ThunkAction<R, RootState, unknown, ActionsTypes>;
 
-export const setUserIdThunk = (userId : any) : any  => {
-    return  (dispatch: any) => {
+
+export const setUserIdThunk = (userId: number | null) : ThunkResult<void>  => {
+    return  (dispatch) => {
         dispatch(actionsMyPosts.setUserIdAC(userId))
     }
 }
-export const fetchPostsThunk = (postData : any) : any  => {
-    return  (dispatch: any) => {
+export const fetchPostsThunk = (postData : Array<ResponseTestAPIDataType>) : ThunkResult<void>  => {
+    return  (dispatch) => {
         dispatch(actionsMyPosts.setPostsDataBaseAC(postData))
     }
 }
-export const createNewPostThunk = (newPost : any) : any  => {
-    return  (dispatch: any) => {
+export const createNewPostThunk = (newPost : ResponseTestAPIDataType) : ThunkResult<void>  => {
+    return  (dispatch) => {
         dispatch(actionsMyPosts.newPostAC(newPost))
     }
 }
 
-export const savePostThunk = (updateEditedPost : any) : any  => {
-    return  (dispatch: any) => {
+export const savePostThunk = (updateEditedPost : Array<ResponseTestAPIDataType>) : ThunkResult<void>  => {
+    return  (dispatch) => {
         dispatch(actionsMyPosts.savePostAC(updateEditedPost))
     }
 }
-export const onPageChangeThunk = (pageNumber : any) : any  => {
-    return  (dispatch: any) => {
+export const onPageChangeThunk = (pageNumber : number) : ThunkResult<void>  => {
+    return  (dispatch) => {
         dispatch(actionsMyPosts.changePageAC(pageNumber))
     }
 }
 
 
-
-// type ThunkType = ThunkAction<Promise<void>, AuthState, unknown, ActionsTypes >
-// | ReturnType <typeof stopSubmit>>
 export default MyPostsReducer
 

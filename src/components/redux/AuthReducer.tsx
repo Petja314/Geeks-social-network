@@ -27,14 +27,14 @@ import {authAPI} from "../../api/AuthAPI";
 
 
 export type AuthState = {
-    id: number | null;
+    userId: number | null;
     email: string | null;
     login: string | null;
     isAuth: boolean;
     captchaUrl: string | null;
 }
 let initialState: AuthState = {
-    id: null,
+    userId: null,
     email: null,
     login: null,
     isAuth: false,
@@ -51,7 +51,7 @@ export const AuthReducer = (state = initialState, action: ActionsTypes): AuthSta
             return {
                 ...state,
                 ...action.payload,
-                id: action.payload.userId
+                userId: action.payload.userId
             };
         case 'CAPTCHA_IS_SUCCESS' :
             return {
@@ -65,7 +65,7 @@ export const AuthReducer = (state = initialState, action: ActionsTypes): AuthSta
 
 type ActionsTypes = InferActionsTypes<typeof actions>
 export const actions = {
-     setAuthUsersDataAC : (userId: number, login: string, email: string, isAuth: boolean) => ({
+     setAuthUsersDataAC : (userId: number | null, login: string, email: string, isAuth: boolean) => ({
             type: 'SET_USER_DATA',
             payload: {userId, login, email, isAuth},
     }as const),
@@ -94,9 +94,9 @@ export const login = (email: string, password: string, rememberMe: boolean, capt
    return async (dispatch  ) => {
         let response = await authAPI.login(email, password, rememberMe, captcha)
         if (response.data.resultCode === ResultCodesEnum.Success) {
-            dispatch(getAuthUserData())
+           await dispatch(getAuthUserData())
         } else if (response.data.resultCode === ResultCodeForCaptcha.CaptchaIsRequired) {
-            dispatch(captchaThunk())
+           await dispatch(captchaThunk())
         }
     }
 }

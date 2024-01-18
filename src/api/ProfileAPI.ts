@@ -2,13 +2,13 @@ import {ProfileDataType} from "../components/redux/ProfileReducer";
 import {instance, ResponseType, ResultCodesEnum} from "./Api";
 
 export const profileAPI = {
-    profileAuth(userId: number) {
+    profileAuth(userId: number | null) {
         return instance.get<ProfileDataType>(`profile/` + userId)
     },
-    getStatus(userId: number) {
+    getStatus(userId: number | null) {
         return instance.get<string>('profile/status/' + userId)
     },
-    updateStatus(status: string) {
+    updateStatus(status: string | null) {
         return instance.put<ResponseType>('profile/status/', {status: status})
     },
     savePhoto(photoFile: any) {

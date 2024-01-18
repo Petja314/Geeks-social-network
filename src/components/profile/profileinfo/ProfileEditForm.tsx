@@ -3,7 +3,6 @@ import {MyInput} from '../../common/forms_controls/FormsControls';
 import {actionsProfile, ProfileDataType, saveProfileThunk} from "../../redux/ProfileReducer";
 import {Field, Form, Formik, FormikHelpers} from "formik";
 import {useDispatch, useSelector} from "react-redux";
-import {log} from "util";
 
 type ProfileDataFormProps = {
     initialValues: ProfileDataType;

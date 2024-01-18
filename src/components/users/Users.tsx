@@ -192,7 +192,7 @@ export default compose(
 
 // import React, {useEffect, useRef, useState} from 'react';
 // // import PaginationUsers from "../../users/PaginationUsers";
-// // import styles from './MyPosts.module.css';
+// // import styles from './MyPostsContainer.module.css';
 // // import robot1 from "../../assets/images/robot-a4.png"
 // // import robot2 from "../../assets/images/robot-a5.png"
 // // import robot3 from "../../assets/images/robot-b1.png"
@@ -203,7 +203,7 @@ export default compose(
 //
 // // @ts-ignore
 // // userId === authorized user ID
-// const MyPosts = ({userId}) => {
+// const MyPostsContainer = ({userId}) => {
 //     // States
 //     const [posts, setPosts] = useState<any>([]);
 //     const [newPost, setNewPost] = useState<any>({id: 0, userId, title: '', content: '', likes: 0, image: ''});
@@ -424,4 +424,4 @@ export default compose(
 //
 //         </div>
 //     )}
-// export default MyPosts;
+// export default MyPostsContainer;

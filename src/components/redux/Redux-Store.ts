@@ -8,7 +8,7 @@ import thunkMiddleware from 'redux-thunk';
 // import { reducer as formReducer} from 'redux-form';
 import {AppReducer} from "./AppReducer";
 import ChatReducer from "./ChatReducer";
-import MyPostsReducer from "../profile/myposts/MyPostsReducer";
+import MyPostsReducer from "./MyPostsReducer";
 
 export type RootState = ReturnType<typeof rootReducers>
  let rootReducers = combineReducers({

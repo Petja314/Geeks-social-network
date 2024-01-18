@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {getUsersThunkCreator} from "../redux/UsersReducer";
 import {useDispatch, useSelector} from "react-redux";
 import {getUsersFilterSelector} from "../redux/UsersSelectors";
-import {onPageChangeThunk} from "../profile/myposts/MyPostsReducer";
+import {onPageChangeThunk} from "../redux/MyPostsReducer";
 
 
 type PaginationUsersType = {

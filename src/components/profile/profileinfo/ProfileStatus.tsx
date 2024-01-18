@@ -17,7 +17,7 @@ const ProfileStatus = (props: ProfileStatusPropsType) => {
     const [status, setStatus] = useState<string>(props.status)
 
     //Get new value for a status
-    const onChangeStatusHandler = (event : ChangeEvent<HTMLInputElement>) => {
+    const onChangeStatusHandler = (event : ChangeEvent<HTMLInputElement> ) => {
         let statusCurrentValue = event.currentTarget.value
         setStatus(statusCurrentValue)
     }

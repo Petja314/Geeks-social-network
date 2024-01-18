@@ -7,15 +7,15 @@ import {Action, AnyAction} from "redux";
 import {act} from "react-dom/test-utils";
 
 export type ProfileDataType  = {
-    "aboutMe": string,
-    "contacts": ContactsType,
-    "lookingForAJob": true,
-    "lookingForAJobDescription": string,
-    "fullName": string,
-    "userId": number,
-    "photos": {
-        "small": string | null,
-        "large": string | null
+    aboutMe: string,
+    contacts: ContactsType,
+    lookingForAJob: true,
+    lookingForAJobDescription: string,
+    fullName: string,
+    userId: number,
+    photos: {
+        small: string | null,
+        large: string | null
     }
 }
 export type ContactsType = {
@@ -30,11 +30,11 @@ export type ContactsType = {
 };
 export type ProfileStateTypes = {
     profile?: ProfileDataType;
-    status?: string,
+    status: string | null,
     error? : { [key : string] : string } | null
 }
 let initialState: ProfileStateTypes = {
-
+    status : null
 }
 
 
@@ -61,7 +61,7 @@ export const actionsProfile = {
             type: 'SET_USER_PROFILE',
             profile: profile
     }as const),
-     setStatusAction : (status: string) => ({
+     setStatusAction : (status: string | null) => ({
             type: 'SET_STATUS',
             status: status
     }as const),
@@ -81,19 +81,19 @@ type ThunkType = ThunkAction<Promise<void>, ProfileStateTypes  , unknown, Action
 
 
 // Thunk to fetch user profile data
-export const usersProfileAuthThunkCreator = (userId: number) : any => async (dispatch : any ) => {
+export const usersProfileAuthThunkCreator = (userId: number | null) : any => async (dispatch : any ) => {
         let response = await profileAPI.profileAuth(userId)
                 dispatch(actionsProfile.setUserProfileAction(response.data));
 }
 
 // Thunk to fetch user status
-export const getStatusThunkCreator = (userID: number)  : any  => async  (dispatch : any ) => {
+export const getStatusThunkCreator = (userID: number | null )  : any  => async  (dispatch : any ) => {
    let response = await profileAPI.getStatus(userID)
             dispatch(actionsProfile.setStatusAction(response.data))
 }
 
 // Thunk to update user status
-export const updateStatusThunkCreator = (status: string) : ThunkType=> async  (dispatch) => {
+export const updateStatusThunkCreator = (status: string | null) : ThunkType=> async  (dispatch) => {
     let response = await profileAPI.updateStatus(status)
             if (response.data.resultCode === ResultCodesEnum.Error) {
                 let errorMessage = response.data.messages[0]

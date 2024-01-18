@@ -3,11 +3,10 @@ import Preloader from "../../common/preloader/Preloader";
 import ProfileStatus from "./ProfileStatus"
 import userPhoto from "../../assets/images/louie.jpg"
 import 'filepond/dist/filepond.min.css';
-import {ProfileDataType, savePhotoThunk, saveProfileThunk} from "../../redux/ProfileReducer";
+import {ProfileDataType, savePhotoThunk} from "../../redux/ProfileReducer";
 import {useDispatch} from "react-redux";
 import {ProfileEditForm} from "./ProfileEditForm";
 import ProfileData from "./ProfileData";
-import {AnyAction, Dispatch} from "redux";
 
 export type ProfileInfoPropsType = {
     isOwner: boolean
