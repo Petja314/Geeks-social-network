@@ -80,14 +80,15 @@ type ThunkType = ThunkAction<Promise<void>, ProfileStateTypes  , unknown, Action
     // | ReturnType <typeof stopSubmit>>
 
 
+
 // Thunk to fetch user profile data
-export const usersProfileAuthThunkCreator = (userId: number | null) : any => async (dispatch : any ) => {
+export const usersProfileAuthThunkCreator = (userId: number | null) : ThunkType => async (dispatch) => {
         let response = await profileAPI.profileAuth(userId)
                 dispatch(actionsProfile.setUserProfileAction(response.data));
 }
 
 // Thunk to fetch user status
-export const getStatusThunkCreator = (userID: number | null )  : any  => async  (dispatch : any ) => {
+export const getStatusThunkCreator = (userID: number | null )  : ThunkType  => async  (dispatch  ) => {
    let response = await profileAPI.getStatus(userID)
             dispatch(actionsProfile.setStatusAction(response.data))
 }

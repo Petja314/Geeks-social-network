@@ -32,6 +32,7 @@ export type AuthState = {
     login: string | null;
     isAuth: boolean;
     captchaUrl: string | null;
+    isAdmin : boolean
 }
 let initialState: AuthState = {
     userId: null,
@@ -39,6 +40,7 @@ let initialState: AuthState = {
     login: null,
     isAuth: false,
     captchaUrl: null,
+    isAdmin : false
 }
 export type LoginAction = (email: string, password: string, rememberMe: boolean) => void;
 
@@ -58,6 +60,11 @@ export const AuthReducer = (state = initialState, action: ActionsTypes): AuthSta
                 ...state,
                 ...action.payload,
             }
+        case 'SET_ADMIN' :
+            return  {
+                ...state,
+                isAdmin : action.isAdmin
+            }
         default:
             return state;
     }
@@ -76,6 +83,10 @@ export const actions = {
      captchaSuccessAC : (captchaUrl: any) => ({
             type: 'CAPTCHA_IS_SUCCESS',
             payload: {captchaUrl}
+    }as const)     ,
+    setAdminAC : (isAdmin : any) => ({
+            type: 'SET_ADMIN',
+        isAdmin : isAdmin
     }as const)
 }
 
@@ -95,6 +106,7 @@ export const login = (email: string, password: string, rememberMe: boolean, capt
         let response = await authAPI.login(email, password, rememberMe, captcha)
         if (response.data.resultCode === ResultCodesEnum.Success) {
            await dispatch(getAuthUserData())
+            dispatch(actions.setAdminAC(true))
         } else if (response.data.resultCode === ResultCodeForCaptcha.CaptchaIsRequired) {
            await dispatch(captchaThunk())
         }

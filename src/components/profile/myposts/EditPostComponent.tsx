@@ -7,8 +7,8 @@ import styles from "./MyPosts.module.css";
 
 
 type EditPostPropsType = {
-    setEditPost: (value : null | ResponseTestAPIDataType) => void,
-    editPost: ResponseTestAPIDataType ,
+    setEditPost: (value : any ) => void,
+    editPost: ResponseTestAPIDataType | null ,
     handleImageChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
     posts: Array<ResponseTestAPIDataType>
 
@@ -16,7 +16,7 @@ type EditPostPropsType = {
 const EditPostComponent: React.FC<EditPostPropsType> = ({setEditPost, editPost, handleImageChange, posts,}) => {
     const dispatch : ThunkDispatch<RootState, void, any> = useDispatch()
     const saveEditedPost = () => {
-        const updateEditedPost = posts.map((item: ResponseTestAPIDataType) => item.id === editPost.id ? editPost : item)
+        const updateEditedPost = posts.map((item: ResponseTestAPIDataType) => item.id === editPost?.id ? editPost : item)
         dispatch(savePostThunk(updateEditedPost))
         setEditPost(null)
     };
@@ -42,7 +42,7 @@ const EditPostComponent: React.FC<EditPostPropsType> = ({setEditPost, editPost, 
                     ></textarea>
                 </div>
                 <div>
-                    <img className={styles.postImage} src={editPost.image}/>
+                    <img className={styles.postImage} src={editPost?.image}/>
                     <input key={editPost?.image || 'editPost'} type="file" accept="image/*" onChange={handleImageChange}/>
                 </div>
 

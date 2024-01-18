@@ -41,12 +41,6 @@ export const actions = {
             type : 'SET_INITIALIZED_SUCCESS',
     }as const)
 }
-// export const initializedSuccess = (): SetUserAuthType => {
-//     return {
-//         type : SET_INITIALIZED_SUCCESS,
-//     }
-// }
-
 
 // Thunks
 type ThunkType = ThunkAction<Promise<void>, AuthState, unknown, ActionsTypes>

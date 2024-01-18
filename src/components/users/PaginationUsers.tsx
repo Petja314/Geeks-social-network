@@ -1,9 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import {getUsersThunkCreator} from "../redux/UsersReducer";
-import {useDispatch, useSelector} from "react-redux";
-import {getUsersFilterSelector} from "../redux/UsersSelectors";
-import {onPageChangeThunk} from "../redux/MyPostsReducer";
-
 
 type PaginationUsersType = {
     totalUsersCount: number
@@ -12,12 +7,6 @@ type PaginationUsersType = {
     onPageChange?: any
 }
 const PaginationUsers = (props: PaginationUsersType) => {
-    // const dispatch: any = useDispatch()
-    // const filter = useSelector(getUsersFilterSelector)
-    // const  onPageChange = (pageNumber: number) => {
-    //     dispatch(getUsersThunkCreator(pageNumber, props.pageSize, filter))
-    //     dispatch(onPageChangeThunk(pageNumber))
-    // }
     const onPageChange = (pageNumber: number) => {
         if (props.onPageChange) {
             props.onPageChange(pageNumber); // Call the callback function passed from the parent to not call the thunks here (to prevent render both thunks)
@@ -39,9 +28,6 @@ const PaginationUsers = (props: PaginationUsersType) => {
 
     useEffect(() => setPortionNumber(Math.ceil(props.currentPage / portionSize)), [props.currentPage]);
 
-    // console.log('indexOfLastPost', indexOfLastPost)
-    // console.log('indexOfFirstPost' , indexOfFirstPost)
-    // console.log('pages' , pages)
     return (
         <div>
 

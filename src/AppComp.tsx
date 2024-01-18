@@ -17,6 +17,8 @@ import ProfileContainerFunc from "./components/profile/profileinfo/ProfileContai
 const {Header, Content, Footer, Sider} = Layout;
 
 const AppComp = () => {
+
+
     const dispatch: any = useDispatch();
     useEffect(() => {
         dispatch(initializeApp());
@@ -25,6 +27,10 @@ const AppComp = () => {
     const {
         token: {colorBgContainer, borderRadiusLG},
     } = theme.useToken();
+
+
+
+
 
     return (
         <Layout>

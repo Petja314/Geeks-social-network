@@ -7,13 +7,14 @@ import ProfileInfo from "./ProfileInfo";
 import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
 import MyPostsContainer from "../myposts/MyPostsContainer";
 import {RootState} from "../../redux/Redux-Store";
+import {ThunkDispatch} from "redux-thunk";
+import UsersPostsUnverified from "../myposts/usersposts/UsersPostsUnverified";
 
 type QuizParams = {
     id: string | undefined
 };
 const ProfileContainerFunc = () => {
-    const dispatch: Dispatch = useDispatch()
-
+    const dispatch:  ThunkDispatch<RootState, void, any> = useDispatch()
     //Extracting user ID from the URL params
     const {id} = useParams<QuizParams>()
 
@@ -33,6 +34,8 @@ const ProfileContainerFunc = () => {
         dispatch(usersProfileAuthThunkCreator(userId))
         dispatch(getStatusThunkCreator(userId))
     }, [id, authorizedUserId])
+
+    // console.log('URL ID' , id)
     return (
         <div>
             <ProfileInfo
@@ -40,7 +43,10 @@ const ProfileContainerFunc = () => {
                 profile={profile}
                 status={status}
             />
-            <MyPostsContainer/>
+
+            {/*SHOWING THE POSTS WITH FULL FUNCTIONAL IF USER AUTHORIZED , IF NOT THEN ONLY POSTS FOR VISABILITY!*/}
+            { !id ? <MyPostsContainer  /> : <UsersPostsUnverified idUserURL={Number(id)} />
+            }
 
         </div>
     );
