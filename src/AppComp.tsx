@@ -13,6 +13,7 @@ import ChatPage from "./components/pages/chat/ChatPage";
 import EffectTestComponent from "./components/pages/chat/EffectTestComponent";
 import DemoChat from "./components/pages/chat/DemoChat";
 import ProfileContainerFunc from "./components/profile/profileinfo/ProfileContainerFunc";
+import Friends from "./components/friends/Friends";
 
 const {Header, Content, Footer, Sider} = Layout;
 
@@ -55,6 +56,7 @@ const AppComp = () => {
                             <SubMenu key="sub1" title="My Profile">
                                 <Menu.Item key="1"> <NavLink to={"/profile"}>Profile</NavLink> </Menu.Item>
                                 <Menu.Item key="2"> <NavLink to={"/users"}>Users</NavLink> </Menu.Item>
+                                <Menu.Item key="3"> <NavLink to={"/friends"}>Friends</NavLink> </Menu.Item>
 
                             </SubMenu>
 
@@ -81,7 +83,7 @@ const AppComp = () => {
                             <Route path="/profile/:id?" element={<ProfileContainerFunc/> } />
                             <Route path="/users" element={<Users/>}/>
                             <Route path="/login" element={<Login/>}/>
-
+                            <Route path="/friends" element={<Friends/>} />
 
 
 

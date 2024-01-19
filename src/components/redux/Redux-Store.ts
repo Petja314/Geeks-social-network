@@ -9,6 +9,7 @@ import thunkMiddleware from 'redux-thunk';
 import {AppReducer} from "./AppReducer";
 import ChatReducer from "./ChatReducer";
 import MyPostsReducer from "./MyPostsReducer";
+import {FriendsReducer} from "./FriendsReducer";
 
 export type RootState = ReturnType<typeof rootReducers>
  let rootReducers = combineReducers({
@@ -19,7 +20,8 @@ export type RootState = ReturnType<typeof rootReducers>
     userAuthPage : AuthReducer,
     app : AppReducer,
     chat : ChatReducer,
-    myposts : MyPostsReducer
+    myposts : MyPostsReducer,
+    friendPage : FriendsReducer
     // form : formReducer
 });
 

@@ -5,6 +5,8 @@ import {ThunkAction} from "redux-thunk";
 import {InferActionsTypes} from "./Redux-Store";
 import {usersAPI} from "../../api/UsersAPI";
 import {act} from "react-dom/test-utils";
+import friends from "../friends/Friends";
+import {unfollowFriendAC} from "./FriendsReducer";
 
 // const FOLLOW = "samurai-network/UsersReducer/FOLLOW"
 // const UNFOLLOW = "samurai-network/UsersReducer/UNFOLLOW"
@@ -25,7 +27,7 @@ export type  UsersComponentTypeArrays = {
     filter: {
         term: string,
         friend: null | boolean
-    }
+    },
 
 }
 export type UsersArrayType = {
@@ -39,52 +41,7 @@ export type UsersArrayType = {
     "status": string,
     "followed": boolean
 }
-// export type followReducerType = {
-//     type: typeof FOLLOW
-//     userID: number
-// }
-// export type unfollowReducerType = {
-//     type: typeof UNFOLLOW
-//     userID: number
-// }
-// export type setUsersReducerType = {
-//     type: typeof SET_USERS,
-//     users: UsersArrayType[]
-// }
-// export type setCurrentPageType = {
-//     type: typeof CURRENT_PAGE,
-//     currentPage: number
-// }
-// export type setTotalUsersCountType = {
-//     type: typeof TOTAL_USERS_COUNTS,
-//     totalCount: number
-// }
-// export type setToggleFetchingType = {
-//     type: typeof TOGGLE_IS_FETCHING,
-//     isFetching: boolean
-// }
-// export type setToggleFollowingProgressType = {
-//     type: typeof TOGGLE_IS_FOLLOWING_PROGRESS,
-//     isFetching: boolean,
-//     userID: number
-// }
-//
-// // -----
-// export type incrementCurrentPageBtnType = {
-//     type : typeof INCREMENT_PAGE_BTN,
-//     currentPage: number
-// }
-// ----
 
-// export type ActionUsersReducerType =
-//     followReducerType
-//     | unfollowReducerType
-//     | setUsersReducerType
-//     | setCurrentPageType
-//     | setTotalUsersCountType
-//     | setToggleFetchingType
-//     | setToggleFollowingProgressType
-//     | incrementCurrentPageBtnType
 
 const initialState: UsersComponentTypeArrays = {
     users: [],
@@ -96,17 +53,13 @@ const initialState: UsersComponentTypeArrays = {
     filter: {
         term: "",
         friend: null as null | boolean
-    }
+    },
 }
 export type FilterType = typeof initialState.filter
 
-// export type FormType = {
-//     term : ""
-//     friend : "true" | "false" | "null"
-// }
 export type FormType = {
-        term : string
-        friend : "true" | "false" | "null"  | string
+    term: string
+    friend: "true" | "false" | "null" | string
 }
 
 export const UsersReducer = (state = initialState, action: ActionsTypes): UsersComponentTypeArrays => {
@@ -154,8 +107,9 @@ export const UsersReducer = (state = initialState, action: ActionsTypes): UsersC
         case 'SET_FILTER' :
             return {
                 ...state,
-                filter: action.payload
+                filter: action.payload,
             }
+
         default:
             return state;
     }
@@ -257,10 +211,10 @@ export const actions = {
 
 
 export const getUsersThunkCreator = (currentPage: number, pageSize: number, filter: FilterType): any => {
-        return async (dispatch :  any) => {
+    return async (dispatch: any) => {
         dispatch(actions.setToggleFetching(true))
         dispatch(actions.setFilter(filter))
-        let response = await usersAPI.getUsers(currentPage, pageSize,filter.term,filter.friend )
+        let response = await usersAPI.getUsers(currentPage, pageSize, filter.term, filter.friend)
         dispatch(actions.setToggleFetching(false))
         dispatch(actions.setUsers(response.data.items))
         dispatch(actions.setTotalUsersCount(response.data.totalCount))
@@ -270,12 +224,14 @@ export const getUsersThunkCreator = (currentPage: number, pageSize: number, filt
 
 // to type dispatch only = Dispatch<UsersComponentTypeArrays>
 type ThunkType = ThunkAction<Promise<void>, UsersComponentTypeArrays, unknown, ActionsTypes>
-export const unfollowUserThunkCreator = (id: number): ThunkType => {
-    return async (dispatch) => {
+export const unfollowUserThunkCreator = (id: number): any => {
+    return async (dispatch : any) => {
         dispatch(actions.setFollowingProgress(true, id))
         let response = await usersAPI.unFollowUser(id)
         if (response.data.resultCode === ResultCodesEnum.Success) {
             dispatch(actions.unfollow(id))
+            dispatch(unfollowFriendAC(id))
+            // dispatch(actions.removeFriendAC(id))
         }
         dispatch(actions.setFollowingProgress(false, id))
     }
@@ -287,10 +243,13 @@ export const followUserThunkCreator = (id: number): ThunkType => {
         let response = await usersAPI.followUser(id)
         if (response.data.resultCode === ResultCodesEnum.Success) {
             dispatch(actions.follow(id))
+            // dispatch(actions.addFriendAC(id))
         }
         dispatch(actions.setFollowingProgress(false, id))
     }
 }
+
+
 
 // FOLLOW UNFOLLOW CODE REFACTORING
 // const followUnfollowFlow = async  (dispatch : Dispatch<UsersComponentTypeArrays>,id : any,apiMethod : any,actionCreator : any) =>  {
@@ -312,5 +271,5 @@ export const followUserThunkCreator = (id: number): ThunkType => {
 //         await followUnfollowFlow(dispatch, id, usersAPI.followUser.bind(usersAPI), follow)
 //     }}
 
-export default UsersReducer
+    export default UsersReducer
 

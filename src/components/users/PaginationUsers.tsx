@@ -4,7 +4,7 @@ type PaginationUsersType = {
     totalUsersCount: number
     pageSize: number
     currentPage: number
-    onPageChange?: any
+    onPageChange?: (value : number) => void
 }
 const PaginationUsers = (props: PaginationUsersType) => {
     const onPageChange = (pageNumber: number) => {

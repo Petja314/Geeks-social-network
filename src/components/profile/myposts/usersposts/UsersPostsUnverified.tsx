@@ -16,7 +16,6 @@ import EditPostComponent from "../EditPostComponent";
 import PaginationUsers from "../../../users/PaginationUsers";
 import usePostFetchUsers from "./usePostFetchUsers";
 
-
 // THAT IS POST COMPONENT FOR UNVERIFIED USER (NOT THE ADMIN)
 const UsersPostsUnverified: React.FC<{ idUserURL: number }> = ({idUserURL}) => {
     const {posts, currentPage, pageSize}: MyPostsInitialState = useSelector((state: RootState) => state.myposts)
@@ -59,4 +58,5 @@ const UsersPostsUnverified: React.FC<{ idUserURL: number }> = ({idUserURL}) => {
     );
 };
 
-export default UsersPostsUnverified;
+const UsersPostsUnverifiedMemoComponent = React.memo(UsersPostsUnverified)
+export default UsersPostsUnverifiedMemoComponent

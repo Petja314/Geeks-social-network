@@ -12,6 +12,10 @@ export const usersAPI = {
     },
     followUser(id: number) {
         return instance.post<ResponseType>(`follow/${id}`)
+    },
+    // https://social-network.samuraijs.com/api/1.0/users?friend=true
+    getFriends(currentPage : any, friend: any) {
+        return instance.get<any>(`users?page=${currentPage}&friend=${friend}`)
     }
 }
 
