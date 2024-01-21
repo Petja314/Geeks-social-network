@@ -17,6 +17,7 @@ const CurrentPostComponent: React.FC<CurrentPostPropsType> = ({posts, pageSize, 
 
     const dispatch: ThunkDispatch<RootState, void, any> = useDispatch()
     const deletePost = (postId: number) => {
+        debugger
         const updatedPosts = posts.filter((item: ResponseTestAPIDataType) => item.id !== postId);
         dispatch(actionsMyPosts.deletePostAC(updatedPosts));
         // Calculate the total number of pages based on the updated posts array length and page size

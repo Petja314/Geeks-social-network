@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import styles from "./users.module.css";
 import userPhoto from "../assets/images/louie.jpg";
-import {actions, FilterType, followUserThunkCreator, FormType, getUsersThunkCreator, unfollowUserThunkCreator, UsersComponentTypeArrays} from "../redux/UsersReducer";
+import {actions, FilterType, followUserThunkCreator,  getUsersThunkCreator, unfollowUserThunkCreator, UsersComponentTypeArrays} from "../redux/UsersReducer";
 import {NavLink, useLocation, useNavigate} from "react-router-dom";
 import PaginationUsers from "./PaginationUsers";
 import {ErrorMessage, Field, Form, Formik} from "formik";
@@ -61,23 +61,7 @@ const Users: React.FC<UsersTypeToProps> = (props) => {
         dispatch(getUsersThunkCreator(parsedCurrentPage, pageSize, parsedFilter))
     }, [])
 
-
-    // useEffect(() => {
-    //     const parsed: ParsedQuery = queryString.parse(location.search);
-    //     let parsedCurrentPage = Number(parsed.page) || 1;
-    //
-    //     let parsedFilter = filter;
-    //     if (!!parsed.term) parsedFilter = { ...parsedFilter, term: parsed.term as string };
-    //
-    //     // Extract friend parameter from location.search, defaulting to null
-    //     const friendFilter = parsed.friend === 'true' ? true : parsed.friend === 'false' ? false : null;
-    //
-    //     dispatch(getUsersThunkCreator(parsedCurrentPage, pageSize, { ...parsedFilter, friend: friendFilter }));
-    // }, [location.search]);
-
     useEffect(() => {
-        // console.log('currentPage' , currentPage)
-        // debugger
         navigate(`?term=${filter.term}&friend=${filter.friend}&page=${currentPage}`)
     }, [filter, currentPage])
 
@@ -89,16 +73,16 @@ const Users: React.FC<UsersTypeToProps> = (props) => {
         dispatch(getUsersThunkCreator(pageNumber, pageSize, filter));
     };
 
-    // console.log('usersPage' ,usersPage)
-    // console.log('followingInProgress' ,followingInProgress)
-    // console.log('friends array : ' , friends)
 
+    // console.log('location' ,  location)
+    // console.log('filter' ,  filter)
 
     return (
         <div>
             <Preloader isFetching={isFetching}/>
             <div>
                 <UsersSearchForm
+                    filter={filter.friend}
                     onFilterChanged={onFilterChanged}
                 />
             </div>

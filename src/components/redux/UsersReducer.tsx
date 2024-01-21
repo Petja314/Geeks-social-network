@@ -6,7 +6,7 @@ import {InferActionsTypes} from "./Redux-Store";
 import {usersAPI} from "../../api/UsersAPI";
 import {act} from "react-dom/test-utils";
 import friends from "../friends/Friends";
-import {unfollowFriendAC} from "./FriendsReducer";
+import {actionsFriends} from "./FriendsReducer";
 
 // const FOLLOW = "samurai-network/UsersReducer/FOLLOW"
 // const UNFOLLOW = "samurai-network/UsersReducer/UNFOLLOW"
@@ -57,10 +57,10 @@ const initialState: UsersComponentTypeArrays = {
 }
 export type FilterType = typeof initialState.filter
 
-export type FormType = {
-    term: string
-    friend: "true" | "false" | "null" | string
-}
+// export type FormType = {
+//     term: string
+//     friend: "true" | "false" | "null" | string
+// }
 
 export const UsersReducer = (state = initialState, action: ActionsTypes): UsersComponentTypeArrays => {
     switch (action.type) {
@@ -159,60 +159,11 @@ export const actions = {
     } as const),
 }
 
-// export const follow = (userID: number) : followReducerType => {
-//     return {
-//         type: FOLLOW,
-//         userID: userID
-//     }
-// }
-// export const unfollow = (userID: number): unfollowReducerType => {
-//     return {
-//         type: UNFOLLOW,
-//         userID: userID
-//     }
-// }
-// export const setUsers = (users: UsersArrayType[]): setUsersReducerType => {
-//     return {
-//         type: SET_USERS,
-//         users: users
-//     }
-// }
-// export const setCurrentPage = (currentPage: number): setCurrentPageType => {
-//     return {
-//         type: CURRENT_PAGE,
-//         currentPage: currentPage
-//     }
-// }
-// export const setTotalUsersCount = (totalCount: number): setTotalUsersCountType => {
-//     return {
-//         type: TOTAL_USERS_COUNTS,
-//         totalCount: totalCount
-//     }
-// }
-// export const setToggleFetching = (isFetching: boolean): setToggleFetchingType => {
-//     return {
-//         type: TOGGLE_IS_FETCHING,
-//         isFetching: isFetching
-//     }
-// }
-// export const setFollowingProgress = (isFetching: boolean, userID: number): setToggleFollowingProgressType => {
-//     return {
-//         type: TOGGLE_IS_FOLLOWING_PROGRESS,
-//         isFetching,
-//         userID
-//     }
-// }
-// export const incrementCurrentPageButton = (currentPage: number) : incrementCurrentPageBtnType => {
-//     return {
-//         type : INCREMENT_PAGE_BTN,
-//         currentPage: currentPage
-//     }
-// }
-
 
 export const getUsersThunkCreator = (currentPage: number, pageSize: number, filter: FilterType): any => {
     return async (dispatch: any) => {
         dispatch(actions.setToggleFetching(true))
+        // debugger
         dispatch(actions.setFilter(filter))
         let response = await usersAPI.getUsers(currentPage, pageSize, filter.term, filter.friend)
         dispatch(actions.setToggleFetching(false))
@@ -230,7 +181,7 @@ export const unfollowUserThunkCreator = (id: number): any => {
         let response = await usersAPI.unFollowUser(id)
         if (response.data.resultCode === ResultCodesEnum.Success) {
             dispatch(actions.unfollow(id))
-            dispatch(unfollowFriendAC(id))
+            dispatch(actionsFriends.unfollowFriendAC(id))
             // dispatch(actions.removeFriendAC(id))
         }
         dispatch(actions.setFollowingProgress(false, id))

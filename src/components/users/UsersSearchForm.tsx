@@ -1,19 +1,24 @@
 import React from "react";
-import {FilterType, FormType} from "../redux/UsersReducer";
+import {FilterType} from "../redux/UsersReducer";
 import {Field, Form, Formik} from "formik";
+import {useSelector} from "react-redux";
+import {getUsersFilterSelector} from "../redux/UsersSelectors";
 
 const usersSearchFormValidate = (values: any) => {
     const errors = {};
     return errors
 }
 type UsersSearchFormPropsType = {
+    filter : any
     onFilterChanged: (filter: FilterType) => void
 }
 
 
 const UsersSearchForm: React.FC<UsersSearchFormPropsType> = React.memo((props) => {
-    const submit = (values: FormType, {setSubmitting}: { setSubmitting: (isSubmitting: boolean) => void }) => {
+
+    const submit = (values: any, {setSubmitting}: { setSubmitting: (isSubmitting: boolean) => void }) => {
         //converting the values.friends into the boolean from string "true" => true (boolean) req. by the api docs.
+        debugger
         const filter: FilterType = {
             term: values.term,
             friend: values.friend === 'null' ? null : values.friend === "true" ? true : false
@@ -22,12 +27,13 @@ const UsersSearchForm: React.FC<UsersSearchFormPropsType> = React.memo((props) =
         // props.onFilterChanged(values)
         setSubmitting(false)
     }
+    console.log('filter : ' ,  props.filter)
 
 
     return (<div>
         <h3>Find user</h3>
         <Formik
-            initialValues={{term: '', friend: 'null'}}
+            initialValues={{term: '', friend: props.filter}}
             validate={usersSearchFormValidate}
             onSubmit={submit}
         >
@@ -38,7 +44,7 @@ const UsersSearchForm: React.FC<UsersSearchFormPropsType> = React.memo((props) =
                     <Field name="friend" as="select">
                         <option value="null">All</option>
                         <option value="true">Only followed</option>
-                        <option value="false">Only unfolowwed</option>
+                        <option value="false">Only unfollowed</option>
                     </Field>
 
                     <button type="submit" disabled={isSubmitting}>
