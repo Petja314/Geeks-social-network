@@ -3,17 +3,21 @@ import Preloader from "../../common/preloader/Preloader";
 import ProfileStatus from "./ProfileStatus"
 import userPhoto from "../../assets/images/louie.jpg"
 import 'filepond/dist/filepond.min.css';
-import {ProfileDataType, savePhotoThunk} from "../../redux/ProfileReducer";
+import {ActionsProfileTypes, ProfileDataType, ProfileStateTypes, savePhotoThunk} from "../../redux/ProfileReducer";
 import {useDispatch} from "react-redux";
 import {ProfileEditForm} from "./ProfileEditForm";
 import ProfileData from "./ProfileData";
+import {Dispatch} from "redux";
+import {ThunkDispatch} from "redux-thunk";
 
 export type ProfileInfoPropsType = {
     isOwner: boolean
     profile : ProfileDataType
     status : string
+    userId : any
 }
 const ProfileInfo = (props: ProfileInfoPropsType) => {
+    console.log('PROFILE INFO : ' , props.status)
     const dispatch : any = useDispatch()
     //Track form Edit Form state
     const [editMode, setEditMode] = useState<boolean>(false)
@@ -37,7 +41,9 @@ const ProfileInfo = (props: ProfileInfoPropsType) => {
             <img style={{"width": "15%"}} src={props.profile.photos.small || userPhoto} alt=""/>
             {props.isOwner && <input type={"file"} onChange={onMainPhotoSelected}/>}
             <ProfileStatus
+                userId={props.userId}
                 status={props.status}
+                isOwner={props.isOwner}
             />
 
             {/*Show User Data Form depends on edit mode state*/}

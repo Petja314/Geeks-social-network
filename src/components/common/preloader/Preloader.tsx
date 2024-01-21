@@ -6,10 +6,11 @@ export type PreloaderType = {
 }
 
 const Preloader = (props : PreloaderType) => {
+    // debugger
     return (
         <div>
-            loading...
-            {props.isFetching ? <img src={circle} /> : null}
+            {/*<img src={circle} />*/}
+            {props.isFetching ?  <div>Loading...</div> : null}
         </div>
     );
 };

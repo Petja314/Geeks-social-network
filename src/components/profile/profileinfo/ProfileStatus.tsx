@@ -1,52 +1,66 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
 import {log} from "util";
-
 import {profileAPI} from "../../../api/ProfileAPI";
 import {useDispatch, useSelector} from "react-redux";
-import {updateStatusThunkCreator} from "../../redux/ProfileReducer";
+import {ActionsProfileTypes, ProfileStateTypes, updateStatusThunkCreator} from "../../redux/ProfileReducer";
 import {Dispatch} from "redux";
+import {ThunkDispatch} from "redux-thunk";
+
+
+
 
 type ProfileStatusPropsType = {
-    status :  string
+    status: string,
+    isOwner: boolean
+    userId : any
 }
 const ProfileStatus = (props: ProfileStatusPropsType) => {
-    const dispatch : any = useDispatch()
+    const dispatch: any = useDispatch()
     //Status state mode true/false
     const [editMode, setEditMode] = useState<boolean>(false)
     //Current state status
-    const [status, setStatus] = useState<string>(props.status)
+    const [localStatus, setLocalStatus] = useState<string>(props.status)
+
+    //The local status is updated whenever the status prop changes, to prevent re-render previous status!
+    useEffect(() => {
+        setLocalStatus(props.status)
+    },[props.status])
 
     //Get new value for a status
-    const onChangeStatusHandler = (event : ChangeEvent<HTMLInputElement> ) => {
+    const onChangeStatusHandler = (event: ChangeEvent<HTMLInputElement>) => {
         let statusCurrentValue = event.currentTarget.value
-        setStatus(statusCurrentValue)
+        setLocalStatus(statusCurrentValue)
     }
     //Start change status
     const activateEditMode = () => {
         setEditMode(true)
+        if (!props.isOwner) {
+            setEditMode(false)
+        }
     }
 
 
     // When status has changed => send it to reducer to update state
-    const deactivateEditMode = async () => {
+    const deactivateEditMode = () => {
         setEditMode(false)
-      await dispatch(updateStatusThunkCreator(status))
+        dispatch(updateStatusThunkCreator(localStatus))
     }
-    const handleKeyDown = async (event : any) => {
-        if (event.key === 'Enter' && event.currentTarget.blur()) {
+    const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+        if (event.key === 'Enter') {
             console.log('Enter key pressed! Save logic goes here.');
             setEditMode(false)
-            await dispatch(updateStatusThunkCreator(status))
+            dispatch(updateStatusThunkCreator(localStatus))
         }
     };
-    return (
 
+
+    return (
         <div>
 
             {!editMode &&
-                <div >
+                <div>
                     <span>status : </span>
-                    <span onDoubleClick={activateEditMode}   style={{fontWeight: "bold"}} >{status || "NO STATUS"}</span>
+                    <span onDoubleClick={activateEditMode} style={{fontWeight: "bold"}}>{localStatus || "NO STATUS"}</span>
                 </div>
             }
 
@@ -56,7 +70,7 @@ const ProfileStatus = (props: ProfileStatusPropsType) => {
                         onChange={onChangeStatusHandler}
                         autoFocus={true}
                         onBlur={deactivateEditMode}
-                        value={status}
+                        value={localStatus}
                         onKeyDown={handleKeyDown}
                         tabIndex={0}
                     />

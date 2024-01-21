@@ -1,43 +1,32 @@
 import React from "react";
-import {FilterType} from "../redux/UsersReducer";
+import {FilterType, FormType} from "../redux/UsersReducer";
 import {Field, Form, Formik} from "formik";
 import {useSelector} from "react-redux";
 import {getUsersFilterSelector} from "../redux/UsersSelectors";
 
-const usersSearchFormValidate = (values: any) => {
-    const errors = {};
-    return errors
-}
 type UsersSearchFormPropsType = {
-    filter : any
+    filter : boolean | null
     onFilterChanged: (filter: FilterType) => void
 }
-
-
-const UsersSearchForm: React.FC<UsersSearchFormPropsType> = React.memo((props) => {
-
-    const submit = (values: any, {setSubmitting}: { setSubmitting: (isSubmitting: boolean) => void }) => {
+const UsersSearchForm = React.memo((props : UsersSearchFormPropsType) => {
+    const submit = (values: FormType, {setSubmitting}: { setSubmitting: (isSubmitting: boolean) => void }) => {
         //converting the values.friends into the boolean from string "true" => true (boolean) req. by the api docs.
-        debugger
         const filter: FilterType = {
-            term: values.term,
+            term: values.term as string,
             friend: values.friend === 'null' ? null : values.friend === "true" ? true : false
         }
+        //Callback to send the data from form
         props.onFilterChanged(filter)
-        // props.onFilterChanged(values)
         setSubmitting(false)
     }
-    console.log('filter : ' ,  props.filter)
-
 
     return (<div>
         <h3>Find user</h3>
         <Formik
-            initialValues={{term: '', friend: props.filter}}
-            validate={usersSearchFormValidate}
+            initialValues={{term: '', friend: String(props.filter)}}
             onSubmit={submit}
         >
-            {({isSubmitting}) => (
+            {({isSubmitting }) => (
                 <Form>
                     <Field type="text" name="term"/>
 
@@ -56,4 +45,7 @@ const UsersSearchForm: React.FC<UsersSearchFormPropsType> = React.memo((props) =
     </div>)
 })
 
-export default UsersSearchForm
+const UsersSearchFormMemoComponent = React.memo(UsersSearchForm)
+export default UsersSearchFormMemoComponent
+
+

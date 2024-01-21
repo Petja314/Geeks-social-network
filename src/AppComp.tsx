@@ -5,15 +5,14 @@ import SubMenu from "antd/es/menu/SubMenu";
 import {NavLink, Route, Routes} from "react-router-dom";
 import Users from "./components/users/Users";
 import Login from "./components/login/Login";
-// import ProfileContainer from "./components/profile/ProfileContainer";
 import HeaderContainer from "./components/header/HeaderContainer";
 import {useDispatch, useSelector} from "react-redux";
 import {initializeApp} from "./components/redux/AppReducer";
 import ChatPage from "./components/pages/chat/ChatPage";
 import EffectTestComponent from "./components/pages/chat/EffectTestComponent";
 import DemoChat from "./components/pages/chat/DemoChat";
-import ProfileContainerFunc from "./components/profile/profileinfo/ProfileContainerFunc";
 import Friends from "./components/friends/Friends";
+import ProfileContainer from "./components/profile/profileinfo/ProfileContainer";
 
 const {Header, Content, Footer, Sider} = Layout;
 
@@ -79,8 +78,7 @@ const AppComp = () => {
 
                     <Content style={{padding: '0 24px', minHeight: 280}}>
                         <Routes>
-                            {/*<Route path="/profile/:id?" element={<ProfileContainer/> } />*/}
-                            <Route path="/profile/:id?" element={<ProfileContainerFunc/> } />
+                            <Route path="/profile/:id?" element={<ProfileContainer/> } />
                             <Route path="/users" element={<Users/>}/>
                             <Route path="/login" element={<Login/>}/>
                             <Route path="/friends" element={<Friends/>} />

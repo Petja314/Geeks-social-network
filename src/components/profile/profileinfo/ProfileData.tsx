@@ -22,7 +22,6 @@ const ProfileData = (props: ProfileDataPropsType) => {
             }
             <li> {` About me :  ${props.profile.aboutMe}`}</li>
 
-
             {/*<li>Contacts:{Object.keys(props.profile.contacts).map(key => {*/}
             {/*    return <ProfileContactsForm key={key} contactTitle={key}  contactValue={props.profile.contacts[key]}/>*/}
             {/*})} </li>*/}

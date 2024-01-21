@@ -29,14 +29,35 @@ export type ContactsType = {
     mainLink: null | string;
 };
 export type ProfileStateTypes = {
-    profile?: ProfileDataType;
-    status: string | null,
+    profile: ProfileDataType;
+    status: string ,
     error? : { [key : string] : string } | null
 }
 let initialState: ProfileStateTypes = {
-    status : null
+    profile :{
+        aboutMe: "",
+        contacts: {
+            facebook: "",
+            website: null || "",
+            vk: "",
+            twitter: "",
+            instagram: "",
+            youtube: null || "",
+            github: "",
+            mainLink: null || "",
+        },
+        lookingForAJob: true,
+        lookingForAJobDescription: "",
+        fullName: "",
+        userId: 1,
+        photos: {
+            small: "" || null,
+            large: "" || null
+        }
+    },
+    status :"",
+    error : "" || null
 }
-
 
 export const ProfileReducer = (state  = initialState, action: ActionsProfileTypes) => {
     switch (action.type) {
@@ -54,14 +75,14 @@ export const ProfileReducer = (state  = initialState, action: ActionsProfileType
 };
 
 //Actions type for the profile reducer
-type ActionsProfileTypes = InferActionsTypes<typeof actionsProfile>
+export type ActionsProfileTypes = InferActionsTypes<typeof actionsProfile>
 //Actions for the profile reducer
 export const actionsProfile = {
      setUserProfileAction : (profile: ProfileDataType) => ({
             type: 'SET_USER_PROFILE',
             profile: profile
     }as const),
-     setStatusAction : (status: string | null) => ({
+     setStatusAction : (status: string) => ({
             type: 'SET_STATUS',
             status: status
     }as const),
@@ -94,7 +115,7 @@ export const getStatusThunkCreator = (userID: number | null )  : ThunkType  => a
 }
 
 // Thunk to update user status
-export const updateStatusThunkCreator = (status: string | null) : ThunkType=> async  (dispatch) => {
+export const updateStatusThunkCreator = (status: string) : ThunkType=> async  (dispatch) => {
     let response = await profileAPI.updateStatus(status)
             if (response.data.resultCode === ResultCodesEnum.Error) {
                 let errorMessage = response.data.messages[0]
@@ -112,8 +133,10 @@ export const savePhotoThunk = (file : File) : ThunkType => async (dispatch ) => 
 }
 
 // Thunk to save user profile
-export const saveProfileThunk = (profile: ProfileDataType): ThunkType => async (dispatch, getState: any) => {
-    const userId = getState().userAuthPage.id;
+type ThunkTypeForBothReducers = ThunkAction<Promise<void>, RootState, unknown, ActionsProfileTypes | any>;
+export const saveProfileThunk = (profile: ProfileDataType): ThunkTypeForBothReducers => async (dispatch, getState) => {
+    debugger
+    const userId = getState().userAuthPage.userId;
     try {
         let response = await profileAPI.saveProfile(profile);
         if (response.data.resultCode === ResultCodesEnum.Success) {

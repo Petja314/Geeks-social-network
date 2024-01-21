@@ -29,8 +29,6 @@ const Friends = () => {
         dispatch(setFriendListThunkCreator(pageNumber, true)); //dispatch current page
     };
 
-    // console.log('currentPage' , currentPage)
-
     return (
         <div>
 
@@ -43,9 +41,9 @@ const Friends = () => {
                 <div key={item.id}>
                     <span>
 
-                        {/*REDIRECTING TO THE FRIEND PROFILE PAGE*/}
+                        {/*NAVIGATING TO THE USER PROFILE BY CLICK ON IMAGE*/}
                         <NavLink to={'/profile/' + item.id}>
-                        <div><img src={item.photos.small !== null ? item.photos.small : userPhoto} className={styles.usersPhoto}/></div>
+                        <span><img src={item.photos.small !== null ? item.photos.small : userPhoto} className={styles.usersPhoto}/></span>
                         </NavLink>
 
                         {item.followed &&

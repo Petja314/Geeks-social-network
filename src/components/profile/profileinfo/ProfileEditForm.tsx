@@ -26,13 +26,11 @@ export const ProfileEditForm = (props: ProfileDataFormProps) => {
     };
 
 
-    console.log('fieldsErrors', fieldsErrors)
     return (
         <Formik
             enableReinitialize={true}
             initialValues={props.initialValues}
             onSubmit={handleSubmit}
-
         >
             <Form>
 

@@ -1,4 +1,4 @@
-import {actions, followUserThunkCreator} from "./UsersReducer";
+import {actionsUsers, followUserThunkCreator} from "./UsersReducer";
 import {usersAPI} from "../../api/UsersAPI";
 import {ResponseType, ResultCodesEnum} from "../../api/Api";
 
@@ -22,6 +22,6 @@ test("success follow thunk" , async () => {
     await thunk(dispatchMock,getStateMock,{})
 
     expect(dispatchMock).toBeCalledTimes(2)
-    expect(dispatchMock).toHaveBeenCalledWith(1, actions.setToggleFetching(true))
+    expect(dispatchMock).toHaveBeenCalledWith(1, actionsUsers.setToggleFetching(true))
 
 })

@@ -1,4 +1,4 @@
-import usersReducer, {actions, UsersComponentTypeArrays} from "./UsersReducer";
+import usersReducer, {actionsUsers, UsersComponentTypeArrays} from "./UsersReducer";
 
 let state : any
 beforeEach(() => {
@@ -32,13 +32,13 @@ beforeEach(() => {
 })
 
 test("follow success", () => {
-        const newState = usersReducer(state, actions.follow(1) )
+        const newState = usersReducer(state, actionsUsers.follow(1) )
     expect(newState.users[0].followed).toBeFalsy()
     expect(newState.users[1].followed).toBeTruthy()
 
 })
 test("unfollow success", () => {
-        const newState = usersReducer(state, actions.unfollow(3) )
+        const newState = usersReducer(state, actionsUsers.unfollow(3) )
     expect(newState.users[2].followed).toBeTruthy()
     expect(newState.users[3].followed).toBeFalsy()
 
