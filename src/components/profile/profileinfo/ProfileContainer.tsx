@@ -11,7 +11,6 @@ import {ThunkDispatch} from "redux-thunk";
 import UsersPostsUnverified from "../myposts/usersposts/UsersPostsUnverified";
 import Preloader from "../../common/preloader/Preloader";
 
-
 type QuizParams = {
     id: string | undefined
 };
@@ -30,20 +29,15 @@ const ProfileContainer = () => {
             userId = authorizedUserId
         }
         dispatch(usersProfileAuthThunkCreator(userId))
-        console.log('Fetching user profile data - profile status id - 000 : ' , userId)
+        dispatch(getStatusThunkCreator(userId))
+
     }, [id, authorizedUserId])
 
 
 
-    useEffect(() => {
-        if (profile.userId) {
-            console.log('Fetching user profile data - profile status id - 111 : ' , profile.userId)
-            dispatch(getStatusThunkCreator(profile.userId))
-        }
-    }, [profile.userId])
 
-
-    if (status === "") return <div>loading...</div>
+    // if (status === "") return <div>loading...</div>
+    console.log('profile container status :' , status)
     return (
         <div>
 

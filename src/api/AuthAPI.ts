@@ -26,30 +26,3 @@ type AuthLoginType = {
 type AuthCaptchaType = {
     url : string
 }
-
-
-
-// type AuthMeType = {
-//     resultCode: ResultCodesEnum | ResultCodeForCaptcha,
-//     messages: Array<string>,
-//     data: {
-//         id: number,
-//         email: string,
-//         login: string
-//     }
-// }
-// type AuthLoginType = {
-//     resultCode: ResultCodesEnum | ResultCodeForCaptcha
-//     messages: Array<string>,
-//     data: {
-//         userId: number
-//     }
-// }
-// type AuthLogoutType = {
-//     resultCode: ResultCodesEnum,
-//     messages: Array<string>,
-//     data: {}
-// }
-// type AuthCaptchaType = {
-//     url : string
-// }

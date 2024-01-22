@@ -9,15 +9,15 @@ import {ProfileEditForm} from "./ProfileEditForm";
 import ProfileData from "./ProfileData";
 import {Dispatch} from "redux";
 import {ThunkDispatch} from "redux-thunk";
+import UserAvatarPhoto from "../../users/UserAvatarPhoto";
 
 export type ProfileInfoPropsType = {
     isOwner: boolean
     profile : ProfileDataType
-    status : string
+    status : string | null
     userId : any
 }
 const ProfileInfo = (props: ProfileInfoPropsType) => {
-    console.log('PROFILE INFO : ' , props.status)
     const dispatch : any = useDispatch()
     //Track form Edit Form state
     const [editMode, setEditMode] = useState<boolean>(false)
@@ -32,13 +32,16 @@ const ProfileInfo = (props: ProfileInfoPropsType) => {
         let files = event.target?.files
         if (files) {
             dispatch(savePhotoThunk(files[0]))
-            // console.log(files[0])
         }
     }
+    // console.log('PROFILE INFO : ' , props.status)
 
     return (
         <div>
-            <img style={{"width": "15%"}} src={props.profile.photos.small || userPhoto} alt=""/>
+            {/*<img style={{"width": "15%"}} src={props.profile.photos.small || userPhoto} alt=""/>*/}
+            <UserAvatarPhoto photos={props.profile.photos.small} />
+
+
             {props.isOwner && <input type={"file"} onChange={onMainPhotoSelected}/>}
             <ProfileStatus
                 userId={props.userId}

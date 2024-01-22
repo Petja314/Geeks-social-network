@@ -32,7 +32,7 @@ export type ContactsType = {
 };
 export type ProfileStateTypes = {
     profile: ProfileDataType;
-    status: string,
+    status: string | null,
     error?: { [key: string]: string } | null
 }
 let initialState: ProfileStateTypes = {
@@ -57,7 +57,7 @@ let initialState: ProfileStateTypes = {
             large: "" || null
         }
     },
-    status: "",
+    status: "" || null,
     error: "" || null
 }
 
@@ -84,7 +84,7 @@ export const actionsProfile = {
         type: 'SET_USER_PROFILE',
         profile: profile
     } as const),
-    setStatusAction: (status: string) => ({
+    setStatusAction: (status: string | null) => ({
         type: 'SET_STATUS',
         status: status
     } as const),
@@ -110,24 +110,19 @@ export const usersProfileAuthThunkCreator = (userId: number | null): ThunkType =
 }
 
 // Thunk to fetch user status
-//Throttle to 2 request per second to avoid error from the server (too many requests 429)
-let getProfileStatusThrottled = _.throttle(profileAPI.getStatus, 2000)
-
 export const getStatusThunkCreator = (userID: number | null): ThunkType => async (dispatch) => {
-    // let response = await profileAPI.getStatus(userID)
-    let response = await getProfileStatusThrottled(userID)
-    //checking is the response data for undefined - to prevent the type error!
-    if (response?.data) {
+    let response = await profileAPI.getStatus(userID)
+    // if (response.data.resultCode === ResultCodesEnum.Success) {
         dispatch(actionsProfile.setStatusAction(response.data))
-    }
+    console.log('status ')
+    // }
 }
 
 // Thunk to update user status
-export const updateStatusThunkCreator = (status: string): ThunkType => async (dispatch) => {
+export const updateStatusThunkCreator = (status: string | null): ThunkType => async (dispatch) => {
     let response = await profileAPI.updateStatus(status)
     if (response.data.resultCode === ResultCodesEnum.Error) {
         let errorMessage = response.data.messages[0]
-        debugger
         dispatch(actionsProfile.setStatusAction(errorMessage))
     }
 }
@@ -135,6 +130,7 @@ export const updateStatusThunkCreator = (status: string): ThunkType => async (di
 // Thunk to save user photo
 export const savePhotoThunk = (file: File): ThunkType => async (dispatch) => {
     let response = await profileAPI.savePhoto(file)
+    debugger
     if (response.data.resultCode === ResultCodesEnum.Success) {
         dispatch(actionsProfile.savePhotoSuccess(response.data.data.photos))
     }

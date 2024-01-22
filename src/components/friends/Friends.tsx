@@ -12,6 +12,7 @@ import {compose, Dispatch} from "redux";
 import {NavLink} from "react-router-dom";
 import {WithAuthRedirect} from "../hoc/WithAuthRedirect";
 import Preloader from "../common/preloader/Preloader";
+import UserAvatarPhoto from "../users/UserAvatarPhoto";
 
 const Friends = () => {
     const dispatch: ThunkDispatch<RootState, void, any> = useDispatch();
@@ -43,7 +44,9 @@ const Friends = () => {
 
                         {/*NAVIGATING TO THE USER PROFILE BY CLICK ON IMAGE*/}
                         <NavLink to={'/profile/' + item.id}>
-                        <span><img src={item.photos.small !== null ? item.photos.small : userPhoto} className={styles.usersPhoto}/></span>
+                        {/*<span><img src={item.photos.small !== null ? item.photos.small : userPhoto} className={styles.usersPhoto}/></span>*/}
+                            <UserAvatarPhoto photos={item.photos.small} />
+
                         </NavLink>
 
                         {item.followed &&

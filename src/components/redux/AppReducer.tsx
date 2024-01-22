@@ -4,20 +4,12 @@ import {ThunkAction} from "redux-thunk";
 import {UsersComponentTypeArrays} from "./UsersReducer";
 import {InferActionsTypes} from "./Redux-Store";
 
-// const SET_INITIALIZED_SUCCESS = "samurai-network/AppReducer/SET_INITIALIZED_SUCCESS"
-//
-// type SetUserAuthType = {
-//     type : typeof SET_INITIALIZED_SUCCESS,
-// }
 type AuthState = {
     initialized : boolean,
 }
 const initialState: AuthState = {
     initialized : false,
 }
-// export type ActionUsersReducerType = SetUserAuthType
-
-
 export const AppReducer = (state = initialState, action: ActionsTypes) : AuthState => {
     switch (action.type) {
         case 'SET_INITIALIZED_SUCCESS' :

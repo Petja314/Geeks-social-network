@@ -1,7 +1,6 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from "./users.module.css";
-import userPhoto from "../assets/images/louie.jpg";
-import { FilterType, followUserThunkCreator,  getUsersThunkCreator, unfollowUserThunkCreator, UsersComponentTypeArrays} from "../redux/UsersReducer";
+import {FilterType, followUserThunkCreator, getUsersThunkCreator, unfollowUserThunkCreator, UsersComponentTypeArrays} from "../redux/UsersReducer";
 import {NavigateFunction, NavLink, useLocation, useNavigate} from "react-router-dom";
 import PaginationUsers from "./PaginationUsers";
 import {useDispatch, useSelector} from "react-redux";
@@ -21,6 +20,8 @@ import {WithAuthRedirect} from "../hoc/WithAuthRedirect";
 import UsersSearchForm from "./UsersSearchForm";
 import {ThunkDispatch} from "redux-thunk";
 import {RootState} from "../redux/Redux-Store";
+import {user_images} from "../assets/user_avatar_img/user_avatar_array";
+import UserAvatarPhoto from "./UserAvatarPhoto";
 
 export interface LocationParams {
     pathname: string;
@@ -29,17 +30,18 @@ export interface LocationParams {
     hash: string;
     key: string;
 }
+
 const Users = () => {
     const dispatch: ThunkDispatch<RootState, void, any> = useDispatch()
-    const navigate: NavigateFunction  = useNavigate();
-    const location : LocationParams = useLocation()
+    const navigate: NavigateFunction = useNavigate();
+    const location: LocationParams = useLocation()
 
     // Selectors
     const usersPage: UsersComponentTypeArrays = useSelector(getUsersPageSelector)
-    const totalUsersCount : number = useSelector(getTotalUsersCountSelector)
-    const currentPage : number = useSelector(getCurrentPageSelector)
-    const pageSize : number = useSelector(getPageSizeSelector)
-    const followingInProgress : [] = useSelector(getFollowingInProgressSelector)
+    const totalUsersCount: number = useSelector(getTotalUsersCountSelector)
+    const currentPage: number = useSelector(getCurrentPageSelector)
+    const pageSize: number = useSelector(getPageSizeSelector)
+    const followingInProgress: [] = useSelector(getFollowingInProgressSelector)
     const isFetching = useSelector(getIsFetchingSelector)
     const filter: FilterType = useSelector(getUsersFilterSelector)
 
@@ -82,7 +84,6 @@ const Users = () => {
         console.log('PAGE CHANGED')
         dispatch(getUsersThunkCreator(pageNumber, pageSize, filter));
     };
-    console.log('current page :' , currentPage)
     return (
         <div>
             <Preloader isFetching={isFetching}/>
@@ -99,7 +100,7 @@ const Users = () => {
                     totalUsersCount={totalUsersCount}
                     pageSize={pageSize}
                     currentPage={currentPage}
-                    onPageChange={handlePageChangeUsers }
+                    onPageChange={handlePageChangeUsers}
                 />
 
             </div>
@@ -109,8 +110,10 @@ const Users = () => {
                     <span>
                         {/*NAVIGATING TO THE USER PROFILE BY CLICK ON IMAGE*/}
                         <NavLink to={'/profile/' + item.id}>
-                        <span><img src={item.photos.small !== null ? item.photos.small : userPhoto} className={styles.usersPhoto}/></span>
+                            <UserAvatarPhoto photos={item.photos.small} />
                         </NavLink>
+                         <div>User name : {item.name}</div>
+                            <div> status :  {item.status}</div>
                         <div>
                             {item.followed
                                 ? <button disabled={followingInProgress.some((id: number) => id === item.id)} onClick={() => {
@@ -123,12 +126,9 @@ const Users = () => {
 
                         </div>
                     </span>
-                        <span>
-                        <span>
-                            <div>{item.name}</div>
-                            <div>{item.status}</div>
-                        </span>
-                    </span>
+
+
+
                     </div>)}
         </div>
     );

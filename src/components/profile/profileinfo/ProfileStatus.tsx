@@ -1,16 +1,10 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
-import {log} from "util";
-import {profileAPI} from "../../../api/ProfileAPI";
 import {useDispatch, useSelector} from "react-redux";
 import {ActionsProfileTypes, ProfileStateTypes, updateStatusThunkCreator} from "../../redux/ProfileReducer";
-import {Dispatch} from "redux";
-import {ThunkDispatch} from "redux-thunk";
-
-
 
 
 type ProfileStatusPropsType = {
-    status: string,
+    status: string | null,
     isOwner: boolean
     userId : any
 }
@@ -19,7 +13,7 @@ const ProfileStatus = (props: ProfileStatusPropsType) => {
     //Status state mode true/false
     const [editMode, setEditMode] = useState<boolean>(false)
     //Current state status
-    const [localStatus, setLocalStatus] = useState<string>(props.status)
+    const [localStatus, setLocalStatus] = useState<any>(props.status)
 
     //The local status is updated whenever the status prop changes, to prevent re-render previous status!
     useEffect(() => {
@@ -53,7 +47,7 @@ const ProfileStatus = (props: ProfileStatusPropsType) => {
         }
     };
 
-
+    // console.log('ProfileStatus' , props.status)
     return (
         <div>
 
