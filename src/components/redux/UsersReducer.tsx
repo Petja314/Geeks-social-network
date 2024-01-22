@@ -4,7 +4,8 @@ import {ThunkAction} from "redux-thunk";
 import {InferActionsTypes, RootState} from "./Redux-Store";
 import {usersAPI} from "../../api/UsersAPI";
 import {actionsFriends} from "./FriendsReducer";
-
+import {AxiosResponse} from "axios";
+import _ from "lodash";
 
 export type  UsersComponentTypeArrays = {
     users: UsersArrayType[],
@@ -141,17 +142,23 @@ export const actionsUsers = {
 
 type ThunkResult<R> = ThunkAction<R, RootState, unknown, ActionsTypes>;
 
+//Throttle to 2 request per second to avoid error from the server (too many requests 429)
+let getUsersThrottled = _.throttle(usersAPI.getUsers,2000)
 export const getUsersThunkCreator = (currentPage: number, pageSize: number, filter: FilterType): ThunkResult<void> => {
     return async (dispatch) => {
-        dispatch(actionsUsers.setToggleFetching(true))
-        dispatch(actionsUsers.setFilter(filter))
-        let response = await usersAPI.getUsers(currentPage, pageSize, filter.term, filter.friend)
-        dispatch(actionsUsers.setToggleFetching(false))
-        dispatch(actionsUsers.setUsers(response.data.items))
-        dispatch(actionsUsers.setTotalUsersCount(response.data.totalCount))
-        dispatch(actionsUsers.setCurrentPage(currentPage))
-    }
-}
+        dispatch(actionsUsers.setToggleFetching(true));
+        dispatch(actionsUsers.setFilter(filter));
+            const response = await getUsersThrottled(currentPage, pageSize, filter.term, filter.friend);
+            dispatch(actionsUsers.setToggleFetching(false));
+            //checking is the response data for undefined - to prevent the type error!
+            if (response?.data) {
+                dispatch(actionsUsers.setUsers(response.data.items));
+                dispatch(actionsUsers.setTotalUsersCount(response.data.totalCount));
+            }
+            dispatch(actionsUsers.setCurrentPage(currentPage));
+    };
+};
+
 export const unfollowUserThunkCreator = (id: number): ThunkResult<void> => {
     return async (dispatch) => {
         dispatch(actionsUsers.setFollowingProgress(true, id))

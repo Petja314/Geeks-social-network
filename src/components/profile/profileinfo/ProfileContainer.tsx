@@ -30,11 +30,14 @@ const ProfileContainer = () => {
             userId = authorizedUserId
         }
         dispatch(usersProfileAuthThunkCreator(userId))
+        console.log('Fetching user profile data - profile status id - 000 : ' , userId)
     }, [id, authorizedUserId])
+
 
 
     useEffect(() => {
         if (profile.userId) {
+            console.log('Fetching user profile data - profile status id - 111 : ' , profile.userId)
             dispatch(getStatusThunkCreator(profile.userId))
         }
     }, [profile.userId])

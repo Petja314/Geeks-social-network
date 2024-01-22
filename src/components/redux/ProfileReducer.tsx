@@ -5,8 +5,10 @@ import {InferActionsTypes, RootState} from "./Redux-Store";
 import {profileAPI} from "../../api/ProfileAPI";
 import {Action, AnyAction} from "redux";
 import {act} from "react-dom/test-utils";
+import _ from "lodash";
+import {usersAPI} from "../../api/UsersAPI";
 
-export type ProfileDataType  = {
+export type ProfileDataType = {
     aboutMe: string,
     contacts: ContactsType,
     lookingForAJob: true,
@@ -30,11 +32,11 @@ export type ContactsType = {
 };
 export type ProfileStateTypes = {
     profile: ProfileDataType;
-    status: string ,
-    error? : { [key : string] : string } | null
+    status: string,
+    error?: { [key: string]: string } | null
 }
 let initialState: ProfileStateTypes = {
-    profile :{
+    profile: {
         aboutMe: "",
         contacts: {
             facebook: "",
@@ -55,20 +57,20 @@ let initialState: ProfileStateTypes = {
             large: "" || null
         }
     },
-    status :"",
-    error : "" || null
+    status: "",
+    error: "" || null
 }
 
-export const ProfileReducer = (state  = initialState, action: ActionsProfileTypes) => {
+export const ProfileReducer = (state = initialState, action: ActionsProfileTypes) => {
     switch (action.type) {
         case 'SET_USER_PROFILE' :
-                return {...state, profile: action.profile}
+            return {...state, profile: action.profile}
         case 'SET_STATUS' :
-                return {...state, status: action.status}
+            return {...state, status: action.status}
         case 'SAVE_PHOTO_SUCCESS' :
-                return {...state ,profile : {...state.profile , photos : action.photos}}
+            return {...state, profile: {...state.profile, photos: action.photos}}
         case 'SET_ERROR' :
-            return {...state, error : action.error }
+            return {...state, error: action.error}
         default:
             return state;
     }
@@ -78,54 +80,60 @@ export const ProfileReducer = (state  = initialState, action: ActionsProfileType
 export type ActionsProfileTypes = InferActionsTypes<typeof actionsProfile>
 //Actions for the profile reducer
 export const actionsProfile = {
-     setUserProfileAction : (profile: ProfileDataType) => ({
-            type: 'SET_USER_PROFILE',
-            profile: profile
-    }as const),
-     setStatusAction : (status: string) => ({
-            type: 'SET_STATUS',
-            status: status
-    }as const),
-     savePhotoSuccess : (photos : string)  => ({
-            type : 'SAVE_PHOTO_SUCCESS',
-            photos : photos
-    }as const),
-    setErrorAction : (error : any) => ({
-        type : 'SET_ERROR',
-        error : error
-    }as const)
+    setUserProfileAction: (profile: ProfileDataType) => ({
+        type: 'SET_USER_PROFILE',
+        profile: profile
+    } as const),
+    setStatusAction: (status: string) => ({
+        type: 'SET_STATUS',
+        status: status
+    } as const),
+    savePhotoSuccess: (photos: string) => ({
+        type: 'SAVE_PHOTO_SUCCESS',
+        photos: photos
+    } as const),
+    setErrorAction: (error: any) => ({
+        type: 'SET_ERROR',
+        error: error
+    } as const)
 }
 
 // Thunk type for the profile reducer
-type ThunkType = ThunkAction<Promise<void>, ProfileStateTypes  , unknown, ActionsProfileTypes | any >
-    // | ReturnType <typeof stopSubmit>>
-
+type ThunkType = ThunkAction<Promise<void>, ProfileStateTypes, unknown, ActionsProfileTypes | any>
+// | ReturnType <typeof stopSubmit>>
 
 
 // Thunk to fetch user profile data
-export const usersProfileAuthThunkCreator = (userId: number | null) : ThunkType => async (dispatch) => {
-        let response = await profileAPI.profileAuth(userId)
-                dispatch(actionsProfile.setUserProfileAction(response.data));
+export const usersProfileAuthThunkCreator = (userId: number | null): ThunkType => async (dispatch) => {
+    let response = await profileAPI.profileAuth(userId)
+    dispatch(actionsProfile.setUserProfileAction(response.data));
 }
 
 // Thunk to fetch user status
-export const getStatusThunkCreator = (userID: number | null )  : ThunkType  => async  (dispatch  ) => {
-   let response = await profileAPI.getStatus(userID)
-            dispatch(actionsProfile.setStatusAction(response.data))
+//Throttle to 2 request per second to avoid error from the server (too many requests 429)
+let getProfileStatusThrottled = _.throttle(profileAPI.getStatus, 2000)
+
+export const getStatusThunkCreator = (userID: number | null): ThunkType => async (dispatch) => {
+    // let response = await profileAPI.getStatus(userID)
+    let response = await getProfileStatusThrottled(userID)
+    //checking is the response data for undefined - to prevent the type error!
+    if (response?.data) {
+        dispatch(actionsProfile.setStatusAction(response.data))
+    }
 }
 
 // Thunk to update user status
-export const updateStatusThunkCreator = (status: string) : ThunkType=> async  (dispatch) => {
+export const updateStatusThunkCreator = (status: string): ThunkType => async (dispatch) => {
     let response = await profileAPI.updateStatus(status)
-            if (response.data.resultCode === ResultCodesEnum.Error) {
-                let errorMessage = response.data.messages[0]
-                debugger
-                dispatch(actionsProfile.setStatusAction(errorMessage))
-            }
+    if (response.data.resultCode === ResultCodesEnum.Error) {
+        let errorMessage = response.data.messages[0]
+        debugger
+        dispatch(actionsProfile.setStatusAction(errorMessage))
+    }
 }
 
 // Thunk to save user photo
-export const savePhotoThunk = (file : File) : ThunkType => async (dispatch ) => {
+export const savePhotoThunk = (file: File): ThunkType => async (dispatch) => {
     let response = await profileAPI.savePhoto(file)
     if (response.data.resultCode === ResultCodesEnum.Success) {
         dispatch(actionsProfile.savePhotoSuccess(response.data.data.photos))
@@ -142,7 +150,7 @@ export const saveProfileThunk = (profile: ProfileDataType): ThunkTypeForBothRedu
         if (response.data.resultCode === ResultCodesEnum.Success) {
             if (userId != null) {
                 await dispatch(usersProfileAuthThunkCreator(userId));
-                 dispatch(actionsProfile.setErrorAction(null))
+                dispatch(actionsProfile.setErrorAction(null))
             } else {
                 // Handle the case where userId is null
                 console.error("User ID is null.");

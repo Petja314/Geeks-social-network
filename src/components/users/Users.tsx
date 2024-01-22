@@ -79,12 +79,14 @@ const Users = () => {
         dispatch(getUsersThunkCreator(1, pageSize, filter))
     }
     const handlePageChangeUsers = (pageNumber: number) => {
+        console.log('PAGE CHANGED')
         dispatch(getUsersThunkCreator(pageNumber, pageSize, filter));
     };
-
+    console.log('current page :' , currentPage)
     return (
         <div>
             <Preloader isFetching={isFetching}/>
+            {currentPage}
             <div>
                 <UsersSearchForm
                     filter={filter.friend}
