@@ -8584,6 +8584,11 @@ react-scripts@^5.0.1:
   optionalDependencies:
     fsevents "^2.3.2"
 
+react-scroll-into-view@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/react-scroll-into-view/-/react-scroll-into-view-2.1.1.tgz#14c1a688ef497e6b3a1b543cac714b3542b58f9b"
+  integrity sha512-xbj6m6C6tav1IP4gjl3gCGjwPYWumoMEmu2WCXd6eSs6irCTA+qrk2CmGZb7M0zWuhOwlCmLiL/w0sK+ubPw4g==
+
 react@^18.2.0:
   version "18.2.0"
   resolved "https://registry.npmjs.org/react/-/react-18.2.0.tgz"

@@ -78,6 +78,7 @@ const Users = () => {
 
     //Filtration by users followed/unfollowed/all
     const onFilterChanged = (filter: FilterType) => {
+        debugger
         dispatch(getUsersThunkCreator(1, pageSize, filter))
     }
     const handlePageChangeUsers = (pageNumber: number) => {
