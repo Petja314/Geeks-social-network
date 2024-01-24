@@ -1,5 +1,5 @@
 import React from 'react';
-import {getAuthUserData} from "./AuthReducer";
+import {getAuthUserDataThunk} from "./AuthReducer";
 import {ThunkAction} from "redux-thunk";
 import {UsersComponentTypeArrays} from "./UsersReducer";
 import {InferActionsTypes} from "./Redux-Store";
@@ -38,7 +38,7 @@ export const actions = {
 type ThunkType = ThunkAction<Promise<void>, AuthState, unknown, ActionsTypes>
 
 export const initializeApp = () : ThunkType => (dispatch : any) : any => {
-   let promise =  dispatch(getAuthUserData())
+   let promise =  dispatch(getAuthUserDataThunk())
     Promise.all([promise])
         .then(() => {
         dispatch(actions.initializedSuccess())

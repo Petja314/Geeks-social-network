@@ -30,7 +30,7 @@ const Chat = () => {
 
     return (
         <div>
-            {status === 'error' && <div>Some error occured. Please refresh the page</div> }
+            {status === 'error' && <div>Some error occurred. Please refresh the page</div> }
                 <div>
                     <Messages/>
                     <AddMessageForm/>

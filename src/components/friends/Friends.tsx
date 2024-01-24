@@ -34,23 +34,27 @@ const Friends = () => {
         <div>
 
             <Preloader isFetching={isFetching}/>
-
-
             <h2>List of friends</h2>
+
+            <div>
+                <PaginationUsers
+                    totalUsersCount={totalCount}
+                    pageSize={pageSize}
+                    currentPage={currentPage}
+                    onPageChange={handlePageChangeUsers}
+                />
+            </div>
 
             {friends.map((item) => (
                 <div key={item.id}>
                     <span>
-
                         {/*NAVIGATING TO THE USER PROFILE BY CLICK ON IMAGE*/}
-                        <NavLink to={'/profile/' + item.id}>
-                        {/*<span><img src={item.photos.small !== null ? item.photos.small : userPhoto} className={styles.usersPhoto}/></span>*/}
-                            <UserAvatarPhoto photos={item.photos.small} />
-
-                        </NavLink>
-
                         {item.followed &&
                             <div>
+                                <NavLink to={'/profile/' + item.id}>
+                                    {/*<span><img src={item.photos.small !== null ? item.photos.small : userPhoto} className={styles.usersPhoto}/></span>*/}
+                                    <UserAvatarPhoto photos={item.photos.small}/>
+                                </NavLink>
                                 {/*<div><img src={item.photos.small !== null ? item.photos.small : userPhoto} className={styles.usersPhoto}/></div>*/}
                                 <div>{item.name}</div>
                                 <button disabled={followingInProgress.some((id: number) => id === item.id)} onClick={() => {
@@ -64,19 +68,10 @@ const Friends = () => {
                 </div>
             ))}
 
-            <div>
-                <PaginationUsers
-                    totalUsersCount={totalCount}
-                    pageSize={pageSize}
-                    currentPage={currentPage}
-                    onPageChange={handlePageChangeUsers}
-                />
-            </div>
 
         </div>
     )
 }
-
 
 
 const FriendsMemoComponent = React.memo(Friends)

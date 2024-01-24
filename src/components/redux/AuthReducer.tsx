@@ -1,30 +1,8 @@
 import React from 'react';
 import {ResultCodeForCaptcha, ResultCodesEnum} from "../../api/Api";
 import {ThunkAction} from "redux-thunk";
-import {Dispatch} from "redux";
 import {InferActionsTypes} from "./Redux-Store";
 import {authAPI} from "../../api/AuthAPI";
-
-// const SET_USER_DATA = 'samurai-network/auth/SET_USER_DATA'
-// const CAPTCHA_IS_SUCCESS = 'samurai-network/auth/CAPTCHA_IS_SUCCESS'
-//
-// type SetUserAuthType = {
-//     type: typeof SET_USER_DATA,
-//     payload: {
-//         userId: number | null,
-//         login: string,
-//         email: string,
-//         isAuth: boolean,
-//
-//     },
-// }
-// export type captchaIsSuccessType = {
-//     type: typeof CAPTCHA_IS_SUCCESS,
-//     payload: {
-//         captchaUrl: any
-//     }
-// }
-
 
 export type AuthState = {
     userId: number | null;
@@ -42,10 +20,6 @@ let initialState: AuthState = {
     captchaUrl: null,
     isAdmin : false
 }
-export type LoginAction = (email: string, password: string, rememberMe: boolean) => void;
-
-// export type ActionUsersReducerType = SetUserAuthType | captchaIsSuccessType | ReturnType<typeof resetAuthUserData>;
-
 
 export const AuthReducer = (state = initialState, action: ActionsTypes): AuthState => {
     switch (action.type) {
@@ -92,7 +66,7 @@ export const actions = {
 
 type ThunkType = ThunkAction<Promise<void>, AuthState, unknown, ActionsTypes >
     // | ReturnType <typeof stopSubmit>>
-export const getAuthUserData = () : ThunkType  => {
+export const getAuthUserDataThunk = () : ThunkType  => {
     return async (dispatch: any) => {
         let response = await authAPI.me()
         if (response.data.resultCode === ResultCodesEnum.Success) {
@@ -101,11 +75,11 @@ export const getAuthUserData = () : ThunkType  => {
         }
     }
 }
-export const login = (email: string, password: string, rememberMe: boolean, captcha: null) : ThunkType   => {
+export const loginThunk = (email: string, password: string, rememberMe: boolean, captcha: null) : ThunkType   => {
    return async (dispatch  ) => {
         let response = await authAPI.login(email, password, rememberMe, captcha)
         if (response.data.resultCode === ResultCodesEnum.Success) {
-           await dispatch(getAuthUserData())
+           await dispatch(getAuthUserDataThunk())
             dispatch(actions.setAdminAC(true))
         } else if (response.data.resultCode === ResultCodeForCaptcha.CaptchaIsRequired) {
            await dispatch(captchaThunk())
@@ -113,7 +87,8 @@ export const login = (email: string, password: string, rememberMe: boolean, capt
     }
 }
 
-export const logout = () :ThunkType => async (dispatch) => {
+export const logoutThunk = () :ThunkType => async (dispatch) => {
+    // debugger
     let response = await authAPI.logout()
     if (response.data.resultCode === ResultCodesEnum.Success) {
         dispatch(actions.resetAuthUserData())
