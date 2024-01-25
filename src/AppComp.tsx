@@ -14,6 +14,7 @@ import DemoChat from "./components/pages/chat/DemoChat";
 import Friends from "./components/friends/Friends";
 import ProfileContainer from "./components/profile/profileinfo/ProfileContainer";
 import Dialogs from "./components/dialogs/Dialogs";
+import DialogsContainer from "./components/dialogs/DialogsContainer";
 
 const {Header, Content, Footer, Sider} = Layout;
 
@@ -54,6 +55,7 @@ const AppComp = () => {
                                 <Menu.Item key="2"> <NavLink to={"/users"}>Users</NavLink> </Menu.Item>
                                 <Menu.Item key="3"> <NavLink to={"/friends"}>Friends</NavLink> </Menu.Item>
                                 <Menu.Item key="4"> <NavLink to={"/dialogs"}>Dialogs</NavLink> </Menu.Item>
+                                <Menu.Item key="5"> <NavLink to={"/dialogscontainer"}>Container Dialogs</NavLink> </Menu.Item>
 
                             </SubMenu>
 
@@ -62,11 +64,11 @@ const AppComp = () => {
                             </SubMenu>
 
                             <SubMenu key="sub4" title="UseEffect Test">
-                                <Menu.Item key="22"> <NavLink to={"/effect"}>TestUseEffect</NavLink> </Menu.Item>
+                                <Menu.Item key="23"> <NavLink to={"/effect"}>TestUseEffect</NavLink> </Menu.Item>
                             </SubMenu>
 
                             <SubMenu key="sub4" title="Demo Chat Websocket">
-                                <Menu.Item key="22"> <NavLink to={"/demochat"}>Demo Chat</NavLink> </Menu.Item>
+                                <Menu.Item key="24"> <NavLink to={"/demochat"}>Demo Chat</NavLink> </Menu.Item>
                             </SubMenu>
                         </Menu>
 
@@ -81,6 +83,7 @@ const AppComp = () => {
                             <Route path="/login" element={<Login/>}/>
                             <Route path="/friends" element={<Friends/>} />
                             <Route path="/dialogs" element={<Dialogs/>}/>
+                            <Route path="/dialogscontainer" element={<DialogsContainer/>}/>
 
 
 

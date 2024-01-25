@@ -96,9 +96,6 @@ const Dialogs = () => {
     };
     const scrollHandler = async (event: any) => {
         const element = event.currentTarget
-        // console.log('element.scrollHeight' , element.scrollHeight)
-        // console.log('element.scrollTop' , element.scrollTop)
-        // console.log('element.clientHeight' , element.clientHeight)
         if (element.scrollTop === 0 && currentPage && currentPage !== lastPageChat) {
             element.scrollTop = 20
             setFetchingPage(true)
@@ -113,7 +110,7 @@ const Dialogs = () => {
     }
 
     // USER SECTION
-    console.log('usersPage' , usersPage)
+    // console.log('usersPage' , usersPage)
         const onFilterChanged = (filter: FilterType) => {
         // debugger
         dispatch(getUsersThunkCreator(1, pageSize, filter))
