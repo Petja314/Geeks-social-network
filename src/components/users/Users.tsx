@@ -22,6 +22,7 @@ import {ThunkDispatch} from "redux-thunk";
 import {RootState} from "../redux/Redux-Store";
 import {user_images} from "../assets/user_avatar_img/user_avatar_array";
 import UserAvatarPhoto from "./UserAvatarPhoto";
+import {startChatThunk} from "../redux/DialogsReducer";
 
 export interface LocationParams {
     pathname: string;
@@ -78,7 +79,6 @@ const Users = () => {
 
     //Filtration by users followed/unfollowed/all
     const onFilterChanged = (filter: FilterType) => {
-        debugger
         dispatch(getUsersThunkCreator(1, pageSize, filter))
     }
     const handlePageChangeUsers = (pageNumber: number) => {
@@ -111,10 +111,10 @@ const Users = () => {
                     <span>
                         {/*NAVIGATING TO THE USER PROFILE BY CLICK ON IMAGE*/}
                         <NavLink to={'/profile/' + item.id}>
-                            <UserAvatarPhoto photos={item.photos.small} />
+                            <UserAvatarPhoto photos={item.photos.small}/>
                         </NavLink>
                          <div>User name : {item.name}</div>
-                            <div> status :  {item.status}</div>
+                            <div> status : {item.status}</div>
                         <div>
                             {item.followed
                                 ? <button disabled={followingInProgress.some((id: number) => id === item.id)} onClick={() => {
@@ -126,8 +126,12 @@ const Users = () => {
                                 }}> Follow </button>}
 
                         </div>
-                    </span>
+                        <NavLink to={'/dialogscontainer/' + item.id}>
+                          <button onClick={() => dispatch(startChatThunk(item.id, item.name))}>Start Chat</button>
+                        </NavLink>
 
+
+                    </span>
 
 
                     </div>)}

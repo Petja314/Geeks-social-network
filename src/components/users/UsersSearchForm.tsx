@@ -5,7 +5,7 @@ import {useSelector} from "react-redux";
 import {getUsersFilterSelector} from "../redux/UsersSelectors";
 
 type UsersSearchFormPropsType = {
-    filter : boolean | null
+    filter? : boolean | null
     onFilterChanged: (filter: FilterType) => void
 }
 const UsersSearchForm = React.memo((props : UsersSearchFormPropsType) => {
@@ -30,11 +30,14 @@ const UsersSearchForm = React.memo((props : UsersSearchFormPropsType) => {
                 <Form>
                     <Field type="text" name="term"/>
 
-                    <Field name="friend" as="select">
-                        <option value="null">All</option>
-                        <option value="true">Only followed</option>
-                        <option value="false">Only unfollowed</option>
-                    </Field>
+
+                    {props.filter !== undefined && ( // Conditionally render friend selection field
+                        <Field name="friend" as="select">
+                            <option value="null">All</option>
+                            <option value="true">Only followed</option>
+                            <option value="false">Only unfollowed</option>
+                        </Field>
+                    )}
 
                     <button type="submit" disabled={isSubmitting}>
                         Find

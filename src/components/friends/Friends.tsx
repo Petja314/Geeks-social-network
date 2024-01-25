@@ -13,6 +13,7 @@ import {NavLink} from "react-router-dom";
 import {WithAuthRedirect} from "../hoc/WithAuthRedirect";
 import Preloader from "../common/preloader/Preloader";
 import UserAvatarPhoto from "../users/UserAvatarPhoto";
+import {startChatThunk} from "../redux/DialogsReducer";
 
 const Friends = () => {
     const dispatch: ThunkDispatch<RootState, void, any> = useDispatch();
@@ -61,6 +62,9 @@ const Friends = () => {
                                     dispatch(unfollowUserThunkCreator(item.id))
                                 }}>Unfollow
                                 </button>
+                                <NavLink to={'/dialogscontainer/' + item.id}>
+                                    <button onClick={() => dispatch(startChatThunk(item.id, item.name))}>Start Chat</button>
+                                </NavLink>
                             </div>
                         }
                     </span>

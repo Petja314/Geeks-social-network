@@ -83,7 +83,7 @@ const AppComp = () => {
                             <Route path="/login" element={<Login/>}/>
                             <Route path="/friends" element={<Friends/>} />
                             <Route path="/dialogs" element={<Dialogs/>}/>
-                            <Route path="/dialogscontainer" element={<DialogsContainer/>}/>
+                            <Route path="/dialogscontainer/:id?" element={<DialogsContainer/>}/>
 
 
 

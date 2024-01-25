@@ -1,148 +1,131 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {instance} from "../../api/Api";
-import Login from "../login/Login";
+import {useDispatch, useSelector} from "react-redux";
+import {actionsDialogs, fetchDialogsThunk, newMessageReceivedThunk, refreshMessagesThunk, sendMessageThunk, startChatThunk} from "../redux/DialogsReducer";
+import {FilterType, followUserThunkCreator, getUsersThunkCreator, unfollowUserThunkCreator, UsersComponentTypeArrays} from "../redux/UsersReducer";
+import {getUsersFilterSelector, getUsersPageSelector} from "../redux/UsersSelectors";
+import UsersSearchForm from "../users/UsersSearchForm";
+import {NavLink} from "react-router-dom";
+import UserAvatarPhoto from "../users/UserAvatarPhoto";
 
 const DialogsContainer = () => {
-    // DIALOGS STATE
-    const [dialogs, setDialogs] = useState([])
-    const [newMessageCount, setNewMessageCount] = useState(0) //store the new message count from API //newMessageReceived.get
+    const dispatch: any = useDispatch()
+    const {
+        dialogs,
+        newMessageCount,
+        friendIdLocal,
+        message,
+        currentPage,
+        pageSize,
+        currentDialogsPage,
+        pageSizeDialogs,
+        pagesTotalCount,
+        selectedUserName,
+        messages
+    } = useSelector((state: any) => state.messagesPage)
+
     const [prevNewMessageValue] = useState(0);
-    const [currentDialogsPage, setCurrentDialogsPage] = useState(1)
-    const [pageSizeDialogs, setPageSizeDialogs] = useState(5)
-
-    // MESSENGER CHAT
-    const [currentPage, setCurrentPage] = useState(1)
-    const [pageSize, setPageSize] = useState(5)
-    const [pagesTotalCount, setPagesTotalCount] = useState<any>() //could be undefined
-    const [selectedUserName, setSelectedUserName] = useState('')
-    const [friendIdLocal, setFriendIdLocal] = useState()
-    const [messages, setMessages] = useState([]);
     const lastPageChat = Math.ceil(pagesTotalCount / pageSize)
-    const [message, setMessage] = useState('');
     const [fetchingPage, setFetchingPage] = useState(false)
-
+    const filter: FilterType = useSelector(getUsersFilterSelector)
+    const scrollContainerRef = useRef<any>(null);
+    const usersPage: UsersComponentTypeArrays = useSelector(getUsersPageSelector)
 
 
     useEffect(() => {
-        fetchDialogs()
-        newMessageReceived()
+        dispatch(fetchDialogsThunk())
+        dispatch(newMessageReceivedThunk())
         const pollingInterval = setInterval(async () => {
             // CALLING API GET REQUEST NEW MESSAGE RECEIVED? TO TRACK THE STATE IF THERE IS ANY NEW MESSAGES FROM USER. IF THERE IS , WE ARE FETCHING DIALOGS AND REFRESHING MESSAGES ONCE!
-            newMessageReceived()
-        }, 55000)
+            dispatch(newMessageReceivedThunk())
+        }, 5000)
         return () => {
             clearInterval(pollingInterval)
         }
     }, [newMessageCount])
 
-
     // CALL THE API ONLY WHEN NEW MESSAGE COMES UP FROM USER!
     useEffect(() => {
-        if ( newMessageCount !== prevNewMessageValue ) {
-             fetchDialogs()
-             refreshMessages(friendIdLocal)
-            console.log('!POP UP!')
+        if (newMessageCount !== prevNewMessageValue) {
+            dispatch(fetchDialogsThunk())
+            dispatch(refreshMessagesThunk(friendIdLocal, currentPage, pageSize))
+            console.log('refreshing dialogs...')
         }
-    } , [newMessageCount])
+    }, [newMessageCount])
 
-    const fetchDialogs = async () => {
-        const response = await instance.get('dialogs')
-        if (response.status === 200) {
-            setDialogs(response.data)
+    //SCROLL AT THE BOTTOM BY DEFAULT
+    useEffect(() => {
+        if (scrollContainerRef.current) {
+            scrollContainerRef.current.scrollTop = scrollContainerRef.current.scrollHeight;
         }
-    }
-
-    const newMessageReceived = async () => {
-        const response = await instance.get('dialogs/messages/new/count')
-        // console.log('list of new messages ', response)
-        if (response.status === 200) {
-            setNewMessageCount(response.data)
-        }
-    }
+    }, [messages])
 
     // START CHAT WITH A SELECTED FRIEND
-    const startChat = async (friendId: any, userName: any) => {
-        // Start chatting with a friend using the reusable axios instance
-        // HERE YOU CAN MOVE LIST OF YOUR USERS !
-        setCurrentPage(1)
-        setSelectedUserName(userName)
-        setFriendIdLocal(friendId)
-        await instance.put(`dialogs/${friendId}`)
-        await refreshMessages(friendId);
-    };
-
-
     const sendMessage = async () => {
-        // Send a message to a friend using the reusable axios instance
-        await instance.post(`dialogs/${friendIdLocal}/messages`, {body: message})
-        setMessage('');
-        await refreshMessages(friendIdLocal);
+        dispatch(sendMessageThunk(friendIdLocal, message))
+        dispatch(actionsDialogs.setMessageLocalAction(''))
     };
-
-
-    // GET LIST OF MESSAGES WITH YOUR FRIEND
-    // https://social-network.samuraijs.com/api/1.0/dialogs/undefined/messages?page=1&count=10
-    const refreshMessages = async (friendId: any) => {
-        // Fetch messages with a friend using the reusable axios instance
-    // && newMessageCount > 0
-        if (friendId) {
-            console.log('refreshing new messages...')
-            const response = await instance.get(`dialogs/${friendId}/messages?page=${currentPage}&count=${pageSize}`)
-            setMessages(response.data.items)
-            setPagesTotalCount(response.data.totalCount)
-        }
-    };
-
-
-    // PAGINATION
-    // CALCULATE INDEX OF CURRENT PAGE , LAST INDEX + FIRST INDEX
     let pagesCount = Math.ceil(dialogs.length / pageSizeDialogs)
     const startIndex = (currentDialogsPage - 1) * pageSizeDialogs
     const endIndex = startIndex + pageSizeDialogs
     const displayedDialogs = dialogs.slice(startIndex, endIndex)
-    // console.log('dialogs total pages:' , pagesCount)
 
 
-    // console.log('setMessages from api :' ,messages )
-    // console.log('local dialogs', dialogs)
-    // console.log('local list of new messages', newMessageCount)
-    const scrollHandlerMessages =  (event: any) => {
+    const scrollHandlerMessages = (event: any) => {
         const element = event.currentTarget
         if (element.scrollTop === 0 && currentPage && currentPage !== lastPageChat) {
             element.scrollTop = 20
             setFetchingPage(true)
-            setCurrentPage((prev) => prev + 1)
+            dispatch(actionsDialogs.setCurrentPageAction(currentPage + 1))
             // When I am at the last page scroll is disappearing  !!!
         }
-        if (element.scrollHeight - (element.scrollTop + element.clientHeight) < 1 && currentPage !== 1) { //do not send an api request if we are trying to scroll below current page 1!
+        if (element.scrollHeight - (element.scrollTop + element.clientHeight) < 1 && currentPage !== 1) {
             element.scrollTop = 100
             setFetchingPage(true)
-            setCurrentPage((prev) => prev - 1)
+            dispatch(actionsDialogs.setCurrentPageAction(currentPage - 1))
         }
     }
-
     const onPageChange = (pageNumber: number) => {
         if (currentDialogsPage) {
-            setCurrentDialogsPage(pageNumber)
+            dispatch(actionsDialogs.setCurrentDialogsPageAction(pageNumber))
         }
     }
+    // const onFilterChanged = (filter: FilterType) => {
+    //     // debugger
+    //     dispatch(getUsersThunkCreator(1, pageSize, filter))
+    // }
+
+    const onFilterChanged = (filter: FilterType) => {
+        debugger
+        dispatch(actionsDialogs.findDialogAction(filter)); ///NEED TO DO FILTER DISTRUCTURIZATION!
+        dispatch(getUsersThunkCreator(1, pageSize, filter))
+        if (filter.term) {
+            // If userName is provided in the filter, perform client-side filtering
+            const filteredDialogs = dialogs.filter((dialog: any) => dialog.userName.includes(filter.term));
+            dispatch(actionsDialogs.setAllDialogsAction(filteredDialogs));
+            console.log('user found!')
+        } else {
+            // If userName is not provided, fetch all dialogs from the API
+            console.log('not found!')
+            dispatch(fetchDialogsThunk());
+        }
+    };
+    // console.log('dialogs' , dialogs)
 
     return (
         <div style={{display: "flex", justifyContent: "space-around"}}>
-
-
             {/*DIALOGS*/}
             <div>
                 <div style={{margin: "20px"}}>
                     <h2>DIALOGS CONTAINER TEST NET</h2>
                     <h3>RECENT DIALOGS</h3>
                     Current page : {currentDialogsPage}
+                    <div>
+                        <UsersSearchForm onFilterChanged={onFilterChanged} />
+                    </div>
                 </div>
-
                 <div
-
                     style={{
-                        border: "1px solid black", height: "400px", width: "500px", overflowY: "auto",textAlign: "center"
+                        border: "1px solid black", height: "400px", width: "500px", overflowY: "auto", textAlign: "center"
                     }}
                 >
                     <div>
@@ -150,52 +133,61 @@ const DialogsContainer = () => {
                             .sort((a: any, b: any) => b.hasNewMessages - a.hasNewMessages)
                             .map((dialog: any) => (
                                 <div key={dialog.id}>
-
-
                                     <div style={{paddingTop: "10px"}}>
                                         <div>{dialog.userName} </div>
-                                        <button onClick={() => startChat(dialog.id, dialog.userName)}>Start Chat</button>
+                                        < NavLink to={'/dialogscontainer/' + dialog.id}>
+                                        <button onClick={() => dispatch(startChatThunk(dialog.id, dialog.userName))}>Start Chat</button>
+                                        </NavLink>
                                         <hr/>
                                     </div>
-                                    {/* Updated condition to check for new messages and current friendIdLocal */}
-                                    {/*friendIdLocal = undefined with a first render , then when we click on button startChat, we set the firendIdLocal with a selectedId of user and dialog.id !== friendIdLocal becomes false , that's why the text is disappearing */}
-                                    {/*----------------------------------------------------*/}
                                     {dialog.hasNewMessages && newMessageCount > 0 ? <div style={{color: "red"}}>
                                         You got {dialog.newMessagesCount} new message
                                     </div> : <div></div>
                                     }
                                 </div>
                             ))}
+
+                        {
+                            usersPage.users.map((item: any) =>
+                                <div key={item.id}>
+                                    <div style={{paddingTop: "10px"}}>
+                                        <div>User name : {item.name}</div>
+                                        <NavLink to={'/dialogscontainer/' + item.id}>
+                                            <button onClick={() => dispatch(startChatThunk(item.id, item.userName))}>Start Chat</button>
+                                        </NavLink>
+                                        <hr/>
+                                    </div>
+                                </div>
+                            )}
+
                     </div>
 
-                    <div style={{display : "flex" , gap : "20px", justifyContent : "center", marginTop: "15px"}} >
+                    <div style={{display: "flex", gap: "20px", justifyContent: "center", marginTop: "15px"}}>
 
                         <div>
                             {/*PREVIOUS PAGE BUTTON*/}
                             {currentDialogsPage > 1 &&
-                                <button onClick={() => onPageChange(currentDialogsPage -1)}> PREV PAGE </button>
+                                <button onClick={() => onPageChange(currentDialogsPage - 1)}> PREV PAGE </button>
                             }
                         </div>
-
                         <div>
                             {/*NEXT PAGE BUTTON*/}
                             {currentDialogsPage >= 1 && currentDialogsPage < pagesCount
                                 &&
-                                <button onClick={() => onPageChange(currentDialogsPage +1)}> NEXT PAGE </button>
+                                <button onClick={() => onPageChange(currentDialogsPage + 1)}> NEXT PAGE </button>
                             }
                         </div>
                     </div>
                 </div>
             </div>
             {/*CHAT SECTION*/}
-
-
             <div>
                 <div style={{textAlign: "center"}}>
                     <h3>CHAT</h3>
                     <div>current page : {currentPage}</div>
                 </div>
                 <div
+                    ref={scrollContainerRef}
                     onScroll={scrollHandlerMessages}
                     style={{border: "1px solid black", height: "200px", width: "500px", overflowY: "auto"}}>
 
@@ -209,12 +201,11 @@ const DialogsContainer = () => {
 
                     ))}
                 </div>
-
                 {/*CHAT INNER SECTION*/}
-                <div style={{border: "1px solid black", padding: "20px", width: "500px"  }}>
+                <div style={{border: "1px solid black", padding: "20px", width: "500px"}}>
                     <div>
                         <input placeholder="Select user to chat!" disabled={!friendIdLocal} style={{width: "100%", height: "50px"}} type="text" value={message}
-                               onChange={(e) => setMessage(e.target.value)}/>
+                               onChange={(e) => dispatch(actionsDialogs.setMessageLocalAction(e.target.value))}/>
                     </div>
                     {/*DISABLE BUTTON IF FRIEND IS NOT SELECTED*/}
                     <div style={{marginTop: "10px"}}>
