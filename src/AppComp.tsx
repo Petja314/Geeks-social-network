@@ -13,7 +13,6 @@ import EffectTestComponent from "./components/pages/chat/EffectTestComponent";
 import DemoChat from "./components/pages/chat/DemoChat";
 import Friends from "./components/friends/Friends";
 import ProfileContainer from "./components/profile/profileinfo/ProfileContainer";
-import Dialogs from "./components/dialogs/Dialogs";
 import DialogsContainer from "./components/dialogs/DialogsContainer";
 
 const {Header, Content, Footer, Sider} = Layout;
@@ -54,8 +53,7 @@ const AppComp = () => {
                                 <Menu.Item key="1"> <NavLink to={"/profile"}>Profile</NavLink> </Menu.Item>
                                 <Menu.Item key="2"> <NavLink to={"/users"}>Users</NavLink> </Menu.Item>
                                 <Menu.Item key="3"> <NavLink to={"/friends"}>Friends</NavLink> </Menu.Item>
-                                <Menu.Item key="4"> <NavLink to={"/dialogs"}>Dialogs</NavLink> </Menu.Item>
-                                <Menu.Item key="5"> <NavLink to={"/dialogscontainer"}>Container Dialogs</NavLink> </Menu.Item>
+                               <Menu.Item key="5"> <NavLink to={"/dialogs"}>Container Dialogs</NavLink> </Menu.Item>
 
                             </SubMenu>
 
@@ -82,8 +80,7 @@ const AppComp = () => {
                             <Route path="/users" element={<Users/>}/>
                             <Route path="/login" element={<Login/>}/>
                             <Route path="/friends" element={<Friends/>} />
-                            <Route path="/dialogs" element={<Dialogs/>}/>
-                            <Route path="/dialogscontainer/:id?" element={<DialogsContainer/>}/>
+                            <Route path="/dialogs/:id?" element={<DialogsContainer/>}/>
 
 
 

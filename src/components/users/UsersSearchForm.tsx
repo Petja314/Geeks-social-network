@@ -5,10 +5,10 @@ import {useSelector} from "react-redux";
 import {getUsersFilterSelector} from "../redux/UsersSelectors";
 
 type UsersSearchFormPropsType = {
-    filter? : boolean | null
+    filter?: boolean | null
     onFilterChanged: (filter: FilterType) => void
 }
-const UsersSearchForm = React.memo((props : UsersSearchFormPropsType) => {
+const UsersSearchForm = React.memo((props: UsersSearchFormPropsType) => {
     const submit = (values: FormType, {setSubmitting}: { setSubmitting: (isSubmitting: boolean) => void }) => {
         //converting the values.friends into the boolean from string "true" => true (boolean) req. by the api docs.
         const filter: FilterType = {
@@ -26,7 +26,7 @@ const UsersSearchForm = React.memo((props : UsersSearchFormPropsType) => {
             initialValues={{term: '', friend: String(props.filter)}}
             onSubmit={submit}
         >
-            {({isSubmitting }) => (
+            {({isSubmitting}) => (
                 <Form>
                     <Field type="text" name="term"/>
 
@@ -38,10 +38,12 @@ const UsersSearchForm = React.memo((props : UsersSearchFormPropsType) => {
                             <option value="false">Only unfollowed</option>
                         </Field>
                     )}
+                    <div style={{marginTop : "5px"}} >
+                        <button type="submit" disabled={isSubmitting}>
+                            Find
+                        </button>
+                    </div>
 
-                    <button type="submit" disabled={isSubmitting}>
-                        Find
-                    </button>
                 </Form>
             )}
         </Formik>

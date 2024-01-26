@@ -15,10 +15,14 @@ const initialState: any = {
     pageSizeDialogs: 5,
 
 // MESSENGER CHAT
-    currentPage: 1,
+    currentPageChat: 1,
     pageSize: 5,
     pagesTotalCount: null,
-    selectedUserName: '',
+    // selectedUserName: '',
+    selectedUser : {
+        selectedUserName : '' ,
+        photo : ''
+    },
     friendIdLocal: null,
     messages: [],
     message: '',
@@ -44,23 +48,20 @@ export const DialogsReducer = (state = initialState, action: ActionsTypes): any 
         case 'SET_CURRENT_PAGE' :
             return {
                 ...state,
-                currentPage: action.currentPage
+                currentPageChat: action.currentPageChat
             }
         case 'SET_SELECTED_USER_NAME' :
             return {
                 ...state,
-                selectedUserName: action.userName
+                // selectedUserName: action.userName
+                selectedUser : { selectedUserName: action.userName ,  photo : action.photoUser}
             }
         case 'SET_FRIEND_ID' :
             return {
                 ...state,
                 friendIdLocal: action.friendId
             }
-        case 'SET_MESSAGE_LOCAL_INPUT' :
-            return {
-                ...state,
-                message: action.message //empty input from chat
-            }
+
         case 'SET_MESSAGES' :
             return {
                 ...state,
@@ -100,21 +101,18 @@ export const actionsDialogs = {
         type: "NEW_MESSAGE_RECEIVED",
         newMessageCount
     } as const),
-    setCurrentPageAction: (currentPage: number) => ({
+    setCurrentPageAction: (currentPageChat: number) => ({
         type: "SET_CURRENT_PAGE",
-        currentPage
+        currentPageChat
     } as const),
-    setSelectedUserNameAction: (userName: any) => ({
+    setSelectedUserNameAction: (userName: any,photoUser : any) => ({
         type: "SET_SELECTED_USER_NAME",
-        userName
+        userName ,
+        photoUser
     } as const),
     setFriendIdLocalAction: (friendId: any) => ({
         type: "SET_FRIEND_ID",
         friendId
-    } as const),
-    setMessageLocalAction: (message: any) => ({
-        type: "SET_MESSAGE_LOCAL_INPUT",
-        message
     } as const),
     setMessagesAction: (messages: any) => ({
         type: "SET_MESSAGES",
@@ -151,36 +149,36 @@ export const newMessageReceivedThunk = (): any => async (dispatch: any) => {
     }
 }
 
-export const startChatThunk = (friendId: any, userName: any): any => async (dispatch: any, getState: any) => {
+export const startChatThunk = (friendId: any, userName: any , photoUser : any): any => async (dispatch: any, getState: any) => {
     // debugger
-    const currentPage = getState().messagesPage.currentPage // ??
+    const currentPageChat = getState().messagesPage.currentPageChat // ??
     const pageSize = getState().messagesPage.pageSize // ??
 
 
     dispatch(actionsDialogs.setCurrentPageAction(1))
-    dispatch(actionsDialogs.setSelectedUserNameAction(userName))
+    dispatch(actionsDialogs.setSelectedUserNameAction(userName,photoUser))
     dispatch(actionsDialogs.setFriendIdLocalAction(friendId))
     await dialogsAPI.startChat(friendId)
-    dispatch(refreshMessagesThunk(friendId, currentPage, pageSize))
+    dispatch(refreshMessagesThunk(friendId, currentPageChat, pageSize))
     // await instance.put(`dialogs/${friendId}`)
     // await refreshMessages(friendId);
 }
 
 export const sendMessageThunk = (friendIdLocal: any, message: any): any => async (dispatch: any, getState: any) => {
-    const currentPage = getState().messagesPage.currentPage // ??
+    const currentPageChat = getState().messagesPage.currentPageChat // ??
     const pageSize = getState().messagesPage.pageSize // ??
 
     const friendIdLocal = getState().messagesPage.friendIdLocal
     await dialogsAPI.sendMessage(friendIdLocal, message)
     // dispatch(actionsDialogs.setMessageLocalAction(message))
-    dispatch(refreshMessagesThunk(friendIdLocal, currentPage, pageSize))
+    dispatch(refreshMessagesThunk(friendIdLocal, currentPageChat, pageSize))
     // await refreshMessages(friendIdLocal);
 }
 
-export const refreshMessagesThunk = (friendId: any, currentPage: any, pageSize: any): any => async (dispatch: any, getState: any) => {
+export const refreshMessagesThunk = (friendId: any, currentPageChat: any, pageSize: any): any => async (dispatch: any, getState: any) => {
     if (friendId) {
         // console.log('refreshing new messages...')
-        const response = await dialogsAPI.refreshMessages(friendId, currentPage, pageSize)
+        const response = await dialogsAPI.refreshMessages(friendId, currentPageChat, pageSize)
         dispatch(actionsDialogs.setMessagesAction(response.data.items))
         dispatch(actionsDialogs.setPagesTotalCount(response.data.totalCount))
     }

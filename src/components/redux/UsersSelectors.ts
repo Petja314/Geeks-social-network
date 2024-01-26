@@ -1,6 +1,7 @@
 import {createSelector} from "reselect";
 
 const getUsersPage = (state : any) => state.usersPage;
+const getDialogsValue = (state : any) => state.messagesPage
 
 export const getUsersPageSelector = createSelector(
     [getUsersPage],
@@ -35,3 +36,9 @@ export const getUsersFilterSelector = createSelector(
     [getUsersPage],
     (usersPage) => usersPage.filter
 );
+
+
+export const getMessageValueDialogs = createSelector(
+    [getDialogsValue],
+    (messagesPage) => messagesPage.message
+)

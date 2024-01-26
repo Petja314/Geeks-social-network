@@ -28,18 +28,16 @@ const UserAvatarPhoto = (props: any) => {
 
     return (
         <div>
-            {props.photos !== null ? (
-                <span>
-                                    <img className={styles.usersPhoto} src={props.photos} alt=""/>
-                                </span>
+            {props.photos !== null ? (<span>
+            <img className={styles.usersPhoto} src={props.photos} alt=""/>
+                </span>
             ) : (
                 <span>
-                                  <div>
-                                      photo doesn't exist.
-                                  </div>
-                                    looking for an avatar :
-                                   <div> <img className={styles.usersPhoto} src={user_images[Math.floor(Math.random() * user_images.length)]} alt=""/> </div>
-                                </span>
+            {/*<div> photo doesn't exist.</div> looking for an avatar :*/}
+           <div>
+               <img className={styles.usersPhoto} src={user_images[Math.floor(Math.random() * user_images.length)]} alt=""/>
+           </div>
+            </span>
             )
             }
         </div>

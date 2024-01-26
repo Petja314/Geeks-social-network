@@ -52,18 +52,21 @@ const Friends = () => {
                         {/*NAVIGATING TO THE USER PROFILE BY CLICK ON IMAGE*/}
                         {item.followed &&
                             <div>
-                                <NavLink to={'/profile/' + item.id}>
-                                    {/*<span><img src={item.photos.small !== null ? item.photos.small : userPhoto} className={styles.usersPhoto}/></span>*/}
-                                    <UserAvatarPhoto photos={item.photos.small}/>
-                                </NavLink>
+                                <div  style={{"maxWidth": "40%" }}>
+                                    <NavLink to={'/profile/' + item.id}>
+                                        {/*<span><img src={item.photos.small !== null ? item.photos.small : userPhoto} className={styles.usersPhoto}/></span>*/}
+                                        <UserAvatarPhoto photos={item.photos.small}/>
+                                    </NavLink>
+                                </div>
+
                                 {/*<div><img src={item.photos.small !== null ? item.photos.small : userPhoto} className={styles.usersPhoto}/></div>*/}
                                 <div>{item.name}</div>
                                 <button disabled={followingInProgress.some((id: number) => id === item.id)} onClick={() => {
                                     dispatch(unfollowUserThunkCreator(item.id))
                                 }}>Unfollow
                                 </button>
-                                <NavLink to={'/dialogscontainer/' + item.id}>
-                                    <button onClick={() => dispatch(startChatThunk(item.id, item.name))}>Start Chat</button>
+                                <NavLink to={'/dialogs/' + item.id}>
+                                    <button onClick={() => dispatch(startChatThunk(item.id, item.name,item.photos.small))}>Start Chat</button>
                                 </NavLink>
                             </div>
                         }

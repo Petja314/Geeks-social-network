@@ -14,14 +14,14 @@ const PaginationUsers = (props: PaginationUsersType) => {
     }
 
 
-    let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
+    let pagesCountUsers = Math.ceil(props.totalUsersCount / props.pageSize)
     let pages = []
-    for (let i = 1; i <= pagesCount; i++) {
+    for (let i = 1; i <= pagesCountUsers; i++) {
         pages.push(i)
     }
 
     let portionSize = 10
-    let portionCount = Math.ceil(pagesCount / portionSize)
+    let portionCount = Math.ceil(pagesCountUsers / portionSize)
     let [portionNumber, setPortionNumber] = useState(1)
     let leftPortionPageNumber = (portionNumber - 1) * portionSize + 1
     let rightPortionPageNumber = portionNumber * portionSize
@@ -70,7 +70,7 @@ const PaginationUsers = (props: PaginationUsersType) => {
 
                 <div>
                     {/*NEXT PAGE BUTTON*/}
-                    {props.currentPage >= 1 && props.currentPage < pagesCount
+                    {props.currentPage >= 1 && props.currentPage < pagesCountUsers
                         &&
                         <button onClick={() => onPageChange(props.currentPage +1)}> NEXT PAGE </button>
                     }

@@ -85,6 +85,7 @@ const Users = () => {
         console.log('PAGE CHANGED')
         dispatch(getUsersThunkCreator(pageNumber, pageSize, filter));
     };
+    // console.log('usersPage.users' , usersPage.users)
     return (
         <div>
             <Preloader isFetching={isFetching}/>
@@ -110,11 +111,14 @@ const Users = () => {
                     <div key={item.id}>
                     <span>
                         {/*NAVIGATING TO THE USER PROFILE BY CLICK ON IMAGE*/}
+                        <div style={{"maxWidth": "40%" }}>
                         <NavLink to={'/profile/' + item.id}>
                             <UserAvatarPhoto photos={item.photos.small}/>
                         </NavLink>
                          <div>User name : {item.name}</div>
                             <div> status : {item.status}</div>
+                        </div>
+
                         <div>
                             {item.followed
                                 ? <button disabled={followingInProgress.some((id: number) => id === item.id)} onClick={() => {
@@ -126,8 +130,8 @@ const Users = () => {
                                 }}> Follow </button>}
 
                         </div>
-                        <NavLink to={'/dialogscontainer/' + item.id}>
-                          <button onClick={() => dispatch(startChatThunk(item.id, item.name))}>Start Chat</button>
+                        <NavLink to={'/dialogs/' + item.id}>
+                          <button onClick={() => dispatch(startChatThunk(item.id, item.name, item.photos.small))}>Start Chat</button>
                         </NavLink>
 
 
