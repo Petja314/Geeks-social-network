@@ -135,6 +135,7 @@ export const setUnverifiedUserIDThunk = (idUserURL: number | null): ThunkResult<
 }
 export const fetchPostsThunk = (postData: Array<ResponseTestAPIDataType>): ThunkResult<void> => {
     return (dispatch) => {
+
         dispatch(actionsMyPosts.setPostsDataBaseAC(postData))
     }
 }

@@ -67,7 +67,7 @@ const AppComp = () => {
                                 <Menu.Item key="23"> <NavLink to={"/effect"}>TestUseEffect</NavLink> </Menu.Item>
                             </SubMenu>
 
-                            <SubMenu key="sub4" title="Demo Chat Websocket">
+                            <SubMenu key="sub5" title="Demo Chat Websocket">
                                 <Menu.Item key="24"> <NavLink to={"/demochat"}>Demo Chat</NavLink> </Menu.Item>
                             </SubMenu>
                         </Menu>
