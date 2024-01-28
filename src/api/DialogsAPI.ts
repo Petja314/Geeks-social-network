@@ -18,7 +18,11 @@ export const dialogsAPI = {
     refreshMessages(friendId : any ,currentPage : any ,pageSize : any  ) {
        return instance.get(`dialogs/${friendId}/messages?page=${currentPage}&count=${pageSize}`)
 
+    },
+    deleteMessage(messageId : string) {
+        return instance.delete(`dialogs/messages/${messageId}`)
+    },
+    restoreMessage(messageId : string) {
+        return instance.put(`dialogs/messages/${messageId}/restore`)
     }
-
-
 }

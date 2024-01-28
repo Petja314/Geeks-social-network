@@ -66,7 +66,7 @@ const Friends = () => {
                                 }}>Unfollow
                                 </button>
                                 <NavLink to={'/dialogs/' + item.id}>
-                                    <button onClick={() => dispatch(startChatThunk(item.id, item.name,item.photos.small))}>Start Chat</button>
+                                    <button onClick={() => dispatch(startChatThunk(item.id, item.name, item.photos.small))}>Start Chat</button>
                                 </NavLink>
                             </div>
                         }

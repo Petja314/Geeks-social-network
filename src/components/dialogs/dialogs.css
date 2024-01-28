@@ -8,3 +8,11 @@
     padding-left: 20px;
     font-size: 25px;
 }
+
+.dialogs_right {
+    padding: 10px;
+}
+.dialogs_left {
+    text-align: right;
+    padding: 10px;
+}

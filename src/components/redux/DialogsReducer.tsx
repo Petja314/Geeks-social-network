@@ -1,12 +1,60 @@
-import React, {useState} from 'react';
-import {InferActionsTypes} from "./Redux-Store";
+import React from 'react';
+import {InferActionsTypes, RootState} from "./Redux-Store";
 import {dialogsAPI} from "../../api/DialogsAPI";
-import {instance, ResultCodesEnum} from "../../api/Api";
-import {act} from "react-dom/test-utils";
-// lastPageChat = Math.ceil(pagesTotalCount / pageSize
+import {ThunkAction} from "redux-thunk";
+import {message} from "antd";
+
+export type DialogsStateTypes = {
+    // DIALOGS STATE
+    dialogs: DialogsArrayType[],
+    newMessageCount: number, //store the new message count from API //newMessageReceived.get
+    prevNewMessageValue: number,
+    currentDialogsPage: number,
+    pageSizeDialogs: number,
+
+// MESSENGER CHAT
+    currentPageChat: number,
+    pageSize: number,
+    pagesTotalCount: null,
+    selectedUser: {
+        selectedUserName: string,
+        photo: null | string
+    },
+    friendIdLocal: null,
+    messages: DialogsMessagesArrayType[],
+    message: string,
+    fetchingPage: boolean,
+    filter: {
+        term: string,
+        friend: null | boolean
+    },
+    messageId: string
+}
+export type DialogsArrayType = {
+    "id": number,
+    "userName": string,
+    "hasNewMessages": boolean,
+    "lastDialogActivityDate": string,
+    "lastUserActivityDate": string,
+    "newMessagesCount": number,
+    "photos": {
+        "small": null,
+        "large": null
+    }
+}
+export type DialogsMessagesArrayType = {
+    "id": string,
+    "body": string,
+    "translatedBody": null,
+    "addedAt": string,
+    "senderId": number,
+    "senderName": string,
+    "recipientId": number,
+    "viewed": boolean
+}
 
 
-const initialState: any = {
+const initialState: DialogsStateTypes = {
     // DIALOGS STATE
     dialogs: [],
     newMessageCount: 0, //store the new message count from API //newMessageReceived.get
@@ -18,12 +66,11 @@ const initialState: any = {
     currentPageChat: 1,
     pageSize: 5,
     pagesTotalCount: null,
-    // selectedUserName: '',
-    selectedUser : {
-        selectedUserName : '' ,
-        photo : ''
+    selectedUser: {
+        selectedUserName: '',
+        photo: null as null | ''
     },
-    friendIdLocal: null,
+    friendIdLocal: null as null,
     messages: [],
     message: '',
     fetchingPage: false,
@@ -31,9 +78,10 @@ const initialState: any = {
         term: "",
         friend: null as null | boolean
     },
+    messageId: ""
 }
 
-export const DialogsReducer = (state = initialState, action: ActionsTypes): any => {
+export const DialogsReducer = (state = initialState, action: ActionsTypesDialogs): DialogsStateTypes => {
     switch (action.type) {
         case 'SET_ALL_DIALOGS':
             return {
@@ -54,13 +102,13 @@ export const DialogsReducer = (state = initialState, action: ActionsTypes): any 
             return {
                 ...state,
                 // selectedUserName: action.userName
-                selectedUser : { selectedUserName: action.userName ,  photo : action.photoUser}
+                selectedUser: {selectedUserName: action.userName, photo: action.photoUser}
             }
         case 'SET_FRIEND_ID' :
             return {
                 ...state,
                 friendIdLocal: action.friendId
-            }
+            } as DialogsStateTypes
 
         case 'SET_MESSAGES' :
             return {
@@ -77,27 +125,25 @@ export const DialogsReducer = (state = initialState, action: ActionsTypes): any 
                 ...state,
                 currentDialogsPage: action.pageNumber
             }
-            case 'FIND_DIALOG' :
+        case 'SET_MESSAGE_ID' :
             return {
                 ...state,
-
+                messageId: action.messageId
             }
-
-
         default:
             return state;
     }
 };
 
 
-type ActionsTypes = InferActionsTypes<typeof actionsDialogs>
+type ActionsTypesDialogs = InferActionsTypes<typeof actionsDialogs>
 
 export const actionsDialogs = {
-    setAllDialogsAction: (dialogs: any) => ({
+    setAllDialogsAction: (dialogs: DialogsArrayType[]) => ({
         type: "SET_ALL_DIALOGS",
         dialogs
     } as const),
-    setNewMessageCountAction: (newMessageCount: any) => ({
+    setNewMessageCountAction: (newMessageCount: number) => ({
         type: "NEW_MESSAGE_RECEIVED",
         newMessageCount
     } as const),
@@ -105,84 +151,90 @@ export const actionsDialogs = {
         type: "SET_CURRENT_PAGE",
         currentPageChat
     } as const),
-    setSelectedUserNameAction: (userName: any,photoUser : any) => ({
+    setSelectedUserNameAction: (userName: string, photoUser: string | null) => ({
         type: "SET_SELECTED_USER_NAME",
-        userName ,
+        userName,
         photoUser
     } as const),
-    setFriendIdLocalAction: (friendId: any) => ({
+    setFriendIdLocalAction: (friendId: number | null) => ({
         type: "SET_FRIEND_ID",
         friendId
     } as const),
-    setMessagesAction: (messages: any) => ({
+    setMessagesAction: (messages: DialogsMessagesArrayType[]) => ({
         type: "SET_MESSAGES",
         messages
     } as const),
-    setPagesTotalCount: (pagesTotalCount: any) => ({
+    setPagesTotalCount: (pagesTotalCount: null) => ({
         type: "SET_PAGES_TOTAL_COUNT",
         pagesTotalCount
     } as const),
-    setCurrentDialogsPageAction: (pageNumber: any) => ({
+    setCurrentDialogsPageAction: (pageNumber: number) => ({
         type: "SET_CURRENT_DIALOGS_PAGE",
         pageNumber
     } as const),
-    findDialogAction: (filter: any) => ({
-        type: "FIND_DIALOG",
-        filter
-    } as const),
-
-
+    setMessageIdAction: (messageId: string) => ({
+        type: "SET_MESSAGE_ID",
+        messageId
+    } as const)
 }
 
-// dialogsAPI
-// actionsDialogs
-export const fetchDialogsThunk = (): any => async (dispatch: any) => {
+type ThunkType = ThunkAction<Promise<void>, DialogsStateTypes, unknown, ActionsTypesDialogs | any>
+type ThunkTypeForBothReducers = ThunkAction<Promise<void>, RootState, unknown, ActionsTypesDialogs | any>;
+
+const getChatPageInfo = (getState: () => RootState) => {
+    const currentPageChat = getState().messagesPage.currentPageChat
+    const pageSize = getState().messagesPage.pageSize
+    const friendIdLocal = getState().messagesPage.friendIdLocal
+    return {currentPageChat, pageSize, friendIdLocal}
+}
+
+export const fetchDialogsThunk = (): ThunkType => async (dispatch) => {
     const response = await dialogsAPI.fetchDialogs()
     if (response.status === 200) {
         dispatch(actionsDialogs.setAllDialogsAction(response.data))
     }
 }
-export const newMessageReceivedThunk = (): any => async (dispatch: any) => {
+export const newMessageReceivedThunk = (): ThunkType => async (dispatch) => {
     const response = await dialogsAPI.newMessageReceived()
     if (response.status === 200) {
         dispatch(actionsDialogs.setNewMessageCountAction(response.data))
     }
 }
 
-export const startChatThunk = (friendId: any, userName: any , photoUser : any): any => async (dispatch: any, getState: any) => {
-    // debugger
-    const currentPageChat = getState().messagesPage.currentPageChat // ??
-    const pageSize = getState().messagesPage.pageSize // ??
-
-
+export const startChatThunk = (friendId: number | null, userName: string, photoUser: string | null): ThunkTypeForBothReducers => async (dispatch, getState) => {
+    const {currentPageChat, pageSize} = getChatPageInfo(getState)
     dispatch(actionsDialogs.setCurrentPageAction(1))
-    dispatch(actionsDialogs.setSelectedUserNameAction(userName,photoUser))
+    dispatch(actionsDialogs.setSelectedUserNameAction(userName, photoUser))
     dispatch(actionsDialogs.setFriendIdLocalAction(friendId))
     await dialogsAPI.startChat(friendId)
     dispatch(refreshMessagesThunk(friendId, currentPageChat, pageSize))
-    // await instance.put(`dialogs/${friendId}`)
-    // await refreshMessages(friendId);
 }
 
-export const sendMessageThunk = (friendIdLocal: any, message: any): any => async (dispatch: any, getState: any) => {
-    const currentPageChat = getState().messagesPage.currentPageChat // ??
-    const pageSize = getState().messagesPage.pageSize // ??
-
-    const friendIdLocal = getState().messagesPage.friendIdLocal
+export const sendMessageThunk = (friendIdLocal: null, message: string): ThunkTypeForBothReducers => async (dispatch, getState) => {
+    const {currentPageChat, pageSize, friendIdLocal} = getChatPageInfo(getState)
     await dialogsAPI.sendMessage(friendIdLocal, message)
-    // dispatch(actionsDialogs.setMessageLocalAction(message))
     dispatch(refreshMessagesThunk(friendIdLocal, currentPageChat, pageSize))
-    // await refreshMessages(friendIdLocal);
 }
 
-export const refreshMessagesThunk = (friendId: any, currentPageChat: any, pageSize: any): any => async (dispatch: any, getState: any) => {
+export const refreshMessagesThunk = (friendId: number | null, currentPageChat: number, pageSize: number): ThunkType => async (dispatch) => {
     if (friendId) {
-        // console.log('refreshing new messages...')
         const response = await dialogsAPI.refreshMessages(friendId, currentPageChat, pageSize)
         dispatch(actionsDialogs.setMessagesAction(response.data.items))
         dispatch(actionsDialogs.setPagesTotalCount(response.data.totalCount))
     }
-
+}
+export const deleteMessageThunk = (messageId: string): ThunkTypeForBothReducers => async (dispatch, getState) => {
+    const {currentPageChat, pageSize, friendIdLocal} = getChatPageInfo(getState)
+    dispatch(actionsDialogs.setMessageIdAction(messageId))
+    await dialogsAPI.deleteMessage(messageId)
+    dispatch(refreshMessagesThunk(friendIdLocal, currentPageChat, pageSize))
+}
+export const restoreMessageThunk = (messageId: string): any => async (dispatch: any,getState : any) => {
+    const {currentPageChat, pageSize, friendIdLocal} = getChatPageInfo(getState)
+    if (messageId) {
+        await dialogsAPI.restoreMessage(messageId)
+        dispatch(refreshMessagesThunk(friendIdLocal, currentPageChat, pageSize))
+    }
 }
 
 

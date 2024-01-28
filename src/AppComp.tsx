@@ -14,6 +14,7 @@ import DemoChat from "./components/pages/chat/DemoChat";
 import Friends from "./components/friends/Friends";
 import ProfileContainer from "./components/profile/profileinfo/ProfileContainer";
 import DialogsContainer from "./components/dialogs/DialogsContainer";
+import News from "./components/news/News";
 
 const {Header, Content, Footer, Sider} = Layout;
 
@@ -54,6 +55,7 @@ const AppComp = () => {
                                 <Menu.Item key="2"> <NavLink to={"/users"}>Users</NavLink> </Menu.Item>
                                 <Menu.Item key="3"> <NavLink to={"/friends"}>Friends</NavLink> </Menu.Item>
                                <Menu.Item key="5"> <NavLink to={"/dialogs"}>Container Dialogs</NavLink> </Menu.Item>
+                               <Menu.Item key="6"> <NavLink to={"/news"}>News</NavLink> </Menu.Item>
 
                             </SubMenu>
 
@@ -81,6 +83,7 @@ const AppComp = () => {
                             <Route path="/login" element={<Login/>}/>
                             <Route path="/friends" element={<Friends/>} />
                             <Route path="/dialogs/:id?" element={<DialogsContainer/>}/>
+                            <Route path="/news" element={<News/>}/>
 
 
 
