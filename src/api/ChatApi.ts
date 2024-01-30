@@ -31,10 +31,12 @@ const errorHandler = () => {
 };
 
 const notifySubscribersAboutStatus = (status : StatusType) => {
+    // debugger
     subscribers['status-changed'].forEach(item => item(status))
 }
 
 function createChannel() {
+    console.log('creating channel')
     cleanUp()
     if (ws !== null) {
         ws.removeEventListener('close', closeHandler);
@@ -59,6 +61,7 @@ export const chatAPI = {
     },
     //callback is function where we can send array of messages : callback = (messages[]) => void
     subscribe(eventName: EventsNames, callback: MessagesReceivedSubscriberType | StatusChangedSubscriberType) {
+        // debugger
         // @ts-ignore
         subscribers[eventName].push(callback)
         return () => {

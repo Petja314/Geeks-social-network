@@ -54,6 +54,7 @@ let _newMessageHandler: ((messages: ChatMessageType[]) => void) | null = null
 const newMessageHandlerCreator = (dispatch: Dispatch) => {
     if (_newMessageHandler === null) {
         _newMessageHandler = (messages) => {
+            // debugger
             dispatch(actions.messagesReceived(messages))
         }
     }
@@ -64,6 +65,7 @@ let _statusChangedHandler: ((status: StatusType) => void) | null = null
 const statusChangedHandlerCreator = (dispatch: Dispatch) => {
     if (_statusChangedHandler === null) {
         _statusChangedHandler = (status) => {
+            // debugger
             dispatch(actions.statusChanged(status))
         }
     }

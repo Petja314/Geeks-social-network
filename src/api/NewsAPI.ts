@@ -1,26 +1,21 @@
-
 import axios from "axios";
+// const apiKey = "DJF52CWG7B3HDD3F";
 
-const apiKey = "f282371cea4c40f78c09e297f574ea11";
-// https://newsapi.org/v1/articles?source=the-verge&apiKey=f282371cea4c40f78c09e297f574ea11
+const apikey = process.env.REACT_APP_API_KEY_NEWS
 
 
 const instanceNews = axios.create({
-    baseURL: "https://newsapi.org/v1/",
+    baseURL: "https://www.alphavantage.co/",
     params: {
-        apikey: apiKey,
+        apikey: apikey,
     },
 });
-
 export const newsAPI = {
         getAllNews() {
-            return instanceNews.get('articles?source=the-verge');
+            return instanceNews.get('/query?function=NEWS_SENTIMENT&topics=technology&limit=50');
         }
-
 }
-
-
-
 export default instanceNews;
+
 
 

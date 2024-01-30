@@ -111,6 +111,10 @@ const DemoChat = () => {
     const [inputMessage, setInputMessage] = useState('');
     const messagesEndRef = useRef<HTMLDivElement>(null);
 
+    // console.log('socketChannel' , socketChannel)
+    // console.log('messages' , messages)
+    // console.log('messagesEndRef' , messagesEndRef)
+
     useEffect(() => {
         let socket = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx');
         setSocketChannel(socket);
@@ -121,7 +125,7 @@ const DemoChat = () => {
         };
 
         socket.onclose = (event) => {
-            console.log('WebSocket connection closed:', event);
+            // console.log('WebSocket connection closed:', event);
         };
 
         return () => {

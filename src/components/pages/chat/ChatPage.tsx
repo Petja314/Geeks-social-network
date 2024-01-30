@@ -30,11 +30,11 @@ const Chat = () => {
 
     return (
         <div>
-            {status === 'error' && <div>Some error occurred. Please refresh the page</div> }
-                <div>
-                    <Messages/>
-                    <AddMessageForm/>
-                </div>
+            {status === 'error' && <div>Some error occurred. Please refresh the page</div>}
+            <div>
+                <Messages/>
+                <AddMessageForm/>
+            </div>
 
         </div>
     );
@@ -42,13 +42,12 @@ const Chat = () => {
 const Messages: React.FC = ({}) => {
     const messages = useSelector((state: RootState) => state.chat.messages)
     const messagesAnchorRef = useRef<HTMLDivElement>(null)
-    const [isAutoScroll,setIsAutoScroll] = useState(true)
-    const scrollHandler = (event : any) => {
+    const [isAutoScroll, setIsAutoScroll] = useState(true)
+    const scrollHandler = (event: any) => {
         const element = event.currentTarget
-        if (Math.abs( (element.scrollHeight - element.scrollTop) - element.clientHeight ) < 300) {
+        if (Math.abs((element.scrollHeight - element.scrollTop) - element.clientHeight) < 300) {
             !isAutoScroll && setIsAutoScroll(true)
-        }
-        else {
+        } else {
             isAutoScroll && setIsAutoScroll(false)
         }
     }

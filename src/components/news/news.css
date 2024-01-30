@@ -1,15 +1,16 @@
 .container {
     font-family: "IBM Plex Mono", monospace;
-}
+    max-width: 1200px;
 
-.ejBEaK {
+}
+.news-section {
     /*background-color : #555555;*/
     /*color: white;*/
     font-weight: bold;
     grid-template-columns : repeat(6,1fr);
 }
 
-.ejBEaK{
+.news-section{
     display: grid;
     gap: 2px;
     margin : 0px auto;
@@ -19,48 +20,15 @@
     box-sizing: inherit;
 }
 
-.story-card_1 {
-    border : 2px solid rgb(60, 60, 59);
-    grid-column : span 3;
-}
-.story-card_2 {
-    border : 2px solid rgb(60, 60, 59);
-    grid-column : span 3;
-}
-.story-card_3 {
-    border : 2px solid rgb(60, 60, 59);
-    grid-column : span 2;
-}
-.story-card_4 {
-    border : 2px solid rgb(60, 60, 59);
-    grid-column : span 2;
-}
-.story-card_5 {
-    border : 2px solid rgb(60, 60, 59);
-    grid-column : span 2;
-}
-
-.story-card_6 {
-    border : 2px solid rgb(60, 60, 59);
-    grid-column : span 3;
-}
-
-.story-card_7 {
-    border : 2px solid rgb(60, 60, 59);
-    grid-column : span 3;
-}
-
-.story-card_8 {
-    border : 2px solid rgb(60, 60, 59);
-    grid-column : span 2;
-}
-.story-card_9 {
-    border : 2px solid rgb(60, 60, 59);
-    grid-column : span 2;
-}
-.story-card_10 {
-    border : 2px solid rgb(60, 60, 59);
-    grid-column : span 2;
+/*Attribute selector with the caret (^=) targets any class that starts with "story-card_". It accommodates the dynamic nature of your class names
+because we got :  className={`story-card_${index + 1}`} in JSX
+.*/
+[class^="story-card_"]{
+    border: 2px solid rgb(60, 60, 59);
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
 }
 
 
