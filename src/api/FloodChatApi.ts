@@ -71,6 +71,10 @@ export const DemoChatApi = {
     //Send new message through WebSocket
     send_message(message: string) {
         ws?.send(message)
+    },
+    stop() {
+        cleanUp()
+        ws?.close()
     }
 }
 

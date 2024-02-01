@@ -20,7 +20,8 @@ export type RootState = ReturnType<typeof rootReducers>
     app : AppReducer,
     myposts : MyPostsReducer,
     friendPage : FriendsReducer,
-    demoChatPage : FloodChatReducer
+    demoChatPage : FloodChatReducer,
+
 
 
     // form : formReducer

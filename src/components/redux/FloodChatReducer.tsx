@@ -1,4 +1,5 @@
 import {DemoChatApi, MessageInfoType} from "../../api/FloodChatApi";
+import {Dispatch} from "redux";
 
 export  type WebSocketStateType = {
     messages : MessageInfoType[]
@@ -20,7 +21,6 @@ export const FloodChatReducer = (state  = initialState , action : any ) => {
 }
 
 
-
 export const ChatActions = {
     messagesReceivedAC : (messages : MessageInfoType) => ({
         type : "MESSAGES_RECEIVED",
@@ -28,20 +28,26 @@ export const ChatActions = {
     }as const),
 }
 
+
+let _newMessageHandler: ((messages: any) => void) | null = null
+const newMessageHandlerCreator = (dispatch: Dispatch) => {
+    if (_newMessageHandler === null) {
+        _newMessageHandler = (messages) => {
+            dispatch(ChatActions.messagesReceivedAC(messages))
+        }
+    }
+    return _newMessageHandler
+}
 export const startMessagesListening = () => (dispatch : any) => {
     DemoChatApi.start_websocket()
-    DemoChatApi.subscribe((messages : MessageInfoType) => {
-        // debugger
-        dispatch(ChatActions.messagesReceivedAC(messages))
-    })
+    DemoChatApi.subscribe(newMessageHandlerCreator(dispatch))
 }
 export const stopMessagesListening = () => (dispatch : any) => {
-    DemoChatApi.start_websocket()
-    DemoChatApi.unsubscribe((messages : MessageInfoType) => {
-        dispatch(ChatActions.messagesReceivedAC(messages))
-    })
+    DemoChatApi.unsubscribe(newMessageHandlerCreator(dispatch))
+    DemoChatApi.stop()
 }
 export const sendMessageThunk = (messages : string) => () => {
+    // console.log('messages' , messages)
     DemoChatApi.send_message(messages)
 }
 

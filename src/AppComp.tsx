@@ -67,7 +67,6 @@ const AppComp = () => {
                             <Route path="/dialogs/:id?" element={<DialogsContainer/>}/>
                             <Route path="/news" element={<News/>}/>
                             <Route path="/flood_chat" element={<FloodChat/>}/>
-
                         </Routes>
                     </Content>
 
