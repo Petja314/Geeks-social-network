@@ -5,11 +5,10 @@ import {UsersReducer} from "./UsersReducer";
 import {MusicReducer} from "./MusicReducer";
 import {AuthReducer} from "./AuthReducer";
 import thunkMiddleware from 'redux-thunk';
-// import { reducer as formReducer} from 'redux-form';
 import {AppReducer} from "./AppReducer";
-import ChatReducer from "./ChatReducer";
 import MyPostsReducer from "./MyPostsReducer";
 import {FriendsReducer} from "./FriendsReducer";
+import {FloodChatReducer} from "./FloodChatReducer";
 
 export type RootState = ReturnType<typeof rootReducers>
  let rootReducers = combineReducers({
@@ -19,9 +18,11 @@ export type RootState = ReturnType<typeof rootReducers>
     musicPage: MusicReducer,
     userAuthPage : AuthReducer,
     app : AppReducer,
-    chat : ChatReducer,
     myposts : MyPostsReducer,
-    friendPage : FriendsReducer
+    friendPage : FriendsReducer,
+    demoChatPage : FloodChatReducer
+
+
     // form : formReducer
 });
 

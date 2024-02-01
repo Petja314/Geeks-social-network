@@ -44,7 +44,7 @@ const RecentDialogs: React.FC<RecentDialogsPropsType> = ({dialogs, newMessageCou
         }
     }
 
-    //Filter recent dialogs and users to find or start chat
+    //Filter recent dialogs and users to find or start flood_chat
     const onFilterChanged = (filter: FilterType) => {
         // debugger
         filter = {...filter, friend: null, term: filter.term}

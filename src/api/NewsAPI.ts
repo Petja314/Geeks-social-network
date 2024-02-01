@@ -1,8 +1,5 @@
 import axios from "axios";
-// const apiKey = "DJF52CWG7B3HDD3F";
-
-const apikey = process.env.REACT_APP_API_KEY_NEWS
-
+const apikey  = process.env.REACT_APP_API_KEY_NEWS
 
 const instanceNews = axios.create({
     baseURL: "https://www.alphavantage.co/",

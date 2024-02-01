@@ -43,10 +43,10 @@ const News = () => {
     console.log('endIndex', endIndex)
 
     useEffect(() => {
+        sessionStorage.removeItem('AlphaAvantageApi')
         const fetchData = async () => {
             try {
                 const storedResponse = sessionStorage.getItem('AlphaAvantageApi');
-
                 if (storedResponse) {
                     const parsedResponse = JSON.parse(storedResponse);
                     setData(parsedResponse.feed);

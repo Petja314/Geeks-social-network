@@ -71,7 +71,7 @@ const DialogsChat: React.FC<DialogsChatPropsType> = ({friendIdLocal, currentPage
         <div>
             {/*CHAT SECTION*/}
             <div style={{position: "relative"}}>
-                {/*<div>current page chat : {currentPageChat}</div>*/}
+                {/*<div>current page flood_chat : {currentPageChat}</div>*/}
                 <div
                     ref={scrollContainerRef}
                     onScroll={scrollHandlerMessages}

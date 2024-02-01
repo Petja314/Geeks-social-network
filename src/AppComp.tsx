@@ -1,16 +1,13 @@
 import React, {useEffect} from 'react';
 import './index.css';
-import {Breadcrumb, Col, Layout, Menu, Row, theme} from 'antd';
-import SubMenu from "antd/es/menu/SubMenu";
+import {Breadcrumb,  Layout, Menu, Row, theme} from 'antd';
 import {NavLink, Route, Routes} from "react-router-dom";
 import Users from "./components/users/Users";
 import Login from "./components/login/Login";
 import HeaderContainer from "./components/header/HeaderContainer";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {initializeApp} from "./components/redux/AppReducer";
-import ChatPage from "./components/pages/chat/ChatPage";
-import EffectTestComponent from "./components/pages/chat/EffectTestComponent";
-import DemoChat from "./components/pages/chat/DemoChat";
+import FloodChat from "./components/flood_chat/FloodChat";
 import Friends from "./components/friends/Friends";
 import ProfileContainer from "./components/profile/profileinfo/ProfileContainer";
 import DialogsContainer from "./components/dialogs/DialogsContainer";
@@ -19,7 +16,6 @@ import News from "./components/news/News";
 const {Header, Content, Footer, Sider} = Layout;
 
 const AppComp = () => {
-
 
     const dispatch: any = useDispatch();
     useEffect(() => {
@@ -50,26 +46,12 @@ const AppComp = () => {
                             // defaultOpenKeys={['sub1']}
                             style={{height: '100%'}}>
 
-                            <SubMenu key="sub1" title="My Profile">
-                                <Menu.Item key="1"> <NavLink to={"/profile"}>Profile</NavLink> </Menu.Item>
-                                <Menu.Item key="2"> <NavLink to={"/users"}>Users</NavLink> </Menu.Item>
-                                <Menu.Item key="3"> <NavLink to={"/friends"}>Friends</NavLink> </Menu.Item>
-                               <Menu.Item key="5"> <NavLink to={"/dialogs"}>Container Dialogs</NavLink> </Menu.Item>
-                               <Menu.Item key="6"> <NavLink to={"/news"}>News</NavLink> </Menu.Item>
-
-                            </SubMenu>
-
-                            <SubMenu key="sub3" title="Chat Websocket">
-                                <Menu.Item key="22"> <NavLink to={"/chat"}>ChatPage</NavLink> </Menu.Item>
-                            </SubMenu>
-
-                            <SubMenu key="sub4" title="UseEffect Test">
-                                <Menu.Item key="23"> <NavLink to={"/effect"}>TestUseEffect</NavLink> </Menu.Item>
-                            </SubMenu>
-
-                            <SubMenu key="sub5" title="Demo Chat Websocket">
-                                <Menu.Item key="24"> <NavLink to={"/demochat"}>Demo Chat</NavLink> </Menu.Item>
-                            </SubMenu>
+                            <Menu.Item key="1"> <NavLink to={"/profile"}>Profile</NavLink> </Menu.Item>
+                            <Menu.Item key="2"> <NavLink to={"/users"}>Users</NavLink> </Menu.Item>
+                            <Menu.Item key="3"> <NavLink to={"/friends"}>Friends</NavLink> </Menu.Item>
+                            <Menu.Item key="5"> <NavLink to={"/dialogs"}>Messenger</NavLink> </Menu.Item>
+                            <Menu.Item key="6"> <NavLink to={"/news"}>News</NavLink> </Menu.Item>
+                            <Menu.Item key="8"> <NavLink to={"/flood_chat"}>Flood Dev Chat</NavLink> </Menu.Item>
                         </Menu>
 
 
@@ -78,19 +60,14 @@ const AppComp = () => {
 
                     <Content style={{padding: '0 24px', minHeight: 280}}>
                         <Routes>
-                            <Route path="/profile/:id?" element={<ProfileContainer/> } />
+                            <Route path="/profile/:id?" element={<ProfileContainer/>}/>
                             <Route path="/users" element={<Users/>}/>
                             <Route path="/login" element={<Login/>}/>
-                            <Route path="/friends" element={<Friends/>} />
+                            <Route path="/friends" element={<Friends/>}/>
                             <Route path="/dialogs/:id?" element={<DialogsContainer/>}/>
                             <Route path="/news" element={<News/>}/>
+                            <Route path="/flood_chat" element={<FloodChat/>}/>
 
-
-
-
-                            <Route path="/chat" element={<ChatPage/>}/>
-                            <Route path="/effect" element={<EffectTestComponent/>}/>
-                            <Route path="/demochat" element={<DemoChat/>}/>
                         </Routes>
                     </Content>
 
