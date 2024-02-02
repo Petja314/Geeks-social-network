@@ -3,8 +3,6 @@ import {useDispatch, useSelector} from 'react-redux';
 import {getFollowingInProgressSelector, getIsFetchingSelector} from "../redux/UsersSelectors";
 import {unfollowUserThunkCreator} from "../redux/UsersReducer";
 import PaginationUsers from "../users/PaginationUsers";
-import userPhoto from "../assets/images/louie.jpg";
-import styles from "../users/users.module.css";
 import {FriendsListStateType, setFriendListThunkCreator} from "../redux/FriendsReducer";
 import {RootState} from "../redux/Redux-Store";
 import {ThunkDispatch} from "redux-thunk";

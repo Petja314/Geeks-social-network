@@ -12,6 +12,7 @@ import Friends from "./components/friends/Friends";
 import ProfileContainer from "./components/profile/profileinfo/ProfileContainer";
 import DialogsContainer from "./components/dialogs/DialogsContainer";
 import News from "./components/news/News";
+import AskOpenAi from "./components/openAi/AskOpenAi";
 
 const {Header, Content, Footer, Sider} = Layout;
 
@@ -52,6 +53,7 @@ const AppComp = () => {
                             <Menu.Item key="5"> <NavLink to={"/dialogs"}>Messenger</NavLink> </Menu.Item>
                             <Menu.Item key="6"> <NavLink to={"/news"}>News</NavLink> </Menu.Item>
                             <Menu.Item key="8"> <NavLink to={"/flood_chat"}>Flood Dev Chat</NavLink> </Menu.Item>
+                            <Menu.Item key="8"> <NavLink to={"/ask_ai"}>Ask AI</NavLink> </Menu.Item>
                         </Menu>
 
 
@@ -67,6 +69,7 @@ const AppComp = () => {
                             <Route path="/dialogs/:id?" element={<DialogsContainer/>}/>
                             <Route path="/news" element={<News/>}/>
                             <Route path="/flood_chat" element={<FloodChat/>}/>
+                            <Route path="/ask_ai" element={<AskOpenAi/>}/>
                         </Routes>
                     </Content>
 

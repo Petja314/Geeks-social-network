@@ -9,6 +9,7 @@ import {AppReducer} from "./AppReducer";
 import MyPostsReducer from "./MyPostsReducer";
 import {FriendsReducer} from "./FriendsReducer";
 import {FloodChatReducer} from "./FloodChatReducer";
+import OpenAiReducer from "../openAi/OpenAiReducer";
 
 export type RootState = ReturnType<typeof rootReducers>
  let rootReducers = combineReducers({
@@ -21,6 +22,7 @@ export type RootState = ReturnType<typeof rootReducers>
     myposts : MyPostsReducer,
     friendPage : FriendsReducer,
     demoChatPage : FloodChatReducer,
+    openAiPage : OpenAiReducer
 
 
 
