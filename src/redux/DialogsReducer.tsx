@@ -1,8 +1,7 @@
 import React from 'react';
 import {InferActionsTypes, RootState} from "./Redux-Store";
-import {dialogsAPI} from "../../api/DialogsAPI";
+import {dialogsAPI} from "../api/DialogsAPI";
 import {ThunkAction} from "redux-thunk";
-import {message} from "antd";
 
 export type DialogsStateTypes = {
     // DIALOGS STATE
@@ -229,7 +228,7 @@ export const deleteMessageThunk = (messageId: string): ThunkTypeForBothReducers 
     await dialogsAPI.deleteMessage(messageId)
     dispatch(refreshMessagesThunk(friendIdLocal, currentPageChat, pageSize))
 }
-export const restoreMessageThunk = (messageId: string): any => async (dispatch: any,getState : any) => {
+export const restoreMessageThunk = (messageId: string): ThunkTypeForBothReducers => async (dispatch,getState ) => {
     const {currentPageChat, pageSize, friendIdLocal} = getChatPageInfo(getState)
     if (messageId) {
         await dialogsAPI.restoreMessage(messageId)

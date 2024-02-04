@@ -1,14 +1,14 @@
 import React, {useEffect,  useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {actionsDialogs, DialogsStateTypes, fetchDialogsThunk, newMessageReceivedThunk, refreshMessagesThunk} from "../redux/DialogsReducer";
-import {FilterType,  getUsersThunkCreator,  UsersComponentTypeArrays} from "../redux/UsersReducer";
-import {getCurrentPageSelector, getUsersFilterSelector, getUsersPageSelector} from "../redux/UsersSelectors";
+import {actionsDialogs, DialogsStateTypes, fetchDialogsThunk, newMessageReceivedThunk, refreshMessagesThunk} from "../../redux/DialogsReducer";
+import {FilterType,  getUsersThunkCreator,  UsersComponentTypeArrays} from "../../redux/UsersReducer";
+import {getCurrentPageSelector, getUsersFilterSelector, getUsersPageSelector} from "../../redux/selectors/UsersSelectors";
 import './dialogs.css'
 import {compose} from "redux";
-import {WithAuthRedirect} from "../hoc/WithAuthRedirect";
+import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
 import DialogsChat from "./DialogsChat";
 import RecentDialogs from "./RECENT DIALOGS";
-import {RootState} from "../redux/Redux-Store";
+import {RootState} from "../../redux/Redux-Store";
 import {ThunkDispatch} from "redux-thunk";
 
 const DialogsContainer = () => {
@@ -84,7 +84,6 @@ const DialogsContainer = () => {
                     selectedUser={selectedUser}
                     messages={messages}
                 />
-
 
             </div>
         </div>

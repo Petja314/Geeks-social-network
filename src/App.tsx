@@ -7,10 +7,9 @@ import {Routes, Route, useParams} from "react-router-dom";
 import HeaderContainer from "./components/header/HeaderContainer";
 import {connect} from "react-redux";
 import {compose} from "redux";
-import {initializeApp} from "./components/redux/AppReducer"
-import Preloader from "./components/common/preloader/Preloader";
+import {initializeApp} from "./redux/AppReducer"
+import Preloader from "./common/preloader/Preloader";
 import { useLocation, useNavigate} from 'react-router-dom';
-import {ReactLazyWrappedHOC} from "./components/hoc/ReaxtLazyWrappedHOC";
 import Users from "./components/users/Users";
 import Login from "./components/login/Login";
 import {Button} from "antd";

@@ -1,11 +1,11 @@
-import robot1 from "../../../assets/images/robot-a4.png";
-import robot2 from "../../../assets/images/robot-a5.png";
-import robot3 from "../../../assets/images/robot-b1.png";
+import robot1 from "../../../../assets/images/robots_images/robot-a4.png";
+import robot2 from "../../../../assets/images/robots_images/robot-a5.png";
+import robot3 from "../../../../assets/images/robots_images/robot-b1.png";
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { ThunkDispatch } from 'redux-thunk';
-import {fetchPostsThunk, ResponseTestAPIDataType, setUnverifiedUserIDThunk} from "../../../redux/MyPostsReducer";
-import {RootState} from "../../../redux/Redux-Store";
+import {fetchPostsThunk, ResponseTestAPIDataType, setUnverifiedUserIDThunk} from "../../../../redux/MyPostsReducer";
+import {RootState} from "../../../../redux/Redux-Store";
 
 interface UsePostsFetchUsersProps {
     idUserURL: number | null;

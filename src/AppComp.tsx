@@ -6,7 +6,7 @@ import Users from "./components/users/Users";
 import Login from "./components/login/Login";
 import HeaderContainer from "./components/header/HeaderContainer";
 import {useDispatch} from "react-redux";
-import {initializeApp} from "./components/redux/AppReducer";
+import {initializeApp} from "./redux/AppReducer";
 import FloodChat from "./components/flood_chat/FloodChat";
 import Friends from "./components/friends/Friends";
 import ProfileContainer from "./components/profile/profileinfo/ProfileContainer";

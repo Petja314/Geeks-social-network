@@ -1,7 +1,7 @@
 import React from 'react';
-import { MyPostsInitialState, onPageChangeThunk, ResponseTestAPIDataType, setUnverifiedUserIDThunk, setUserIdThunk} from "../../../redux/MyPostsReducer";
+import { MyPostsInitialState, onPageChangeThunk, ResponseTestAPIDataType, setUnverifiedUserIDThunk, setUserIdThunk} from "../../../../redux/MyPostsReducer";
 import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "../../../redux/Redux-Store";
+import {RootState} from "../../../../redux/Redux-Store";
 import {ThunkDispatch} from "redux-thunk";
 import styles from "../MyPosts.module.css";
 import CurrentPostComponent from "../CurrentPostComponent";

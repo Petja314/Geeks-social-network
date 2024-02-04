@@ -1,15 +1,15 @@
-import robot1 from "../../assets/images/robot-a4.png";
-import robot2 from "../../assets/images/robot-a5.png";
-import robot3 from "../../assets/images/robot-b1.png";
-import robot4 from "../../assets/images/robot-b2.png";
-import robot5 from "../../assets/images/robot-b3.png";
-import robot6 from "../../assets/images/robot-b4.png";
-import robot7 from "../../assets/images/robot-b5.png";
+import robot1 from "../../../assets/images/robots_images/robot-a4.png";
+import robot2 from "../../../assets/images/robots_images/robot-a5.png";
+import robot3 from "../../../assets/images/robots_images/robot-b1.png";
+import robot4 from "../../../assets/images/robots_images/robot-b2.png";
+import robot5 from "../../../assets/images/robots_images/robot-b3.png";
+import robot6 from "../../../assets/images/robots_images/robot-b4.png";
+import robot7 from "../../../assets/images/robots_images/robot-b5.png";
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { ThunkDispatch } from 'redux-thunk';
-import {fetchPostsThunk, ResponseTestAPIDataType, setUserIdThunk} from "../../redux/MyPostsReducer";
-import {RootState} from "../../redux/Redux-Store";
+import {fetchPostsThunk, ResponseTestAPIDataType, setUserIdThunk} from "../../../redux/MyPostsReducer";
+import {RootState} from "../../../redux/Redux-Store";
 
 interface UsePostsFetchProps {
     userId: number | null;

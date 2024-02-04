@@ -1,4 +1,4 @@
-import {usersAPI} from "../../api/UsersAPI";
+import {usersAPI} from "../api/UsersAPI";
 import {InferActionsTypes, RootState} from "./Redux-Store";
 import {ThunkAction} from "redux-thunk";
 

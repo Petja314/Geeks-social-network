@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import styles from "./users.module.css";
-import {FilterType, followUserThunkCreator, getUsersThunkCreator, unfollowUserThunkCreator, UsersComponentTypeArrays} from "../redux/UsersReducer";
+import {FilterType, followUserThunkCreator, getUsersThunkCreator, unfollowUserThunkCreator, UsersComponentTypeArrays} from "../../redux/UsersReducer";
 import {NavigateFunction, NavLink, useLocation, useNavigate} from "react-router-dom";
 import PaginationUsers from "./PaginationUsers";
 import {useDispatch, useSelector} from "react-redux";
@@ -12,17 +12,17 @@ import {
     getTotalUsersCountSelector,
     getUsersFilterSelector,
     getUsersPageSelector
-} from "../redux/UsersSelectors";
-import Preloader from "../common/preloader/Preloader";
+} from "../../redux/selectors/UsersSelectors";
+import Preloader from "../../common/preloader/Preloader";
 import {compose} from "redux";
 import queryString, {ParsedQuery} from 'query-string';
-import {WithAuthRedirect} from "../hoc/WithAuthRedirect";
+import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
 import UsersSearchForm from "./UsersSearchForm";
 import {ThunkDispatch} from "redux-thunk";
-import {RootState} from "../redux/Redux-Store";
-import {user_images} from "../assets/user_avatar_img/user_avatar_array";
+import {RootState} from "../../redux/Redux-Store";
+import {user_images} from "../../assets/images/user_avatar_img/user_avatar_array";
 import UserAvatarPhoto from "./UserAvatarPhoto";
-import {startChatThunk} from "../redux/DialogsReducer";
+import {startChatThunk} from "../../redux/DialogsReducer";
 
 export interface LocationParams {
     pathname: string;
@@ -136,12 +136,11 @@ const Users = () => {
 
 
                     </span>
-
-
                     </div>)}
         </div>
     );
 };
+
 
 
 const UsersMemoComponent = React.memo(Users)

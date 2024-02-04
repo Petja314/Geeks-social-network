@@ -2,21 +2,19 @@ import {applyMiddleware, combineReducers, compose, createStore} from "redux";
 import {ProfileReducer} from "./ProfileReducer";
 import {DialogsReducer} from "./DialogsReducer";
 import {UsersReducer} from "./UsersReducer";
-import {MusicReducer} from "./MusicReducer";
 import {AuthReducer} from "./AuthReducer";
 import thunkMiddleware from 'redux-thunk';
 import {AppReducer} from "./AppReducer";
 import MyPostsReducer from "./MyPostsReducer";
 import {FriendsReducer} from "./FriendsReducer";
 import {FloodChatReducer} from "./FloodChatReducer";
-import OpenAiReducer from "../openAi/OpenAiReducer";
+import OpenAiReducer from "./OpenAiReducer";
 
 export type RootState = ReturnType<typeof rootReducers>
  let rootReducers = combineReducers({
     profilePage: ProfileReducer,
     messagesPage: DialogsReducer,
     usersPage: UsersReducer,
-    musicPage: MusicReducer,
     userAuthPage : AuthReducer,
     app : AppReducer,
     myposts : MyPostsReducer,
@@ -24,9 +22,6 @@ export type RootState = ReturnType<typeof rootReducers>
     demoChatPage : FloodChatReducer,
     openAiPage : OpenAiReducer
 
-
-
-    // form : formReducer
 });
 
 type PropertiesType<T> = T extends {[key : string] : infer U} ? U : never

@@ -1,12 +1,15 @@
 import React, {useEffect, useState, useRef} from 'react';
 import {Input, Button, Row, Col, message} from 'antd';
 import {useDispatch, useSelector} from "react-redux";
-import {sendMessageThunk, startMessagesListening, stopMessagesListening, WebSocketStateType} from "../redux/FloodChatReducer";
-import {RootState} from "../redux/Redux-Store";
+import {sendMessageThunk, startMessagesListening, stopMessagesListening, WebSocketStateType} from "../../redux/FloodChatReducer";
+import {RootState} from "../../redux/Redux-Store";
+import {MessageInfoType} from "../../api/FloodChatApi";
+import {compose} from "redux";
+import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
 const {TextArea} = Input;
 const FloodChat = () => {
     const dispatch: any = useDispatch()
-    const messages: WebSocketStateType[] = useSelector((state: RootState) => state.demoChatPage.messages)
+    const messages: MessageInfoType[] = useSelector((state: RootState) => state.demoChatPage.messages)
     const scrollContainerRef = useRef<HTMLInputElement>(null);
 
     console.log('render')
@@ -27,6 +30,9 @@ const FloodChat = () => {
             scrollContainerRef.current.scrollTop = scrollContainerRef.current.scrollHeight;
         }
     }, [messages])
+
+
+    console.log('messages' , messages)
     return (
         <div style={{maxWidth: '700px', margin: 'auto', padding: '20px', border: '1px solid #ddd', borderRadius: '10px'}}>
                 <Row justify="center">
@@ -47,8 +53,8 @@ const FloodChat = () => {
                         backgroundColor: '#f5f5f5',
                     }}
                 >
-                    {messages.map((item: any, index: any) => (
-                        < div   >
+                    {messages.map((item: MessageInfoType, index: number) => (
+                        < div  key={item.userId} >
                             <Row align="middle" gutter={[16, 16]}>
                                 <Col>
                                     <img style={{width: '40px', borderRadius: '50%'}} src={item.photo} alt=""/>
@@ -126,4 +132,8 @@ const AddMessageForm = () => {
 }
 
 
-export default FloodChat;
+const FloodChatMemoComponent = React.memo(FloodChat)
+export default compose(
+    WithAuthRedirect
+)(FloodChatMemoComponent)
+

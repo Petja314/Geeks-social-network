@@ -1,7 +1,7 @@
 import React from 'react';
-import {ResponseTestAPIDataType, savePostThunk} from "../../redux/MyPostsReducer";
+import {ResponseTestAPIDataType, savePostThunk} from "../../../redux/MyPostsReducer";
 import {ThunkDispatch} from "redux-thunk";
-import {RootState} from "../../redux/Redux-Store";
+import {RootState} from "../../../redux/Redux-Store";
 import {useDispatch} from "react-redux";
 import styles from "./MyPosts.module.css";
 

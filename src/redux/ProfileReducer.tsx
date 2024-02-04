@@ -1,12 +1,12 @@
 import React from 'react';
-import {ResultCodesEnum} from "../../api/Api";
+import {ResultCodesEnum} from "../api/Api";
 import {ThunkAction, ThunkDispatch} from "redux-thunk";
 import {InferActionsTypes, RootState} from "./Redux-Store";
-import {profileAPI} from "../../api/ProfileAPI";
+import {profileAPI} from "../api/ProfileAPI";
 import {Action, AnyAction} from "redux";
 import {act} from "react-dom/test-utils";
 import _ from "lodash";
-import {usersAPI} from "../../api/UsersAPI";
+import {usersAPI} from "../api/UsersAPI";
 
 export type ProfileDataType = {
     aboutMe: string,

@@ -2,10 +2,12 @@ import React, {useEffect, useRef, useState, KeyboardEvent } from 'react';
 import {Field, Form, Formik} from "formik";
 import "./openai.css"
 import {useDispatch, useSelector} from "react-redux";
-import {MessagesResponseAiType, OpenAiAction, OpenAiTypes, postMessageToAiThunk} from "./OpenAiReducer";
-import {RootState} from "../redux/Redux-Store";
+import {MessagesResponseAiType, OpenAiAction, OpenAiTypes, postMessageToAiThunk} from "../../redux/OpenAiReducer";
+import {RootState} from "../../redux/Redux-Store";
 import {ThunkDispatch} from "redux-thunk";
 import {TypingEffect} from "./typing-effect";
+import {compose} from "redux";
+import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
 
 const AskOpenAi = () => {
     const dispatch: ThunkDispatch<RootState, void, any> = useDispatch()
@@ -25,7 +27,7 @@ const AskOpenAi = () => {
         dispatch(OpenAiAction.inputValueSentAC(''))
     }
     const handleSubmit = async () => {
-        await sendMessageOpenAi
+        await sendMessageOpenAi()
     }
     const handleKeyDown = (event : KeyboardEvent<HTMLImageElement>) => {
         if (event.keyCode === 13 ) {
@@ -97,4 +99,11 @@ const OpenAiResponse = ({isLoading} : OpenAiResponseProps) => {
     )
 }
 
-export default AskOpenAi;
+
+const AskOpenAiMemoComponent = React.memo(AskOpenAi)
+export default compose(
+    WithAuthRedirect
+)(AskOpenAiMemoComponent)
+
+
+

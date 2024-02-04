@@ -1,9 +1,9 @@
 import React, {ChangeEvent, useState} from "react";
-import Preloader from "../../common/preloader/Preloader";
+import Preloader from "../../../common/preloader/Preloader";
 import ProfileStatus from "./ProfileStatus"
-import userPhoto from "../../assets/images/louie.jpg"
+import userPhoto from "../../../assets/images/louie.jpg"
 import 'filepond/dist/filepond.min.css';
-import {ActionsProfileTypes, ProfileDataType, ProfileStateTypes, savePhotoThunk} from "../../redux/ProfileReducer";
+import {ActionsProfileTypes, ProfileDataType, ProfileStateTypes, savePhotoThunk} from "../../../redux/ProfileReducer";
 import {useDispatch} from "react-redux";
 import {ProfileEditForm} from "./ProfileEditForm";
 import ProfileData from "./ProfileData";

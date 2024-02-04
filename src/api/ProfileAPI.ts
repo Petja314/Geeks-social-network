@@ -1,4 +1,4 @@
-import {ProfileDataType} from "../components/redux/ProfileReducer";
+import {ProfileDataType} from "../redux/ProfileReducer";
 import {instance, ResponseType, ResultCodesEnum} from "./Api";
 
 export const profileAPI = {

@@ -1,9 +1,9 @@
 import React from 'react';
-import {openAiCall} from "./OpenApi";
-import {InferActionsTypes, RootState} from "../redux/Redux-Store";
+import {openAiCall} from "../api/OpenApi";
+import {InferActionsTypes, RootState} from "./Redux-Store";
 import {ThunkAction} from "redux-thunk";
 import {message} from "antd";
-import {ActionsProfileTypes} from "../redux/ProfileReducer";
+import {ActionsProfileTypes} from "./ProfileReducer";
 
 export type MessagesResponseAiType = {
     role : string

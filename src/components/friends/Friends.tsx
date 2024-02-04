@@ -1,17 +1,17 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {getFollowingInProgressSelector, getIsFetchingSelector} from "../redux/UsersSelectors";
-import {unfollowUserThunkCreator} from "../redux/UsersReducer";
+import {getFollowingInProgressSelector, getIsFetchingSelector} from "../../redux/selectors/UsersSelectors";
+import {unfollowUserThunkCreator} from "../../redux/UsersReducer";
 import PaginationUsers from "../users/PaginationUsers";
-import {FriendsListStateType, setFriendListThunkCreator} from "../redux/FriendsReducer";
-import {RootState} from "../redux/Redux-Store";
+import {FriendsListStateType, setFriendListThunkCreator} from "../../redux/FriendsReducer";
+import {RootState} from "../../redux/Redux-Store";
 import {ThunkDispatch} from "redux-thunk";
-import {compose, Dispatch} from "redux";
+import {compose} from "redux";
 import {NavLink} from "react-router-dom";
-import {WithAuthRedirect} from "../hoc/WithAuthRedirect";
-import Preloader from "../common/preloader/Preloader";
+import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
+import Preloader from "../../common/preloader/Preloader";
 import UserAvatarPhoto from "../users/UserAvatarPhoto";
-import {startChatThunk} from "../redux/DialogsReducer";
+import {startChatThunk} from "../../redux/DialogsReducer";
 
 const Friends = () => {
     const dispatch: ThunkDispatch<RootState, void, any> = useDispatch();

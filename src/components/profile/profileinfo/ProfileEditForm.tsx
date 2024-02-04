@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {actionsProfile, ProfileDataType, saveProfileThunk} from "../../redux/ProfileReducer";
+import {actionsProfile, ProfileDataType, saveProfileThunk} from "../../../redux/ProfileReducer";
 import {Field, Form, Formik, FormikHelpers} from "formik";
 import {useDispatch, useSelector} from "react-redux";
 import {MyInput} from "../../login/Login";

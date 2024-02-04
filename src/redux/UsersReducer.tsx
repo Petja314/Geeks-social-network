@@ -1,8 +1,8 @@
 import React from 'react';
-import {ResultCodesEnum} from "../../api/Api";
+import {ResultCodesEnum} from "../api/Api";
 import {ThunkAction} from "redux-thunk";
 import {InferActionsTypes, RootState} from "./Redux-Store";
-import {usersAPI} from "../../api/UsersAPI";
+import {usersAPI} from "../api/UsersAPI";
 import {actionsFriends} from "./FriendsReducer";
 import {AxiosResponse} from "axios";
 import _ from "lodash";

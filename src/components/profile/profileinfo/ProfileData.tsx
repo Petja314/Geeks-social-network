@@ -1,6 +1,6 @@
 import React from "react";
 import ProfileContactsForm from "./ProfileContactsForm";
-import {ContactsType, ProfileDataType} from "../../redux/ProfileReducer";
+import {ContactsType, ProfileDataType} from "../../../redux/ProfileReducer";
 
 type ProfileDataPropsType = {
     isOwner: boolean

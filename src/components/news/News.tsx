@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import './news.css';
 import {newsAPI} from '../../api/NewsAPI';
-import {robot_img_array} from '../assets/images/robot_array';
-import img_is_coming from '../assets/img_in_progress/img_is_coming.jpg';
+import {robot_img_array} from '../../assets/images/robots_images/robot_array';
+import img_is_coming from '../../assets/images/img_in_progress/img_is_coming.jpg';
 import InfiniteScroll from "react-infinite-scroll-component";
 import {compose} from "redux";
-import {WithAuthRedirect} from "../hoc/WithAuthRedirect";
+import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
 
 type Topics = {
     topic: string,
@@ -17,7 +17,7 @@ type TickerType = {
     ticker_sentiment_score: number,
     ticker_sentiment_label: string
 }
-type NewsItems = {
+export type NewsItems = {
     title: string,
     url: string,
     time_published: string,
@@ -44,24 +44,31 @@ const News = () => {
 
     useEffect(() => {
         sessionStorage.removeItem('AlphaAvantageApi')
-        const fetchData = async () => {
+        const fetchDataApi = async () => {
             try {
                 const storedResponse = sessionStorage.getItem('AlphaAvantageApi');
                 if (storedResponse) {
                     const parsedResponse = JSON.parse(storedResponse);
                     setData(parsedResponse.feed);
                 } else {
+                    console.log('in')
                     const response = await newsAPI.getAllNews();
                     sessionStorage.setItem('AlphaAvantageApi', JSON.stringify(response.data));
-                    setData(response.data.feed);
+                    // debugger
+                    if(response.data.feed) {
+                        setData(response.data.feed);
+                    }
+                    else {
+                        alert('API ERROR - FREE LIMIT IS OVER COME BACK TOMORROW! ')
+                    }
                 }
             } catch (error) {
                 console.error('Error fetching news:', error);
             }
         };
-        fetchData();
+        fetchDataApi();
     }, []);
-    const fetchData = () => {
+    const scrollHandler = () => {
         setLoading(true);
         setEndIndex(prevEndIndex => prevEndIndex + 10);
         setLoading(false);
@@ -92,14 +99,14 @@ const News = () => {
     const determineGridSpan = (index: number) => {
         return index % 5 < 2 ? 'span 3' : 'span 2';
     };
-    console.log('visibleData' , visibleData)
+    console.log('visibleData', visibleData)
 
     return (
         <div>
             <InfiniteScroll
                 style={{overflow: 'hidden'}}
                 dataLength={visibleData.length} //This is important field to render the next data
-                next={fetchData}
+                next={scrollHandler}
                 hasMore={true}
                 loader={<h4>{!loading}</h4>}
             >

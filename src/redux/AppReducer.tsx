@@ -1,7 +1,6 @@
 import React from 'react';
 import {getAuthUserDataThunk} from "./AuthReducer";
 import {ThunkAction} from "redux-thunk";
-import {UsersComponentTypeArrays} from "./UsersReducer";
 import {InferActionsTypes} from "./Redux-Store";
 
 type AuthState = {
@@ -23,11 +22,8 @@ export const AppReducer = (state = initialState, action: ActionsTypes) : AuthSta
     }
 };
 
-
 //ACTION CREATORS - AC
 type ActionsTypes = InferActionsTypes<typeof actions>
-
-
 export const actions = {
     initializedSuccess : () => ({
             type : 'SET_INITIALIZED_SUCCESS',

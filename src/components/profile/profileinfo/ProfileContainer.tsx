@@ -2,14 +2,14 @@ import React, {useEffect} from 'react';
 import {compose, Dispatch} from "redux";
 import {useDispatch, useSelector} from "react-redux";
 import {useParams} from "react-router-dom";
-import {getStatusThunkCreator, ProfileDataType, ProfileStateTypes, usersProfileAuthThunkCreator} from "../../redux/ProfileReducer";
+import {getStatusThunkCreator, ProfileDataType, ProfileStateTypes, usersProfileAuthThunkCreator} from "../../../redux/ProfileReducer";
 import ProfileInfo from "./ProfileInfo";
-import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
+import {WithAuthRedirect} from "../../../hoc/WithAuthRedirect";
 import MyPostsContainer from "../myposts/MyPostsContainer";
-import {RootState} from "../../redux/Redux-Store";
+import {RootState} from "../../../redux/Redux-Store";
 import {ThunkDispatch} from "redux-thunk";
 import UsersPostsUnverified from "../myposts/usersposts/UsersPostsUnverified";
-import Preloader from "../../common/preloader/Preloader";
+import Preloader from "../../../common/preloader/Preloader";
 
 type QuizParams = {
     id: string | undefined

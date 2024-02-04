@@ -6,8 +6,8 @@ import Avatar from "antd/es/avatar/avatar";
 import {UserOutlined} from "@ant-design/icons";
 import {Header} from "antd/es/layout/layout";
 import {useDispatch, useSelector} from "react-redux";
-import {AuthState, logoutThunk} from "../redux/AuthReducer";
-import {RootState} from "../redux/Redux-Store";
+import {AuthState, logoutThunk} from "../../redux/AuthReducer";
+import {RootState} from "../../redux/Redux-Store";
 import {ThunkDispatch} from "redux-thunk";
 
 

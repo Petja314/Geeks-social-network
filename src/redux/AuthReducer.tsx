@@ -1,8 +1,8 @@
 import React from 'react';
-import {ResultCodeForCaptcha, ResultCodesEnum} from "../../api/Api";
+import {ResultCodeForCaptcha, ResultCodesEnum} from "../api/Api";
 import {ThunkAction} from "redux-thunk";
 import {InferActionsTypes} from "./Redux-Store";
-import {authAPI} from "../../api/AuthAPI";
+import {authAPI} from "../api/AuthAPI";
 
 export type AuthState = {
     userId: number | null;
@@ -10,7 +10,6 @@ export type AuthState = {
     login: string | null;
     isAuth: boolean;
     captchaUrl: string | null;
-    isAdmin : boolean
 }
 let initialState: AuthState = {
     userId: null,
@@ -18,7 +17,6 @@ let initialState: AuthState = {
     login: null,
     isAuth: false,
     captchaUrl: null,
-    isAdmin : false
 }
 
 export const AuthReducer = (state = initialState, action: ActionsTypes): AuthState => {
@@ -33,11 +31,6 @@ export const AuthReducer = (state = initialState, action: ActionsTypes): AuthSta
             return {
                 ...state,
                 ...action.payload,
-            }
-        case 'SET_ADMIN' :
-            return  {
-                ...state,
-                isAdmin : action.isAdmin
             }
         default:
             return state;
@@ -57,17 +50,13 @@ export const actions = {
      captchaSuccessAC : (captchaUrl: any) => ({
             type: 'CAPTCHA_IS_SUCCESS',
             payload: {captchaUrl}
-    }as const)     ,
-    setAdminAC : (isAdmin : any) => ({
-            type: 'SET_ADMIN',
-        isAdmin : isAdmin
     }as const)
 }
 
 type ThunkType = ThunkAction<Promise<void>, AuthState, unknown, ActionsTypes >
     // | ReturnType <typeof stopSubmit>>
 export const getAuthUserDataThunk = () : ThunkType  => {
-    return async (dispatch: any) => {
+    return async (dispatch) => {
         let response = await authAPI.me()
         if (response.data.resultCode === ResultCodesEnum.Success) {
             let {id, login, email} = response.data.data
@@ -80,7 +69,6 @@ export const loginThunk = (email: string, password: string, rememberMe: boolean,
         let response = await authAPI.login(email, password, rememberMe, captcha)
         if (response.data.resultCode === ResultCodesEnum.Success) {
            await dispatch(getAuthUserDataThunk())
-            dispatch(actions.setAdminAC(true))
         } else if (response.data.resultCode === ResultCodeForCaptcha.CaptchaIsRequired) {
            await dispatch(captchaThunk())
         }

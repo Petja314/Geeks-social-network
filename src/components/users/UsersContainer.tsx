@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {connect, useDispatch, useSelector} from "react-redux";
 import Users from "./Users";
-import Preloader from "../common/preloader/Preloader";
+import Preloader from "../../common/preloader/Preloader";
 import {compose} from "redux";
 import {
     getCurrentPageSelector,
@@ -11,10 +11,10 @@ import {
     getTotalUsersCountSelector,
     getUsersFilterSelector,
     getUsersPageSelector
-} from "../redux/UsersSelectors";
-import {FilterType, followUserThunkCreator, getUsersThunkCreator, unfollowUserThunkCreator, UsersArrayType, UsersComponentTypeArrays} from "../redux/UsersReducer";
+} from "../../redux/selectors/UsersSelectors";
+import {FilterType, followUserThunkCreator, getUsersThunkCreator, unfollowUserThunkCreator, UsersArrayType, UsersComponentTypeArrays} from "../../redux/UsersReducer";
 import {stat} from "fs";
-import {WithAuthRedirect} from "../hoc/WithAuthRedirect";
+import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
 type UsersPagePropsType = {
 
 }

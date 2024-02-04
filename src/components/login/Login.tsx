@@ -1,10 +1,12 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {loginThunk} from "../redux/AuthReducer";
+import {loginThunk} from "../../redux/AuthReducer";
 import {Navigate} from "react-router-dom";
-import {Field, Form, Formik,  FormikProps} from "formik";
+import {Field, Form, Formik, FormikProps} from "formik";
 // @ts-ignore
 import Cookie from "js.cookie";
+import {ThunkDispatch} from "redux-thunk";
+import {RootState} from "../../redux/Redux-Store";
 
 type FormikTypes = {
     field: any, form: any
@@ -17,14 +19,12 @@ export const MyInput = ({field, form, ...props}: FormikTypes) => {
 
 
 const Login = () => {
-    const dispatch: any = useDispatch()
-    const isAuth = useSelector((state: any) => state.userAuthPage);
+    const dispatch: ThunkDispatch<RootState, void, any>  = useDispatch()
+    const isAuth = useSelector((state: RootState) => state.userAuthPage);
     // console.log(isAuth.captchaUrl)
     if (isAuth.isAuth) {
         return <Navigate to={"/users"}/>
     }
-    const storedEmail = Cookie.get('email') || '';
-    const storedPassword = Cookie.get('password') || '';
     const handleSubmit = async (values: any, submitProps: any) => {
         const {email, password, rememberMe, captcha} = values;
         dispatch(loginThunk(email, password, rememberMe, captcha));
@@ -94,4 +94,6 @@ const Login = () => {
         </div>
     );
 };
-export default Login
+
+const LoginMemoComponent = React.memo(Login)
+export default  LoginMemoComponent
