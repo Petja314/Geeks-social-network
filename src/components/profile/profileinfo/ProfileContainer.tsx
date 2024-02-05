@@ -20,7 +20,7 @@ const ProfileContainer = () => {
     const {id} = useParams<QuizParams>()
     const {profile, status}: ProfileStateTypes = useSelector((state: RootState) => state.profilePage)
     const authorizedUserId: number | null = useSelector((state: RootState) => state.userAuthPage.userId)
-    console.log('id' , authorizedUserId)
+    // console.log('id' , authorizedUserId)
 
     // Fetching user profile data and status based on the ID from the URL
     // If no ID provided, the default ID would be authorizedUserId (my ID)

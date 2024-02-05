@@ -43,17 +43,17 @@ const News = () => {
     console.log('endIndex', endIndex)
 
     useEffect(() => {
-        sessionStorage.removeItem('AlphaAvantageApi')
+        localStorage.removeItem('AlphaAvantageApi')
         const fetchDataApi = async () => {
             try {
-                const storedResponse = sessionStorage.getItem('AlphaAvantageApi');
+                const storedResponse = localStorage.getItem('AlphaAvantageApi');
                 if (storedResponse) {
                     const parsedResponse = JSON.parse(storedResponse);
                     setData(parsedResponse.feed);
                 } else {
                     console.log('in')
                     const response = await newsAPI.getAllNews();
-                    sessionStorage.setItem('AlphaAvantageApi', JSON.stringify(response.data));
+                    localStorage.setItem('AlphaAvantageApi', JSON.stringify(response.data));
                     // debugger
                     if(response.data.feed) {
                         setData(response.data.feed);

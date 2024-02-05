@@ -5,7 +5,7 @@ import {NavLink, Route, Routes} from "react-router-dom";
 import Users from "./components/users/Users";
 import Login from "./components/login/Login";
 import HeaderContainer from "./components/header/HeaderContainer";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {initializeApp} from "./redux/AppReducer";
 import FloodChat from "./components/flood_chat/FloodChat";
 import Friends from "./components/friends/Friends";
@@ -18,6 +18,9 @@ const {Header, Content, Footer, Sider} = Layout;
 
 const AppComp = () => {
 
+    const initialized  = useSelector((state : any) => state.app.initialized)
+    console.log('initialized' ,  initialized)
+
     const dispatch: any = useDispatch();
     useEffect(() => {
         dispatch(initializeApp());
@@ -26,6 +29,10 @@ const AppComp = () => {
     const {
         token: {colorBgContainer, borderRadiusLG},
     } = theme.useToken();
+
+    if ( !initialized ) {
+        return <div style={{fontSize : "200px"}} >PRELOADER...</div>
+    }
 
     return (
         <Layout>
