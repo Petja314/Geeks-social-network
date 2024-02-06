@@ -116,7 +116,6 @@ const Users = () => {
                             <UserAvatarPhoto photos={item.photos.small}/>
                         </NavLink>
                          <div>User name : {item.name}</div>
-                            <div> status : {item.status}</div>
                         </div>
 
                         <div>

@@ -1,5 +1,4 @@
 import React from "react";
-import "../../App.css";
 import {NavLink} from "react-router-dom";
 import {Button, Col, Menu, Row} from "antd";
 import Avatar from "antd/es/avatar/avatar";

@@ -1,0 +1,16 @@
+@font-face {
+    font-family: 'Hacker Noon V2';
+    src :  url("../../public/HackerNoonV2.ttf")format('truetype'),
+    url("../../public/HackerNoonV1.ttf")format('truetype')
+}
+
+
+.app_container {
+    /*font-family: 'Hacker Noon V2', sans-serif;*/
+    color : green;
+}
+
+body {
+    /*font-family: 'Hacker Noon V2', sans-serif;*/
+    color : green;
+}

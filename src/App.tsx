@@ -1,5 +1,5 @@
 import React, {lazy} from 'react';
-import './App.css';
+import './css/app.css';
 import './index'
 // import Navbar from "./components/navbar/Navbar";
 import {Routes, Route, useParams} from "react-router-dom";

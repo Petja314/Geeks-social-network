@@ -1,8 +1,22 @@
 /*body {*/
 /*  margin: 0;*/
-/*  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',*/
+/*  fonts-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',*/
 /*    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue','Montserrat',*/
 /*    sans-serif;*/
+/*  -webkit-fonts-smoothing: antialiased;*/
+/*  -moz-osx-fonts-smoothing: grayscale;*/
+/*}*/
+
+/*code {*/
+/*  fonts-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',*/
+/*    monospace;*/
+/*}*/
+
+
+/*body {*/
+/*  margin: 0;*/
+/*  font-family:  'IBM Plex Mono', monospace;*/
+/*  font-weight: bold;*/
 /*  -webkit-font-smoothing: antialiased;*/
 /*  -moz-osx-font-smoothing: grayscale;*/
 /*}*/
@@ -11,19 +25,5 @@
 /*  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',*/
 /*    monospace;*/
 /*}*/
-
-
-body {
-  margin: 0;
-  font-family:  'IBM Plex Mono', monospace;
-  font-weight: bold;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
 
 

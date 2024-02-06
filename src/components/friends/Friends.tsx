@@ -12,6 +12,7 @@ import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
 import Preloader from "../../common/preloader/Preloader";
 import UserAvatarPhoto from "../users/UserAvatarPhoto";
 import {startChatThunk} from "../../redux/DialogsReducer";
+import circle from "../../assets/images/spinning-circles.svg";
 
 const Friends = () => {
     const dispatch: ThunkDispatch<RootState, void, any> = useDispatch();
@@ -46,6 +47,7 @@ const Friends = () => {
 
             {friends.map((item) => (
                 <div key={item.id}>
+
                     <span>
                         {/*NAVIGATING TO THE USER PROFILE BY CLICK ON IMAGE*/}
                         {item.followed &&

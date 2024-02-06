@@ -9,6 +9,7 @@
   "private": true,
   "homepage": "https://github.com/Petja314/socialnetwork_samurai.git",
   "dependencies": {
+    "@hackernoon/pixel-icon-library": "^1.0.1",
     "@testing-library/user-event": "^13.5.0",
     "@types/crypto-js": "^4.2.2",
     "@types/jest": "^29.5.6",
@@ -30,6 +31,7 @@
     "final-form": "^4.20.10",
     "formik": "^2.4.5",
     "js.cookie": "^0.0.4",
+    "less": "^4.2.0",
     "lodash": "^4.17.21",
     "openai": "^4.26.0",
     "query-string": "^8.1.0",
@@ -77,5 +79,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "less-loader": "^12.2.0"
   }
 }

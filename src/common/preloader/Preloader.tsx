@@ -9,8 +9,8 @@ const Preloader = (props : PreloaderType) => {
     // debugger
     return (
         <div>
-            {/*<img src={circle} />*/}
-            {props.isFetching ?  <div>Loading...</div> : null}
+            {/*<img src={circle}/>*/}
+            {props.isFetching ?  <img src={circle}/> : null}
         </div>
     );
 };
