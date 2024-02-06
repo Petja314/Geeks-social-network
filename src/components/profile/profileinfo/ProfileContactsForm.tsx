@@ -6,9 +6,10 @@ export type ContactPropsType = {
 }
 //Social media contacts
 export const ProfileContactsForm = (props: ContactPropsType) => {
+    // console.log('title' , props.contactTitle)
     return <>
-        <div>
-            <b>{props.contactTitle}</b> : {props.contactValue}
+        <div className="contacts_form_list" >
+          <span > {props.contactTitle} : </span>{props.contactValue}
         </div>
 
     </>

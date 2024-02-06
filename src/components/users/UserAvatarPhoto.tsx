@@ -20,6 +20,7 @@ import user_avatar_18 from "../../assets/images/user_avatar_img/user_15.gif";
 import user_avatar_19 from "../../assets/images/user_avatar_img/user_15.gif";
 import user_avatar_20 from "../../assets/images/user_avatar_img/user_15.gif";
 import styles from "./users.module.css";
+import "../../css/profile_info.css"
 
 const UserAvatarPhoto = (props: any) => {
     const user_images = [
@@ -27,7 +28,7 @@ const UserAvatarPhoto = (props: any) => {
     ]
 
     return (
-        <div>
+        <div className="avatar_img">
             {props.photos !== null ? (<span>
             <img className={styles.usersPhoto} src={props.photos} alt=""/>
                 </span>

@@ -1,0 +1,30 @@
+.sidebar{
+    background:rgb(60, 60, 59);
+    grid-area: sidebar;
+}
+
+.sidebar_list li {
+    margin-top: 20px;
+}
+.sidebar_list a {
+    color: white;
+    text-transform: uppercase;
+    cursor: pointer;
+    background-image: linear-gradient(transparent 0%, transparent calc(50% - 9px), rgba(0, 255, 0, 0.35) calc(50% - 9px), rgba(0, 255, 0, 0.35) 100%);
+    background-size: 100% 200%;
+    font-weight: bold;
+    line-height: 1.4;
+    font-size: 20px;
+    list-style-type: none;
+    text-decoration: none;
+}
+
+.sidebar_list a:hover {
+    background-color: rgba(0, 255, 0, 0.35);
+}
+
+ul {
+    list-style-type: none;
+    padding: 40px;
+}
+

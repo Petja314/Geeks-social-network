@@ -1,0 +1,53 @@
+
+.profile_wrapper{
+    /*display: flex;*/
+    /*justify-content: center;*/
+    /*gap: 10%;*/
+}
+
+.profile_page_title{
+    font-weight: bold;
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 80px;
+}
+
+.profile_avatar_container {
+    width: 20%;
+    background-color: rgb(246, 247, 249);
+    height: fit-content;
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    /*border: 1px solid black;*/
+    box-shadow: rgb(4, 6, 9) 0px 0.2em, rgb(15, 25, 37) 0px -0.2em, rgb(8, 16, 24) 0.2em 0px, rgb(8, 14, 21) -0.2em 0px;
+}
+.select_photo{
+    margin: 0 auto;
+}
+.avatar_title {
+    background-color: rgb(194, 202, 214);
+    padding-top: 20px;
+    padding-bottom: 20px;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: black;
+    font-size: 18px;
+}
+
+.avatar_img img{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 300px;
+    box-shadow: rgb(194, 202, 214) 0px 0.2em, rgb(194, 202, 214) 0px -0.2em, rgb(194, 202, 214) 0.2em 0px, rgb(194, 202, 214) -0.2em 0px;
+}
+
+
+.status_container{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.status_container span:hover {
+    background-color: rgba(0, 255, 0, 0.35);
+}

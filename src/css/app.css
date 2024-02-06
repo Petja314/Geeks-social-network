@@ -4,13 +4,50 @@
     url("../../public/HackerNoonV1.ttf")format('truetype')
 }
 
-
-.app_container {
-    /*font-family: 'Hacker Noon V2', sans-serif;*/
-    color : green;
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
 }
 
 body {
-    /*font-family: 'Hacker Noon V2', sans-serif;*/
-    color : green;
+    font-family: "IBM Plex Mono", monospace;
+    padding: 0px;
+    margin: 0px;
+    font-size: 14px;
 }
+.app_wrapper {
+    display: grid;
+    grid-template-areas:
+    "header header header  "
+    "sidebar  main main  "
+    "footer footer footer  "
+;
+    grid-gap: 10px;
+    height: 100vh;
+    grid-template-columns: 1fr 6fr 1fr;
+
+}
+
+
+.main{
+    background: lightsalmon;
+    grid-area: main;
+}
+
+.footer{
+    background: lightgoldenrodyellow;
+    grid-area: footer;
+}
+
+
+button {
+    background-color: rgb(33, 36, 40);
+    color: rgb(0, 255, 0);
+    padding: 10px 20px;
+    border: 4px solid rgb(0, 255, 0);
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+}
+

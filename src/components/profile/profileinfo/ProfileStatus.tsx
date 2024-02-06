@@ -1,6 +1,7 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {ActionsProfileTypes, ProfileStateTypes, updateStatusThunkCreator} from "../../../redux/ProfileReducer";
+import "../../../css/profile_info.css"
 
 
 type ProfileStatusPropsType = {
@@ -49,17 +50,18 @@ const ProfileStatus = (props: ProfileStatusPropsType) => {
 
     // console.log('ProfileStatus' , props.status)
     return (
-        <div>
+        <div className="status_container">
 
             {!editMode &&
                 <div>
-                    <span>status : </span>
-                    <span onDoubleClick={activateEditMode} style={{fontWeight: "bold"}}>{localStatus || "NO STATUS"}</span>
+                    <div>status :
+                        <span onDoubleClick={activateEditMode} style={{fontWeight: "bold"}}>{localStatus || "NO STATUS"}</span>
+                    </div>
                 </div>
             }
 
             {editMode &&
-                <div>
+                <div >
                     <input
                         onChange={onChangeStatusHandler}
                         autoFocus={true}

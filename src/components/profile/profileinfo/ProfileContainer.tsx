@@ -10,6 +10,8 @@ import {RootState} from "../../../redux/Redux-Store";
 import {ThunkDispatch} from "redux-thunk";
 import UsersPostsUnverified from "../myposts/usersposts/UsersPostsUnverified";
 import Preloader from "../../../common/preloader/Preloader";
+import {UsersComponentTypeArrays} from "../../../redux/UsersReducer";
+import {getUsersPageSelector} from "../../../redux/selectors/UsersSelectors";
 
 type QuizParams = {
     id: string | undefined
@@ -21,6 +23,7 @@ const ProfileContainer = () => {
     const {profile, status}: ProfileStateTypes = useSelector((state: RootState) => state.profilePage)
     const authorizedUserId: number | null = useSelector((state: RootState) => state.userAuthPage.userId)
     // console.log('id' , authorizedUserId)
+    // console.log('profile', profile.fullName)
 
     // Fetching user profile data and status based on the ID from the URL
     // If no ID provided, the default ID would be authorizedUserId (my ID)
@@ -38,7 +41,7 @@ const ProfileContainer = () => {
 
 
     // if (status === "") return <div>loading...</div>
-    console.log('profile container status :' , status)
+    // console.log('profile container status :' , status)
     return (
         <div>
 

@@ -33,7 +33,6 @@ export const ProfileEditForm = (props: ProfileDataFormProps) => {
             onSubmit={handleSubmit}
         >
             <Form>
-
                 {props.isOwner && (
                     <div>
                         <button type="submit">Save</button>

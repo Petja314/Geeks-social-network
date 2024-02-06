@@ -1,29 +1,33 @@
 /*body {*/
-/*  margin: 0;*/
-/*  fonts-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',*/
-/*    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue','Montserrat',*/
-/*    sans-serif;*/
-/*  -webkit-fonts-smoothing: antialiased;*/
-/*  -moz-osx-fonts-smoothing: grayscale;*/
+/*    font-family: "IBM Plex Mono", monospace;*/
+/*    padding: 0px;*/
+/*    margin: 0px;*/
+/*    font-size: 14px;*/
+/*    display: grid;*/
+/*    grid-template-areas:*/
+/*    "header header header header "*/
+/*    "sidebar  main main "*/
+/*    "footer footer footer  "*/
+/*;*/
+/*    grid-gap: 10px;*/
+/*    height: 100vh;*/
+/*    !*background: rgb(255, 255, 255);*!*/
 /*}*/
 
-/*code {*/
-/*  fonts-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',*/
-/*    monospace;*/
+/*.app{*/
+/*    background: lightsalmon;*/
+/*    grid-area: main;*/
 /*}*/
-
-
-/*body {*/
-/*  margin: 0;*/
-/*  font-family:  'IBM Plex Mono', monospace;*/
-/*  font-weight: bold;*/
-/*  -webkit-font-smoothing: antialiased;*/
-/*  -moz-osx-font-smoothing: grayscale;*/
+/*.header{*/
+/*    background: orange;*/
+/*    grid-area: header;*/
 /*}*/
-
-/*code {*/
-/*  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',*/
-/*    monospace;*/
+/*.sidebar{*/
+/*    background: #3498db;*/
+/*    grid-area: sidebar;*/
 /*}*/
-
+/*.footer{*/
+/*    background: lightgoldenrodyellow;*/
+/*    grid-area: footer;*/
+/*}*/
 

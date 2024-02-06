@@ -12,7 +12,7 @@ type RedirectComponentProps = {
 
 export const WithAuthRedirect = (Component: ComponentType<any>) => {
     const RedirectComponent: React.FC<RedirectComponentProps> = (props) => {
-        console.log('userAuthPage:', props.userAuthPage);
+        // console.log('userAuthPage:', props.userAuthPage);
         if (!props.userAuthPage) return <Navigate to="/login" />;
         return <Component {...props} />;
     };

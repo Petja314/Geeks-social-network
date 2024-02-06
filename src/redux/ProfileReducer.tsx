@@ -114,7 +114,7 @@ export const getStatusThunkCreator = (userID: number | null): ThunkType => async
     let response = await profileAPI.getStatus(userID)
     // if (response.data.resultCode === ResultCodesEnum.Success) {
         dispatch(actionsProfile.setStatusAction(response.data))
-    console.log('status ')
+    // console.log('status ')
     // }
 }
 

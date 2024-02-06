@@ -1,24 +1,24 @@
 import React, {ChangeEvent, useState} from "react";
 import Preloader from "../../../common/preloader/Preloader";
 import ProfileStatus from "./ProfileStatus"
-import userPhoto from "../../../assets/images/louie.jpg"
 import 'filepond/dist/filepond.min.css';
 import {ActionsProfileTypes, ProfileDataType, ProfileStateTypes, savePhotoThunk} from "../../../redux/ProfileReducer";
 import {useDispatch} from "react-redux";
 import {ProfileEditForm} from "./ProfileEditForm";
 import ProfileData from "./ProfileData";
-import {Dispatch} from "redux";
-import {ThunkDispatch} from "redux-thunk";
 import UserAvatarPhoto from "../../users/UserAvatarPhoto";
+import "../../../css/profile_info.css"
+import "../../../css/profile_edit.css"
+
 
 export type ProfileInfoPropsType = {
     isOwner: boolean
-    profile : ProfileDataType
-    status : string | null
-    userId : any
+    profile: ProfileDataType
+    status: string | null
+    userId: any
 }
 const ProfileInfo = (props: ProfileInfoPropsType) => {
-    const dispatch : any = useDispatch()
+    const dispatch: any = useDispatch()
     //Track form Edit Form state
     const [editMode, setEditMode] = useState<boolean>(false)
 
@@ -28,7 +28,7 @@ const ProfileInfo = (props: ProfileInfoPropsType) => {
     }
 
     //Send selected photo to reducer
-    const onMainPhotoSelected = (event : ChangeEvent<HTMLInputElement>) => {
+    const onMainPhotoSelected = (event: ChangeEvent<HTMLInputElement>) => {
         let files = event.target?.files
         if (files) {
             dispatch(savePhotoThunk(files[0]))
@@ -37,33 +37,47 @@ const ProfileInfo = (props: ProfileInfoPropsType) => {
     // console.log('PROFILE INFO : ' , props.status)
 
     return (
-        <div>
+        <div className="profile_container">
             {/*<img style={{"width": "15%"}} src={props.profile.photos.small || userPhoto} alt=""/>*/}
-            <UserAvatarPhoto photos={props.profile.photos.small} />
+            <h1 className="profile_page_title" >PROFILE PAGE</h1>
+            <div className="profile_wrapper">
 
 
-            {props.isOwner && <input type={"file"} onChange={onMainPhotoSelected}/>}
-            <ProfileStatus
-                userId={props.userId}
-                status={props.status}
-                isOwner={props.isOwner}
-            />
+                <div className="profile_avatar_container">
+                    <span className="avatar_title">  YOUR AVATAR  </span>
+                    <UserAvatarPhoto photos={props.profile.photos.small}/>
+                    <div className="select_photo">
+                        {props.isOwner && <input type={"file"} onChange={onMainPhotoSelected}/>}
+                    </div>
+                    <span className="avatar_title">
+                    NAME:{props.profile.fullName}
+                        <ProfileStatus
+                            userId={props.userId}
+                            status={props.status}
+                            isOwner={props.isOwner}
+                        />
+                </span>
+                </div>
 
-            {/*Show User Data Form depends on edit mode state*/}
-            {editMode
-                ? <ProfileEditForm
-                    initialValues={props.profile}
-                    isOwner={props.isOwner}
-                    setEditMode={setEditMode}
-                />
-                : <ProfileData
-                    profile={props.profile}
-                    isOwner={props.isOwner}
-                    activateEditMode={() => {
-                        setEditMode(true)
-                    }}
-                />}
 
+                {/*Show User Data Form depends on edit mode state*/}
+                <div className="profile_edit_container">
+                    {editMode
+                        ? <ProfileEditForm
+                            initialValues={props.profile}
+                            isOwner={props.isOwner}
+                            setEditMode={setEditMode}
+                        />
+                        : <ProfileData
+                            profile={props.profile}
+                            isOwner={props.isOwner}
+                            activateEditMode={() => {
+                                setEditMode(true)
+                            }}
+                        />}
+                </div>
+
+            </div>
         </div>
     )
 }
