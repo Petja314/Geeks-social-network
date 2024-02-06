@@ -1,15 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import React, { useState} from 'react';
 import PaginationUsers from "../../users/PaginationUsers";
 import styles from './MyPosts.module.css';
-import robot1 from "../../../assets/images/robots_images/robot-a4.png"
-import robot2 from "../../../assets/images/robots_images/robot-a5.png"
-import robot3 from "../../../assets/images/robots_images/robot-b1.png"
-import robot4 from "../../../assets/images/robots_images/robot-b2.png"
-import robot5 from "../../../assets/images/robots_images/robot-b3.png"
-import robot6 from "../../../assets/images/robots_images/robot-b4.png"
-import robot7 from "../../../assets/images/robots_images/robot-b5.png"
 import {useDispatch, useSelector} from "react-redux";
-import {actionsMyPosts, createNewPostThunk, fetchPostsThunk, MyPostsInitialState, onPageChangeThunk, ResponseTestAPIDataType, savePostThunk, setUserIdThunk} from "../../../redux/MyPostsReducer";
+import { MyPostsInitialState, onPageChangeThunk, ResponseTestAPIDataType} from "../../../redux/MyPostsReducer";
 import {ThunkDispatch} from "redux-thunk";
 import {RootState} from "../../../redux/Redux-Store";
 import CurrentPostComponent from "./CurrentPostComponent";
@@ -17,8 +10,6 @@ import EditPostComponent from "./EditPostComponent";
 import CreateNewPost from "./CreateNewPost";
 import {compose} from "redux";
 import {WithAuthRedirect} from "../../../hoc/WithAuthRedirect";
-import {AuthState} from "../../../redux/AuthReducer";
-import Login from "../../login/Login";
 import usePostFetchAdmin from "./usePostFetchAdmin";
 
 const MyPostsContainer = () => {

@@ -1,11 +1,144 @@
+/*Main container  */
+.profile_wrapper{
+    box-shadow: rgb(4, 6, 9) 0px 0.2em, rgb(15, 25, 37) 0px -0.2em, rgb(8, 16, 24) 0.2em 0px, rgb(8, 14, 21) -0.2em 0px;
+    margin-left: 100px;
+    margin-right: 100px;
+}
+/*Container for both sections AVATAR and ABOUT ME*/
 .profile_edit_container{
-    padding-bottom: 50px;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    padding-bottom: 100px;
     font-weight: bold;
     font-size: 18px;
-    border: 1px solid black;
-    background-color: rgb(246, 247, 249);
-    box-shadow: rgb(4, 6, 9) 0px 0.2em, rgb(15, 25, 37) 0px -0.2em, rgb(8, 16, 24) 0.2em 0px, rgb(8, 14, 21) -0.2em 0px;
+    background-color: white;
+    padding-top: 50px;
 }
+
+/*AVATAR SECTION*/
+/*Container For AVATAR*/
+.profile_avatar_container {
+    box-shadow: rgb(194, 202, 214) 0px 0.2em, rgb(194, 202, 214) 0px -0.2em, rgb(194, 202, 214) 0.2em 0px, rgb(194, 202, 214) -0.2em 0px;
+    width: 20%;
+    background-color: rgb(246, 247, 249);
+    height: fit-content;
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+}
+.avatar_title {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: black;
+    font-size: 18px;
+}
+.select_photo{
+    margin: 0 auto;
+}
+
+.avatar_img img{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 300px;
+    box-shadow: rgb(194, 202, 214) 0px 0.2em, rgb(194, 202, 214) 0px -0.2em, rgb(194, 202, 214) 0.2em 0px, rgb(194, 202, 214) -0.2em 0px;
+}
+/*Status Section in AVATAR */
+.status_container{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.status_container span:hover {
+    background-color: rgba(0, 255, 0, 0.35);
+}
+
+/*-------------------------------------------------------------------------------------------------------------------------------*/
+
+/*CONTACTS - ABOUT ME SECTION*/
+/*Main Container for contacts USERS and ADMIN*/
+.profile_data_container{
+    /*border: 1px solid black;*/
+    margin-left: 150px;
+
+}
+/*Wrapper to sepparate User Info and Contacts - FLEX - SPACE-BETWEEN */
+.profile_data_wrapper {
+    /*border: 1px solid black;*/
+    display: flex;
+    justify-content: space-between;
+    gap: 100px;
+}
+
+/*// LIST OF USER INFO*/
+.profile_ul_list{
+    margin: 0;
+    padding: 0;
+}
+.profile_ul_list li {
+    padding-top: 20px;
+}
+.profile_ul_list span {
+    margin-bottom: 10px;
+    display: inline-block;
+    margin-right: 10px;
+    box-shadow: rgb(194, 202, 214) 0px 0.2em, rgb(194, 202, 214) 0px -0.2em, rgb(194, 202, 214) 0.2em 0px, rgb(194, 202, 214) -0.2em 0px;
+}
+
+.profile_ul_list  textarea {
+    background-color: rgb(200, 207, 218);
+    width: 100%;
+    border-radius: 2px;
+    padding: 5px;
+    font-weight: bold;
+    border: none;
+    resize: none;
+}
+.profile_ul_list  input {
+    background-color: rgb(200, 207, 218);
+    width: 100%;
+    border-radius: 2px;
+    padding: 15px;
+    font-weight: bold;
+    border: none;
+    resize: none;
+}
+
+
+/*CHECKBOX*/
+
+/*CONTACTS LIST */
+.contacts_form_list{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.contacts_form_list span{
+    box-shadow: rgb(194, 202, 214) 0px 0.2em, rgb(194, 202, 214) 0px -0.2em, rgb(194, 202, 214) 0.2em 0px, rgb(194, 202, 214) -0.2em 0px;
+    margin-right: 20px;
+}
+
+.contact_form_title{
+    text-align: center;
+}
+
+
+
+/*BUTTON TO EDIT FORM*/
+.edit_form_btn {
+    margin-top: 30px;
+    margin-bottom: 20px;
+    /*text-align: center;*/
+
+}
+.edit_form_btn button {
+    padding: 15px 60px 15px 60px;
+    font-size : 15px
+}
+
+
+
+/*Profile header section*/
 .about_me_title{
     background-color: rgb(194, 202, 214);
     text-align: center;
@@ -13,58 +146,7 @@
     padding-top: 20px;
     margin: 0;
 }
-.profile_data_container {
-    display: flex;
-    justify-content: space-between;
-    /*gap: 70px;*/
-    margin-left: 100px;
-    margin-right: 100px;
-    margin-top: 40px;
-}
 
-/*// LIST OF USER INFO*/
-.profile_list_container{
-    margin: 0;
-    padding: 0;
-}
-
-
-.profile_list_container li {
-    padding-top: 20px;
-
-}
-.profile_list_container span {
-    margin-bottom: 10px;
-    display: block;
-    box-shadow: rgb(194, 202, 214) 0px 0.2em, rgb(194, 202, 214) 0px -0.2em, rgb(194, 202, 214) 0.2em 0px, rgb(194, 202, 214) -0.2em 0px;
-}
-
-
-/*CONTACTS LIST */
-
-.contacts_form_list{
-    /*margin-right: 100px;*/
-    padding-top: 10px;
-    padding-bottom: 10px;
-}
-
-.contacts_form_list span{
-    box-shadow: rgb(194, 202, 214) 0px 0.2em, rgb(194, 202, 214) 0px -0.2em, rgb(194, 202, 214) 0.2em 0px, rgb(194, 202, 214) -0.2em 0px;
-    margin-right: 20px;
-}
-
-
-
-
-.edit_form_btn {
-    margin-top: 30px;
-    margin-bottom: 20px;
-    text-align: center;
-}
-.edit_form_btn button {
-    padding: 15px 60px 15px 60px;
-    font-size : 15px
-}
 
 
 

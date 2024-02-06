@@ -3,6 +3,8 @@ import {actionsProfile, ProfileDataType, saveProfileThunk} from "../../../redux/
 import {Field, Form, Formik, FormikHelpers} from "formik";
 import {useDispatch, useSelector} from "react-redux";
 import {MyInput} from "../../login/Login";
+import "../../../css/profile_edit.css"
+
 
 type ProfileDataFormProps = {
     initialValues: ProfileDataType;
@@ -33,16 +35,9 @@ export const ProfileEditForm = (props: ProfileDataFormProps) => {
             onSubmit={handleSubmit}
         >
             <Form>
-                {props.isOwner && (
-                    <div>
-                        <button type="submit">Save</button>
-                    </div>
-                )}
-
-
-                <ul style={{listStyle: 'none'}}>
+                <ul className="profile_ul_list" style={{listStyle: 'none'}}>
                     <li>
-                        <b>Full name : </b>
+                        <span>Full name : </span>
                         <Field
                             name="fullName"
                             component={MyInput}
@@ -51,7 +46,7 @@ export const ProfileEditForm = (props: ProfileDataFormProps) => {
                     </li>
 
                     <li>
-                        <b>Am I looking for a job</b>
+                        <span>Am I looking for a job</span>
                         <Field
                             name="lookingForAJob"
                             type="checkbox"
@@ -60,7 +55,7 @@ export const ProfileEditForm = (props: ProfileDataFormProps) => {
                         />
                     </li>
                     <li>
-                        <b>My professional skills:</b>
+                        <span>My professional skills:</span>
                         <Field
                             name="lookingForAJobDescription"
                             component="textarea"
@@ -68,7 +63,7 @@ export const ProfileEditForm = (props: ProfileDataFormProps) => {
                         />
                     </li>
                     <li>
-                        <b>About me</b>
+                        <span>About me</span>
                         <Field
                             name="aboutMe"
                             component="textarea"
@@ -78,7 +73,7 @@ export const ProfileEditForm = (props: ProfileDataFormProps) => {
 
                     <li>Contacts:{Object.keys(props.initialValues.contacts).map(key => (
                         <div key={key}>
-                            <b>{key} : </b>
+                            <span>{key} : </span>
                             <Field
                                 name={`contacts.${key}`}
                                 component={MyInput}
@@ -93,6 +88,14 @@ export const ProfileEditForm = (props: ProfileDataFormProps) => {
 
 
                 </ul>
+
+                <div className="edit_form_btn">
+                {props.isOwner && (
+                    <div>
+                        <button type="submit">Save</button>
+                    </div>
+                )}
+                </div>
             </Form>
         </Formik>
 
