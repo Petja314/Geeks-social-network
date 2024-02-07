@@ -1,10 +1,14 @@
 import React, {useEffect, useState} from 'react';
+import arrow_right from "../../assets/images/icons/Arrow Right.png"
+import arrow_left from "../../assets/images/icons/Arrow Left.png"
+import "../../css/pagination.css"
+
 
 type PaginationUsersType = {
     totalUsersCount: number
     pageSize: number
     currentPage: number
-    onPageChange?: (value : number) => void
+    onPageChange?: (value: number) => void
 }
 const PaginationUsers = (props: PaginationUsersType) => {
     const onPageChange = (pageNumber: number) => {
@@ -27,56 +31,59 @@ const PaginationUsers = (props: PaginationUsersType) => {
     let rightPortionPageNumber = portionNumber * portionSize
 
     useEffect(() => setPortionNumber(Math.ceil(props.currentPage / portionSize)), [props.currentPage]);
-
+    console.log('pages', props.currentPage)
     return (
-        <div>
+        <div className="pagination_container" >
 
 
-
-            {portionNumber > 1 &&
-                <button onClick={() => {
-                    setPortionNumber(portionNumber - 1)
-                }}> PREVIOUS </button>
-            }
-
-            {pages
-                .filter(p => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
-                .map((p) => {
-                    return <span
-                        key={p}
-                        onClick={() => {onPageChange(p)}}>
-                        {p}
-                    </span>
-                    {/*<button>NEXT PAGE</button>*/}
-
-
-                })}
-
-            {portionCount > portionNumber &&
-                <button onClick={() => setPortionNumber(portionNumber + 1)}> NEXT </button>
-            }
-
-
-
-
-            <div style={{display : "flex" , gap : "20px"}} >
+            <div style={{display: "flex", gap: "20px"}}>
 
                 <div>
                     {/*PREVIOUS PAGE BUTTON*/}
                     {props.currentPage > 1 &&
-                        <button onClick={() => onPageChange(props.currentPage -1)}> PREV PAGE </button>
+                        <button onClick={() => onPageChange(props.currentPage - 1)}><img src={arrow_left} alt="previous page"/></button> // PREV PAGE
+                    }
+                </div>
+                <div>
+                    {portionNumber > 1 &&
+                        <button onClick={() => {
+                            setPortionNumber(portionNumber - 1)
+                        }}> ... </button> // PORTION PAGE -10 PAGE PORTIONS
                     }
                 </div>
 
+                <div className="pages_section">
+                    {pages
+                        .filter(p => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
+                        .map((p) => {
+                            return <span
+                                key={p}
+                                onClick={() => {
+                                    onPageChange(p)
+                                }}>
+                            <span className="pages" style={{margin: "0 auto", paddingRight: "5px", cursor: "pointer"}}>
+                                {/*, color : p === props.currentPage ? "green" : "black ," ,*/}
+                                {p}
+                            </span>
+
+                    </span>
+                        })}
+                </div>
+
+
+                <div>
+                    {portionCount > portionNumber &&
+                        <button onClick={() => setPortionNumber(portionNumber + 1)}> ... </button> // PORTION PAGE +10 PAGE PORTIONS
+                    }
+                </div>
                 <div>
                     {/*NEXT PAGE BUTTON*/}
                     {props.currentPage >= 1 && props.currentPage < pagesCountUsers
                         &&
-                        <button onClick={() => onPageChange(props.currentPage +1)}> NEXT PAGE </button>
+                        <button onClick={() => onPageChange(props.currentPage + 1)}><img src={arrow_right} alt="next page"/></button> //NEXT PAGE
                     }
                 </div>
             </div>
-
 
 
         </div>

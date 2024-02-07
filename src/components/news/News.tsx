@@ -43,7 +43,7 @@ const News = () => {
     console.log('endIndex', endIndex)
 
     useEffect(() => {
-        localStorage.removeItem('AlphaAvantageApi')
+        // localStorage.removeItem('AlphaAvantageApi')
         const fetchDataApi = async () => {
             try {
                 const storedResponse = localStorage.getItem('AlphaAvantageApi');

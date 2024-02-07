@@ -23,7 +23,7 @@ body {
     "sidebar  main main  "
     "footer footer footer  "
 ;
-    grid-gap: 10px;
+    /*grid-gap: 10px;*/
     height: 100vh;
     grid-template-columns: 1fr 6fr 1fr;
 
@@ -31,7 +31,7 @@ body {
 
 
 .main{
-    background: lightsalmon;
+    /*background:rgb(60, 60, 59);*/
     grid-area: main;
 }
 

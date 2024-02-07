@@ -31,7 +31,6 @@ because we got :  className={`story-card_${index + 1}`} in JSX
     padding: 0;
 }
 
-
 .title_wrapper{
     display: flex;
     position: relative;

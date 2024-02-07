@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import styles from "./users.module.css";
 import {FilterType, followUserThunkCreator, getUsersThunkCreator, unfollowUserThunkCreator, UsersComponentTypeArrays} from "../../redux/UsersReducer";
 import {NavigateFunction, NavLink, useLocation, useNavigate} from "react-router-dom";
 import PaginationUsers from "./PaginationUsers";
@@ -23,6 +22,8 @@ import {RootState} from "../../redux/Redux-Store";
 import {user_images} from "../../assets/images/user_avatar_img/user_avatar_array";
 import UserAvatarPhoto from "./UserAvatarPhoto";
 import {startChatThunk} from "../../redux/DialogsReducer";
+import "../../css/users.css"
+
 
 export interface LocationParams {
     pathname: string;
@@ -87,59 +88,71 @@ const Users = () => {
     };
     // console.log('usersPage.users' , usersPage.users)
     return (
-        <div>
+        <div className="container">
             <Preloader isFetching={isFetching}/>
             {currentPage}
-            <div>
-                <UsersSearchForm
-                    filter={filter.friend}
-                    onFilterChanged={onFilterChanged}
-                />
+
+
+            <div className="user_page">
+
+                <div className="find_section">
+                    <div>
+                        <UsersSearchForm
+                            filter={filter.friend}
+                            onFilterChanged={onFilterChanged}
+                        />
+                    </div>
+                </div>
+
+                <div className="users_container">
+                    {
+                        usersPage.users.map((item) =>
+                            <div className="user_wrapper" key={item.id}>
+                                <div className="user_section">
+                                    {/*NAVIGATING TO THE USER PROFILE BY CLICK ON IMAGE*/}
+                                    <div style={{"maxWidth": "40%"}}>
+                                        <NavLink to={'/profile/' + item.id}>
+                                            <UserAvatarPhoto photos={item.photos.small}/>
+                                        </NavLink>
+                                    </div>
+                                    <div className="user_name">{item.name}</div>
+
+
+                                    <div className="followed_section">
+                                        {item.followed
+                                            ? <button disabled={followingInProgress.some((id: number) => id === item.id)} onClick={() => {
+                                                dispatch(unfollowUserThunkCreator(item.id))
+                                            }}>Unfollow</button>
+
+                                            : <button disabled={followingInProgress.some((id: number) => id === item.id)} onClick={() => {
+                                                dispatch(followUserThunkCreator(item.id))
+                                            }}> Follow </button>}
+                                    </div>
+
+
+                                    <div className="start_chat_section">
+                                        <NavLink to={'/dialogs/' + item.id}>
+                                            <button onClick={() => dispatch(startChatThunk(item.id, item.name, item.photos.small))}>Start Chat</button>
+                                        </NavLink>
+                                    </div>
+                                </div>
+                            </div>)}
+                    <div className="pagination_section">
+                        <PaginationUsers
+                            totalUsersCount={totalUsersCount}
+                            pageSize={pageSize}
+                            currentPage={currentPage}
+                            onPageChange={handlePageChangeUsers}
+                        />
+                    </div>
+                </div>
+
             </div>
 
-            <div>
-                <PaginationUsers
-                    totalUsersCount={totalUsersCount}
-                    pageSize={pageSize}
-                    currentPage={currentPage}
-                    onPageChange={handlePageChangeUsers}
-                />
 
-            </div>
-            {
-                usersPage.users.map((item) =>
-                    <div key={item.id}>
-                    <span>
-                        {/*NAVIGATING TO THE USER PROFILE BY CLICK ON IMAGE*/}
-                        <div style={{"maxWidth": "40%" }}>
-                        <NavLink to={'/profile/' + item.id}>
-                            <UserAvatarPhoto photos={item.photos.small}/>
-                        </NavLink>
-                         <div>User name : {item.name}</div>
-                        </div>
-
-                        <div>
-                            {item.followed
-                                ? <button disabled={followingInProgress.some((id: number) => id === item.id)} onClick={() => {
-                                    dispatch(unfollowUserThunkCreator(item.id))
-                                }}>Unfollow</button>
-
-                                : <button disabled={followingInProgress.some((id: number) => id === item.id)} onClick={() => {
-                                    dispatch(followUserThunkCreator(item.id))
-                                }}> Follow </button>}
-
-                        </div>
-                        <NavLink to={'/dialogs/' + item.id}>
-                          <button onClick={() => dispatch(startChatThunk(item.id, item.name, item.photos.small))}>Start Chat</button>
-                        </NavLink>
-
-
-                    </span>
-                    </div>)}
         </div>
     );
 };
-
 
 
 const UsersMemoComponent = React.memo(Users)

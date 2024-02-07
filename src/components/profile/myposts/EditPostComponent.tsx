@@ -22,15 +22,14 @@ const EditPostComponent: React.FC<EditPostPropsType> = ({setEditPost, editPost, 
     };
     return (
         <div>
-            <div className={styles.editMode}>
+            <div className={styles.editModeContainer}>
                 {/*EDIT POST SECTION*/}
-                <div>
+                <div className={styles.changeTitle} >
                     <h3>Change title</h3>
                     <input
                         placeholder="Type new title..."
                         type="text"
                         onChange={(event : React.ChangeEvent<HTMLInputElement>) => setEditPost({...editPost, title: event.currentTarget.value})}
-
                     />
                 </div>
 
@@ -41,15 +40,16 @@ const EditPostComponent: React.FC<EditPostPropsType> = ({setEditPost, editPost, 
                         onChange={(event : React.ChangeEvent<HTMLTextAreaElement>) => setEditPost({...editPost, content: event.currentTarget.value})}
                     ></textarea>
                 </div>
-                <div>
-                    <img className={styles.postImage} src={editPost?.image}/>
+
+
+                <div className={styles.postImage}>
+                    <img  src={editPost?.image}/>
                     <input key={editPost?.image || 'editPost'} type="file" accept="image/*" onChange={handleImageChange}/>
                 </div>
 
-                <div>
+                <div className={styles.editButton} >
                     <button onClick={saveEditedPost}>Save</button>
                 </div>
-                <hr/>
             </div>
         </div>
     )

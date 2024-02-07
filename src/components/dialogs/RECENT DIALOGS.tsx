@@ -73,10 +73,9 @@ const RecentDialogs: React.FC<RecentDialogsPropsType> = ({dialogs, newMessageCou
     console.log('displayedDialogs' , displayedDialogs)
 
     return (
-        <div>
-
-
+        <>
             <div
+                className="recent_dialogs_container"
                 onScroll={scrollDialogsHandler}
                 style={{
                     border: "1px solid black", height: "500px", width: "350px", paddingLeft: "50px", overflowY: "auto"
@@ -132,7 +131,7 @@ const RecentDialogs: React.FC<RecentDialogsPropsType> = ({dialogs, newMessageCou
                 </div>
 
             </div>
-        </div>
+        </>
     );
 };
 

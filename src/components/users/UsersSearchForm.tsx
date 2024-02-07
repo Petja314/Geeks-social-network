@@ -1,8 +1,7 @@
 import React from "react";
 import {FilterType, FormType} from "../../redux/UsersReducer";
 import {Field, Form, Formik} from "formik";
-import {useSelector} from "react-redux";
-import {getUsersFilterSelector} from "../../redux/selectors/UsersSelectors";
+import "../../css/formik.css"
 
 type UsersSearchFormPropsType = {
     filter?: boolean | null
@@ -27,16 +26,19 @@ const UsersSearchForm = React.memo((props: UsersSearchFormPropsType) => {
             onSubmit={submit}
         >
             {({isSubmitting}) => (
-                <Form>
-                    <Field type="text" name="term"/>
+                <Form className="formik_container" >
+                    <Field type="text" name="term" placeholder="type user name..." />
 
 
                     {props.filter !== undefined && ( // Conditionally render friend selection field
-                        <Field name="friend" as="select">
-                            <option value="null">All</option>
-                            <option value="true">Only followed</option>
-                            <option value="false">Only unfollowed</option>
-                        </Field>
+                        <div  className="custom-select-container">
+                            <Field name="friend" as="select" className="formik-select">
+                                <option value="null">All</option>
+                                <option value="true">Only followed</option>
+                                <option value="false">Only unfollowed</option>
+                            </Field>
+                        </div>
+
                     )}
                     <div style={{marginTop : "5px"}} >
                         <button type="submit" disabled={isSubmitting}>

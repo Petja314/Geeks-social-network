@@ -1,9 +1,9 @@
 import React, {useEffect,  useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {actionsDialogs, DialogsStateTypes, fetchDialogsThunk, newMessageReceivedThunk, refreshMessagesThunk} from "../../redux/DialogsReducer";
-import {FilterType,  getUsersThunkCreator,  UsersComponentTypeArrays} from "../../redux/UsersReducer";
-import {getCurrentPageSelector, getUsersFilterSelector, getUsersPageSelector} from "../../redux/selectors/UsersSelectors";
-import './dialogs.css'
+import {FilterType,  getUsersThunkCreator} from "../../redux/UsersReducer";
+import {getCurrentPageSelector, getUsersFilterSelector} from "../../redux/selectors/UsersSelectors";
+import '../../css/dialogs.css'
 import {compose} from "redux";
 import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
 import DialogsChat from "./DialogsChat";
@@ -62,12 +62,10 @@ const DialogsContainer = () => {
 
 
     return (
-        <div>
+        <div className="container" >
 
             <h2 style={{marginBottom: "20px"}}>Messenger</h2>
-            <div style={{
-                position: "relative", display: "flex"
-            }}>
+            <div className="dialogs_wrapper">
                 <RecentDialogs
                     pageSizeDialogs={pageSizeDialogs}
                     dialogs={dialogs}

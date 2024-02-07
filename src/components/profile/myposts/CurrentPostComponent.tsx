@@ -4,6 +4,8 @@ import {ThunkDispatch} from "redux-thunk";
 import {RootState} from "../../../redux/Redux-Store";
 import {useDispatch} from "react-redux";
 import styles from "./MyPosts.module.css";
+import "../../news/news.css"
+import thumb_up from "../../../assets/images/icons/thumbup.png"
 
 type CurrentPostPropsType = {
     posts: Array<ResponseTestAPIDataType>
@@ -42,44 +44,43 @@ const CurrentPostComponent: React.FC<CurrentPostPropsType> = ({posts, pageSize, 
     return (
         <div>
             <article>
+                {currentPosts.map((item: ResponseTestAPIDataType, index: number) => (
+                    <div key={item.id} className={`postItem_${index + 1}`}>
 
-                <div className={styles.postsContainer}>
+                        <div className={styles.currentPostsContainer}>
 
-                    {currentPosts.map((item: ResponseTestAPIDataType, index: number) => (
-                        <div key={item.id} className={styles.postItem}>
+                            <div className={styles.postImage}>
+                                <img src={item.image}/>
+                            </div>
 
-                            <div className={styles.postInfo}>
+
+                            <div className={styles.postContent}>
                                 <div className={styles.postDetail}>
-                                    <span className={styles.label}>Post Id:</span> {item.id}
+                                    <span>POST NUMBER:</span> {item.id}
                                 </div>
                                 <div className={styles.postDetail}>
-                                    <span className={styles.label}>Title:</span> {item.title}
+                                    <span>Title:</span> {item.title}
                                 </div>
                                 <div className={styles.postDetail}>
-                                    <span className={styles.label}>Post content:</span> {item.content}
+                                    <span>Content:</span> {item.content}
                                 </div>
 
-                                <div>
-                                    <img className={styles.postImage} src={item.image}/>
-                                </div>
 
                                 {/*DO NOT SHOW WHEN IT'S NOT ADMIN PROFILE*/}
-                                { !idUserURL &&
+                                {!idUserURL &&
                                     <div className={styles.postButtons}>
-                                        <button onClick={() => addLike(item.id)}>Like + {item.likes}</button>
+                                        <button onClick={() => addLike(item.id)}><img  style={{width : "20px"}} src={thumb_up} alt="like"/>   {item.likes}</button>
                                         <button onClick={() => deletePost(item.id)}>Delete post</button>
                                         <button onClick={() => editPostHandler(item.id)}>Edit</button>
                                     </div>
                                 }
+
                             </div>
 
                         </div>
-                    ))}
-                </div>
 
-
-
-                <hr/>
+                    </div>
+                ))}
             </article>
         </div>
     )

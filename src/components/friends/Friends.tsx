@@ -12,7 +12,7 @@ import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
 import Preloader from "../../common/preloader/Preloader";
 import UserAvatarPhoto from "../users/UserAvatarPhoto";
 import {startChatThunk} from "../../redux/DialogsReducer";
-import circle from "../../assets/images/spinning-circles.svg";
+import "../../css/users.css"
 
 const Friends = () => {
     const dispatch: ThunkDispatch<RootState, void, any> = useDispatch();
@@ -31,50 +31,61 @@ const Friends = () => {
     };
 
     return (
-        <div>
-
+        <div className="container">
             <Preloader isFetching={isFetching}/>
-            <h2>List of friends</h2>
+            <h2 className="page_title" >List of friends</h2>
 
-            <div>
-                <PaginationUsers
-                    totalUsersCount={totalCount}
-                    pageSize={pageSize}
-                    currentPage={currentPage}
-                    onPageChange={handlePageChangeUsers}
-                />
-            </div>
 
-            {friends.map((item) => (
-                <div key={item.id}>
+            <div className="user_page">
+                <div className="users_container">
+                    {friends.map((item) => (
+                        <div className="user_wrapper" key={item.id}>
+                            <div className="user_section">
 
-                    <span>
-                        {/*NAVIGATING TO THE USER PROFILE BY CLICK ON IMAGE*/}
-                        {item.followed &&
-                            <div>
-                                <div  style={{"maxWidth": "40%" }}>
+                                {/*NAVIGATING TO THE USER PROFILE BY CLICK ON IMAGE*/}
+                                <div style={{"maxWidth": "40%"}}>
                                     <NavLink to={'/profile/' + item.id}>
                                         {/*<span><img src={item.photos.small !== null ? item.photos.small : userPhoto} className={styles.usersPhoto}/></span>*/}
                                         <UserAvatarPhoto photos={item.photos.small}/>
                                     </NavLink>
                                 </div>
+                                <div className="user_name">{item.name}</div>
 
-                                {/*<div><img src={item.photos.small !== null ? item.photos.small : userPhoto} className={styles.usersPhoto}/></div>*/}
-                                <div>{item.name}</div>
-                                <button disabled={followingInProgress.some((id: number) => id === item.id)} onClick={() => {
-                                    dispatch(unfollowUserThunkCreator(item.id))
-                                }}>Unfollow
-                                </button>
-                                <NavLink to={'/dialogs/' + item.id}>
-                                    <button onClick={() => dispatch(startChatThunk(item.id, item.name, item.photos.small))}>Start Chat</button>
-                                </NavLink>
+
+                                <div className="followed_section">
+                                    {item.followed &&
+                                        <div>
+                                            {/*<div><img src={item.photos.small !== null ? item.photos.small : userPhoto} className={styles.usersPhoto}/></div>*/}
+                                            <div className="followed_section">
+                                                <button disabled={followingInProgress.some((id: number) => id === item.id)} onClick={() => {
+                                                    dispatch(unfollowUserThunkCreator(item.id))
+                                                }}>Unfollow
+                                                </button>
+                                            </div>
+                                            <NavLink to={'/dialogs/' + item.id}>
+                                                <button onClick={() => dispatch(startChatThunk(item.id, item.name, item.photos.small))}>Start Chat</button>
+                                            </NavLink>
+                                        </div>
+                                    }
+                                </div>
+
+
                             </div>
-                        }
-                    </span>
+                        </div>
+                    ))}
 
+
+                    <div className="pagination_section">
+                        <PaginationUsers
+                            totalUsersCount={totalCount}
+                            pageSize={pageSize}
+                            currentPage={currentPage}
+                            onPageChange={handlePageChangeUsers}
+                        />
+                    </div>
                 </div>
-            ))}
 
+            </div>
 
         </div>
     )
