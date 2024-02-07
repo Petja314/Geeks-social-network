@@ -41,7 +41,7 @@ const UsersSearchForm = React.memo((props: UsersSearchFormPropsType) => {
 
                     )}
                     <div style={{marginTop : "5px"}} >
-                        <button type="submit" disabled={isSubmitting}>
+                        <button className="formik_find_btn" type="submit" disabled={isSubmitting}>
                             Find
                         </button>
                     </div>

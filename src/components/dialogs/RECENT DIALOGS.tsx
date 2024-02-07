@@ -8,7 +8,7 @@ import {FilterType, getUsersThunkCreator, UsersArrayType, UsersComponentTypeArra
 import {getUsersPageSelector} from "../../redux/selectors/UsersSelectors";
 import {ThunkDispatch} from "redux-thunk";
 import {RootState} from "../../redux/Redux-Store";
-import InfiniteScroll from "react-infinite-scroll-component";
+import "../../css/dialogs.css"
 
 type RecentDialogsPropsType = {
     dialogs: DialogsArrayType[],
@@ -78,7 +78,7 @@ const RecentDialogs: React.FC<RecentDialogsPropsType> = ({dialogs, newMessageCou
                 className="recent_dialogs_container"
                 onScroll={scrollDialogsHandler}
                 style={{
-                    border: "1px solid black", height: "500px", width: "350px", paddingLeft: "50px", overflowY: "auto"
+                    overflowY: "auto"
                 }}
             >
                 <div className="sticky">
@@ -87,8 +87,7 @@ const RecentDialogs: React.FC<RecentDialogsPropsType> = ({dialogs, newMessageCou
                     </div>
                 </div>
 
-                <div>
-
+                <div className="recent_dialogs_list" >
                     {/*LIST OF DIALOGS*/}
                     {displayedDialogs
                         .sort((a : any , b : any) => b.hasNewMessages - a.hasNewMessages) //SORTING THE NEW MESSAGES FIRST
@@ -104,7 +103,7 @@ const RecentDialogs: React.FC<RecentDialogsPropsType> = ({dialogs, newMessageCou
                                             <button onClick={() => dispatch(startChatThunk(dialog.id, dialog.userName, dialog.photos.small))}>Start Chat</button>
                                         </NavLink>
                                     </div>
-                                    <hr style={{marginTop: "10px"}}/>
+                                    <hr className="underline"  />
                                 </div>
 
                                 {dialog.hasNewMessages && newMessageCount > 0 ? <div style={{color: "red"}}>

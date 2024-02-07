@@ -64,7 +64,7 @@ const DialogsContainer = () => {
     return (
         <div className="container" >
 
-            <h2 style={{marginBottom: "20px"}}>Messenger</h2>
+            <h1 style={{marginBottom: "20px"}}>Messenger</h1>
             <div className="dialogs_wrapper">
                 <RecentDialogs
                     pageSizeDialogs={pageSizeDialogs}

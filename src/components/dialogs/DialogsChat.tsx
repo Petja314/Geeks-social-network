@@ -67,15 +67,16 @@ const DialogsChat: React.FC<DialogsChatPropsType> = ({friendIdLocal, currentPage
     }
 
     return (
-        <div>
+        <div className="chat_container">
 
             {/*CHAT SECTION*/}
-            <div style={{position: "relative"}}>
+            {/*<div  style={{position: "relative"}}>*/}
                 {/*<div>current page flood_chat : {currentPageChat}</div>*/}
                 <div
+                    className="chat_section"
                     ref={scrollContainerRef}
                     onScroll={scrollHandlerMessages}
-                    style={{border: "1px solid black", height: "350px", width: "500px", overflowY: "auto"}}>
+                    style={{ overflowY: "auto"}}>
 
                     <div className="sticky">
                         <div>{selectedUser.selectedUserName}</div>
@@ -102,12 +103,12 @@ const DialogsChat: React.FC<DialogsChatPropsType> = ({friendIdLocal, currentPage
 
 
                 {/*CHAT INNER SECTION*/}
-                <div style={{border: "1px solid black", padding: "20px", width: "500px", height: "150px"}}>
+                <div className="chat_inner_section" >
                     <div>
-                        <input
+                        <textarea
                             onKeyDown={handleKeyDown}
                             placeholder="Select user to chat!"
-                            style={{width: "100%", height: "50px"}} type="text"
+                            style={{width: "100%", height: "50px"}}
                             disabled={!friendIdLocal}
                             onChange={handleInputChange}
                             ref={messageRef}
@@ -123,7 +124,7 @@ const DialogsChat: React.FC<DialogsChatPropsType> = ({friendIdLocal, currentPage
                     </div>
                 </div>
 
-            </div>
+            {/*</div>*/}
         </div>
     );
 };

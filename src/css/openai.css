@@ -1,0 +1,56 @@
+.container {
+    font-family: "IBM Plex Mono", monospace;
+    max-width: 1200px;
+    margin-top: 50px;
+}
+
+.openai_section {
+    margin: 0 auto;
+    box-shadow: rgb(194, 202, 214) 0px 0.2em, rgb(194, 202, 214) 0px -0.2em, rgb(194, 202, 214) 0.2em 0px, rgb(194, 202, 214) -0.2em 0px, rgb(133, 149, 173) 0.2em 0.4em,     rgb(133, 149, 173) 0.4em 0.2em, rgb(82, 98, 122) 0.4em 0.6em, rgb(82, 98, 122) 0.6em 0.4em;
+    width: 1000px;
+    height: 600px;
+}
+
+.title {
+    background-color: rgb(194, 202, 214);
+    text-align: center;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    font-weight: bold;
+}
+
+.response_section{
+    height: 350px   ;
+    padding: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 18px;
+}
+
+
+
+.openai_inner_section{
+    /*border: 2px solid black;*/
+    position: relative;
+    background-color: rgb(200, 207, 218);
+    height: 120px;
+
+}
+
+.openai_inner_section textarea {
+    margin: 5px;
+    padding: 5px;
+    height: 95px;
+    width: 850px;
+    border: 2px solid white;
+    border-radius: 2px;
+    background-color: rgb(200, 207, 218);
+    resize: none;
+}
+.openai_inner_section button {
+    padding: 30px;
+    position: absolute;
+    right: 5px;
+    bottom: 20px;
+}
+

@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState, KeyboardEvent } from 'react';
 import {Field, Form, Formik} from "formik";
-import "./openai.css"
+import "../../css/openai.css"
 import {useDispatch, useSelector} from "react-redux";
 import {MessagesResponseAiType, OpenAiAction, OpenAiTypes, postMessageToAiThunk} from "../../redux/OpenAiReducer";
 import {RootState} from "../../redux/Redux-Store";
@@ -36,28 +36,39 @@ const AskOpenAi = () => {
     }
     return (
         <div className="container">
-            <h2 className="title">CHAT BOT OPEN AI</h2>
+
+            <div className="openai_section" >
+
+            <div className="title">
+                <h1 >CHAT BOT OPEN AI</h1>
+            </div>
+
+
+
             <OpenAiResponse
                 isLoading={isLoading}
             />
 
-            <br/>
-            <Formik initialValues={{}} onSubmit={handleSubmit}>
-                <Form>
-                    <div className="inner_conainer">
-                        <Field
-                            onKeyDown={handleKeyDown}
-                            className="input-textarea"
-                            component="textarea"
-                            value={userInput}
-                            onChange={(event:  React.ChangeEvent<HTMLInputElement>) => dispatch(OpenAiAction.inputValueSentAC(event.target.value))}
-                        />
-                        <button  className="submit-button" type="submit">
-                            Submit
-                        </button>
-                    </div>
-                </Form>
-            </Formik>
+                <div className="openai_inner_section" >
+                    <Formik initialValues={{}} onSubmit={handleSubmit}>
+                        <Form>
+                            <div className="inner_conainer">
+                                <Field
+                                    onKeyDown={handleKeyDown}
+                                    className="input-textarea"
+                                    component="textarea"
+                                    value={userInput}
+                                    onChange={(event:  React.ChangeEvent<HTMLInputElement>) => dispatch(OpenAiAction.inputValueSentAC(event.target.value))}
+                                />
+                                <button  className="submit-button" type="submit">
+                                    Submit
+                                </button>
+                            </div>
+                        </Form>
+                    </Formik>
+                </div>
+
+            </div>
         </div>
     );
 };
@@ -85,7 +96,7 @@ const OpenAiResponse = ({isLoading} : OpenAiResponseProps) => {
         </div>
     ))
     return (
-        <div ref={onScrollDownRef} className="response-container" style={{overflowY: "auto"}}>
+        <div ref={onScrollDownRef} className="response_section" style={{overflowY: "auto"}}>
 
             {isLoading ? (
                 <div>{messagesJSX}</div>
