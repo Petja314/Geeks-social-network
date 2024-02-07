@@ -2,9 +2,11 @@
     /*background:rgb(60, 60, 59);*/
     background-color: rgb(19, 21, 19);
     grid-area: sidebar;
+
 }
 
 .sidebar_list li {
+
     margin-top: 20px;
 }
 .sidebar_list a {
@@ -15,7 +17,7 @@
     background-size: 100% 200%;
     font-weight: bold;
     line-height: 1.4;
-    font-size: 20px;
+    font-size: 25px;
     list-style-type: none;
     text-decoration: none;
 }

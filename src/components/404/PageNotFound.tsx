@@ -1,9 +1,10 @@
 import React from 'react';
+import "../../css/404.css"
 
 const PageNotFound = () => {
     return (
-        <div>
-        <div style={{textAlign : "center" , margin : "0 auto" , fontSize :  "100px"}}>  404 PAGE NOT FOUND </div>
+        <div className="container">
+        <div className="title_404" >  404 PAGE NOT FOUND </div>
             </div>
     );
 };

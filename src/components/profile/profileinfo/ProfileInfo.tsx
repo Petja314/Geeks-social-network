@@ -40,8 +40,6 @@ const ProfileInfo = (props: ProfileInfoPropsType) => {
         <div className="container">
             {/*<img style={{"width": "15%"}} src={props.profile.photos.small || userPhoto} alt=""/>*/}
             {/*<h1 className="profile_page_title">PROFILE PAGE</h1>*/}
-
-
             <div className="profile_wrapper">
                 <h1 className="about_me_title">DEVELOPER INFORMATION</h1>
                 <div className="profile_edit_container">

@@ -1,0 +1,84 @@
+.container {
+    margin: 20px;
+    max-width: 1200px; /* Set your desired maximum width */
+}
+.login_section{
+    display: flex;
+    justify-content: space-between;
+    /*gap: 150px;*/
+}
+.login_form_fields{
+    font-size: 18px ;
+    border: 3px solid rgb(110, 109, 95);
+    background: rgb(242, 241, 229);
+    max-width: 940px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    font-weight: bold;
+}
+.login_form_fields  input{
+    margin-top: 30px;
+    margin-bottom: 30px;
+    border: 2px solid transparent;
+    border-radius: 2px;
+    color : white;
+    background-color: rgb(17, 17, 17);
+    font-weight: bold;
+
+    padding: 10px;
+}
+
+.login_form_fields  button{
+    padding: 20px;
+    width: 60px;
+    margin: 0 auto;
+}
+
+
+.login_title{
+    margin-top: 80px;
+    padding-bottom: 20px;
+}
+
+/*BRIEF DESCRIPTION*/
+
+.container_brief{
+    max-width: 940px;
+    width: 100%;
+    padding: 20px;
+    font-size: 16px;
+    background-color: rgb(33, 36, 40);
+    color: rgb(0, 255, 0);
+}
+
+.brief_title{
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.login_details{
+    padding-left: 50px;
+}
+.login_details p {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.network_brief{
+}
+
+.network_brief_title{
+    margin-top: 30px;
+    text-align: center;
+}
+
+.components_list li {
+    margin-top: 10px;
+}
+.components_list span {
+    font-weight: bold;
+    font-size: 20px;
+}
+

@@ -35,9 +35,11 @@ const AppComp = () => {
     return (
         <div  className="app_wrapper">
             {/*<div className="app_container">*/}
-                <HeaderContainer/>
-                <SideBar />
+            <HeaderContainer/>
+            <SideBar />
                 <div className="main">
+
+
                     <Routes>
                         <Route path="/profile/:id?" element={<ProfileContainer/>}/>
                         <Route path="/users" element={<Users/>}/>
@@ -50,10 +52,11 @@ const AppComp = () => {
                         <Route path="*" element={<PageNotFound/>}/>
                     </Routes>
                 </div>
+
+
                 <div className="footer">
                     Footer Design ©{new Date().getFullYear()} Created by Web Dev
                 </div>
-            {/*</div>*/}
         </div>
 
 

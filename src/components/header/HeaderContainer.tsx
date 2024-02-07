@@ -16,7 +16,6 @@ function HeaderContainer() {
     return (
         <header className="header">
 
-
             <div className="header_logo_text">
                 GEEKS <img src={logo} alt="geeks_logo"/> NETWORK
             </div>

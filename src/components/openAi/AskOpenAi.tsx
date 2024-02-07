@@ -52,7 +52,7 @@ const AskOpenAi = () => {
                 <div className="openai_inner_section" >
                     <Formik initialValues={{}} onSubmit={handleSubmit}>
                         <Form>
-                            <div className="inner_conainer">
+                            <div >
                                 <Field
                                     onKeyDown={handleKeyDown}
                                     className="input-textarea"

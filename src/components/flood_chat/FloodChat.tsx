@@ -1,19 +1,17 @@
 import React, {useEffect, useState, useRef} from 'react';
-import {Input, Button, Row, Col, message} from 'antd';
 import {useDispatch, useSelector} from "react-redux";
 import {sendMessageThunk, startMessagesListening, stopMessagesListening, WebSocketStateType} from "../../redux/FloodChatReducer";
 import {RootState} from "../../redux/Redux-Store";
 import {MessageInfoType} from "../../api/FloodChatApi";
 import {compose} from "redux";
 import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
-const {TextArea} = Input;
+import "../../css/openai.css"
+
 const FloodChat = () => {
     const dispatch: any = useDispatch()
     const messages: MessageInfoType[] = useSelector((state: RootState) => state.demoChatPage.messages)
     const scrollContainerRef = useRef<HTMLInputElement>(null);
-
     console.log('render')
-
 
     useEffect(() => {
         //Start listening msg. when component mounts
@@ -32,59 +30,35 @@ const FloodChat = () => {
     }, [messages])
 
 
-    console.log('messages' , messages)
+    console.log('messages', messages)
     return (
-        <div style={{maxWidth: '700px', margin: 'auto', padding: '20px', border: '1px solid #ddd', borderRadius: '10px'}}>
-                <Row justify="center">
-                    <Col>
-                        <h2 style={{color: '#1890ff'}}>CHAT</h2>
-                    </Col>
-                </Row>
+        <div  className="container">
+            <div className="openai_section" >
+                <div className="title"><h1>CHAT</h1></div>
 
-                < div
-                    ref={scrollContainerRef}
-                    style={{
-                        maxHeight: '400px',
-                        overflowY: 'auto',
-                        marginBottom: '20px',
-                        padding: '10px',
-                        border: '1px solid #ddd',
-                        borderRadius: '5px',
-                        backgroundColor: '#f5f5f5',
-                    }}
-                >
-                    {messages.map((item: MessageInfoType, index: number) => (
-                        < div  key={item.userId} >
-                            <Row align="middle" gutter={[16, 16]}>
-                                <Col>
-                                    <img style={{width: '40px', borderRadius: '50%'}} src={item.photo} alt=""/>
-                                </Col>
-                                <Col>
-                <span style={{fontWeight: 'bold', color: '#1890ff'}}>
+            < div
+                ref={scrollContainerRef}
+                style={{
+                    // maxHeight: '400px',
+                    overflowY: 'auto',
+                }}
+            >
+                <div className="response_section">
+                {messages.map((item: MessageInfoType, index: number) => (
+                    < div key={item.userId}>
+
+                        <img style={{width: '40px', borderRadius: '50%'}} src={item.photo} alt=""/>
+
+                        <span style={{fontWeight: 'bold', color: '#1890ff'}}>
                   {item.userName}
                 </span>
-                                </Col>
-                            </Row>
-                            <Row>
-                                <Col>
-                                    <p>{item.message}</p>
-                                </Col>
-                            </Row>
-                        </div>
-
-                    ))}
-
+                        <p>{item.message}</p>
+                    </div>
+                ))}
                 </div>
-
-
-
-                <Row justify="center">
-                    <Col>
-                        <hr style={{border: '1px solid #ddd'}}/>
-                    </Col>
-                </Row>
-                <AddMessageForm/>
-
+            </div>
+            <AddMessageForm/>
+            </div>
         </div>
     );
 };
@@ -95,7 +69,8 @@ const AddMessageForm = () => {
     const sendMessage = () => {
         console.log()
         if (!inputMessage.trim()) {
-            message.warning('Please enter a message');
+            alert('Please enter a message')
+            // message.warning('Please enter a message');
             return;
         }
         dispatch(sendMessageThunk(inputMessage))
@@ -103,30 +78,12 @@ const AddMessageForm = () => {
     };
 
     return (
-        <div>
-            <Row justify="center">
-                <Col span={24}>
-                    <Row gutter={[16, 16]} align="middle">
-                        <Col span={18}>
-                            <TextArea
-                                rows={4}
-                                value={inputMessage}
-                                onChange={(e) => setInputMessage(e.target.value)}
-                                style={{borderRadius: '5px', border: '1px solid #ddd'}}
-                            />
-                        </Col>
-                        <Col span={6}>
-                            <Button
-                                type="primary"
-                                onClick={sendMessage}
-                                style={{backgroundColor: '#1890ff', border: '1px solid #1890ff', width: '100%', borderRadius: '5px'}}
-                            >
-                                Send Message
-                            </Button>
-                        </Col>
-                    </Row>
-                </Col>
-            </Row>
+        <div className="openai_inner_section">
+            <div >
+                <textarea value={inputMessage} onChange={(e) => setInputMessage(e.target.value)}/>
+                <button  onClick={sendMessage}> Submit </button>
+            </div>
+
         </div>
     )
 }
@@ -136,4 +93,3 @@ const FloodChatMemoComponent = React.memo(FloodChat)
 export default compose(
     WithAuthRedirect
 )(FloodChatMemoComponent)
-

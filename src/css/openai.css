@@ -20,6 +20,7 @@
 }
 
 .response_section{
+    /*border: 1px solid red;*/
     height: 350px   ;
     padding: 20px;
     font-weight: bold;
@@ -30,7 +31,7 @@
 
 
 .openai_inner_section{
-    /*border: 2px solid black;*/
+    /*border: 2px solid blue;*/
     position: relative;
     background-color: rgb(200, 207, 218);
     height: 120px;
