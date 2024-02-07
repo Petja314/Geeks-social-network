@@ -41,6 +41,7 @@ const CreateNewPost: React.FC<CreateNewPostPropsType> = ({newPost, setNewPost, h
             <div className={styles.newPostContainer}>
                 <div>
                     <div className={styles.changeTitle} >
+                       <h3 className={styles.createPostTitle} >Create new post</h3>
                     <input
                         value={newPost.title}
                         type="text"
@@ -53,7 +54,7 @@ const CreateNewPost: React.FC<CreateNewPostPropsType> = ({newPost, setNewPost, h
                 <div className={styles.changeContent}>
                                     <textarea
                                         value={newPost.content}
-                                        placeholder="Type a new post..."
+                                        placeholder="Type a new post text..."
                                         onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => setNewPost({...newPost, content: event.currentTarget.value})}
                                     ></textarea>
                 </div>

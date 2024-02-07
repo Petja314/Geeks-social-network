@@ -32,32 +32,32 @@ const FloodChat = () => {
 
     console.log('messages', messages)
     return (
-        <div  className="container">
-            <div className="openai_section" >
+        <div className="component_page_chat">
+            <div className="openai_section">
                 <div className="title"><h1>CHAT</h1></div>
 
-            < div
-                ref={scrollContainerRef}
-                style={{
-                    // maxHeight: '400px',
-                    overflowY: 'auto',
-                }}
-            >
-                <div className="response_section">
-                {messages.map((item: MessageInfoType, index: number) => (
-                    < div key={item.userId}>
+                < div
+                    ref={scrollContainerRef}
+                    style={{
+                        // maxHeight: '400px',
+                        overflowY: 'auto',
+                    }}
+                >
+                    <div className="response_section">
+                        {messages.map((item: MessageInfoType, index: number) => (
+                            < div key={item.userId}>
 
-                        <img style={{width: '40px', borderRadius: '50%'}} src={item.photo} alt=""/>
+                                <img style={{width: '40px', borderRadius: '50%'}} src={item.photo} alt=""/>
 
-                        <span style={{fontWeight: 'bold', color: '#1890ff'}}>
+                                <span style={{fontWeight: 'bold', color: '#1890ff'}}>
                   {item.userName}
                 </span>
-                        <p>{item.message}</p>
+                                <p>{item.message}</p>
+                            </div>
+                        ))}
                     </div>
-                ))}
                 </div>
-            </div>
-            <AddMessageForm/>
+                <AddMessageForm/>
             </div>
         </div>
     );
@@ -79,9 +79,9 @@ const AddMessageForm = () => {
 
     return (
         <div className="openai_inner_section">
-            <div >
+            <div>
                 <textarea value={inputMessage} onChange={(e) => setInputMessage(e.target.value)}/>
-                <button  onClick={sendMessage}> Submit </button>
+                <button onClick={sendMessage}> Submit</button>
             </div>
 
         </div>

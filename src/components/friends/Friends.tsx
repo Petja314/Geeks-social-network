@@ -31,9 +31,9 @@ const Friends = () => {
     };
 
     return (
-        <div className="container">
+        <div className="component_page">
             <Preloader isFetching={isFetching}/>
-            <h2 className="page_title" >List of friends</h2>
+            <h2 className="page_title">List of friends</h2>
 
 
             <div className="user_page">
@@ -73,18 +73,16 @@ const Friends = () => {
                             </div>
                         </div>
                     ))}
-
-
-                    <div className="pagination_section">
-                        <PaginationUsers
-                            totalUsersCount={totalCount}
-                            pageSize={pageSize}
-                            currentPage={currentPage}
-                            onPageChange={handlePageChangeUsers}
-                        />
-                    </div>
                 </div>
+            </div>
 
+            <div className="pagination_section">
+                <PaginationUsers
+                    totalUsersCount={totalCount}
+                    pageSize={pageSize}
+                    currentPage={currentPage}
+                    onPageChange={handlePageChangeUsers}
+                />
             </div>
 
         </div>

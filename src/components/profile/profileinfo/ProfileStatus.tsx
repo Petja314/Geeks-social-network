@@ -1,7 +1,6 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
-import {useDispatch, useSelector} from "react-redux";
-import {ActionsProfileTypes, ProfileStateTypes, updateStatusThunkCreator} from "../../../redux/ProfileReducer";
-import "../../../css/profile_info.css"
+import {useDispatch} from "react-redux";
+import { updateStatusThunkCreator} from "../../../redux/ProfileReducer";
 
 
 type ProfileStatusPropsType = {

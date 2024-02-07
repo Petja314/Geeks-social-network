@@ -35,7 +35,7 @@ const AskOpenAi = () => {
         }
     }
     return (
-        <div className="container">
+        <div className="component_page_chat">
 
             <div className="openai_section" >
 

@@ -54,8 +54,7 @@ const MyPostsContainer = () => {
     //Finding post.id match to edit.id , to show CURRENT POST / EDIT POST SECTION
     const foundPost = currentPosts.find((item: ResponseTestAPIDataType) => item.id === editPost?.id)
     return (
-        <div  className={styles.containerMain}>
-        <div className={styles.container}>
+         <div className={styles.containerAllPosts}>
             <h2 className={styles.postTitle}>POSTS</h2>
 
             {/*VIEW CURRENT POSTS AND EDIT CURRENT POST SECTION*/}
@@ -98,7 +97,6 @@ const MyPostsContainer = () => {
             </div>
             {/*<div className={styles.paginationLabel}>CURRENT PAGE: {currentPage}</div>*/}
 
-        </div>
         </div>
     )
 }

@@ -10,11 +10,11 @@ const SideBar = () => {
                 <ul className="sidebar_list" >
                     <li><NavLink to={"/profile"}>Profile</NavLink></li>
                     <li><NavLink to={"/users"}>Users</NavLink></li>
+                    <li><NavLink to={"/ask_ai"}>Ask AI</NavLink></li>
                     <li><NavLink to={"/friends"}>Friends</NavLink></li>
                     <li><NavLink to={"/dialogs"}>Messenger</NavLink></li>
                     <li><NavLink to={"/news"}>News</NavLink></li>
                     <li><NavLink to={"/flood_chat"}>Flood Dev Chat</NavLink></li>
-                    <li><NavLink to={"/ask_ai"}>Ask AI</NavLink></li>
                 </ul>
 
 

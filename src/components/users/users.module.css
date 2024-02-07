@@ -1,5 +1,6 @@
 .usersPhoto{
-    max-width: 150px;
+    background: white;
+    max-width: 110px;
 }
 .selectedPage{
     font-weight: bold;

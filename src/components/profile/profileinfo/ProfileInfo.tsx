@@ -7,7 +7,6 @@ import {useDispatch} from "react-redux";
 import {ProfileEditForm} from "./ProfileEditForm";
 import ProfileData from "./ProfileData";
 import UserAvatarPhoto from "../../users/UserAvatarPhoto";
-import "../../../css/profile_info.css"
 import "../../../css/profile_edit.css"
 
 
@@ -37,11 +36,12 @@ const ProfileInfo = (props: ProfileInfoPropsType) => {
     // console.log('PROFILE INFO : ' , props.status)
 
     return (
-        <div className="container">
+        <div className="component_page">
             {/*<img style={{"width": "15%"}} src={props.profile.photos.small || userPhoto} alt=""/>*/}
-            {/*<h1 className="profile_page_title">PROFILE PAGE</h1>*/}
+                <h2>PROFILE</h2>
+
             <div className="profile_wrapper">
-                <h1 className="about_me_title">DEVELOPER INFORMATION</h1>
+                <h3 className="about_me_title">DEVELOPER INFORMATION</h3>
                 <div className="profile_edit_container">
 
 

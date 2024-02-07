@@ -34,23 +34,22 @@ const AppComp = () => {
 
     return (
         <div  className="app_wrapper">
-            {/*<div className="app_container">*/}
             <HeaderContainer/>
             <SideBar />
                 <div className="main">
-
-
+                    <div className="container_main">
                     <Routes>
                         <Route path="/profile/:id?" element={<ProfileContainer/>}/>
+                        <Route path="/ask_ai" element={<AskOpenAi/>}/>
                         <Route path="/users" element={<Users/>}/>
                         <Route path="/login" element={<Login/>}/>
                         <Route path="/friends" element={<Friends/>}/>
                         <Route path="/dialogs/:id?" element={<DialogsContainer/>}/>
                         <Route path="/news" element={<News/>}/>
                         <Route path="/flood_chat" element={<FloodChat/>}/>
-                        <Route path="/ask_ai" element={<AskOpenAi/>}/>
                         <Route path="*" element={<PageNotFound/>}/>
                     </Routes>
+                    </div>
                 </div>
 
 

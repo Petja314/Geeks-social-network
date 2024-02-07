@@ -104,7 +104,6 @@ const DialogsChat: React.FC<DialogsChatPropsType> = ({friendIdLocal, currentPage
 
                 {/*CHAT INNER SECTION*/}
                 <div className="chat_inner_section" >
-                    <div>
                         <textarea
                             onKeyDown={handleKeyDown}
                             placeholder="Select user to chat!"
@@ -113,15 +112,14 @@ const DialogsChat: React.FC<DialogsChatPropsType> = ({friendIdLocal, currentPage
                             onChange={handleInputChange}
                             ref={messageRef}
                         />
-                    </div>
-                    {/*DISABLE BUTTON IF FRIEND IS NOT SELECTED*/}
-                    <div style={{marginTop: "10px"}}>
-                        <button disabled={!friendIdLocal || !activeBtn} onClick={sendMessage}>Send Message</button>
-                        <button onClick={() => {
-                            dispatch(restoreMessageThunk(messageId))
-                        }}> restore last message
-                        </button>
-                    </div>
+                        {/*DISABLE BUTTON IF FRIEND IS NOT SELECTED*/}
+                        <div>
+                            <button disabled={!friendIdLocal || !activeBtn} onClick={sendMessage}>Send Message</button>
+                            <button onClick={() => {
+                                dispatch(restoreMessageThunk(messageId))
+                            }}> restore last message
+                            </button>
+                        </div>
                 </div>
 
             {/*</div>*/}

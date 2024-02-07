@@ -1,53 +1,35 @@
-.container {
-    /*margin: 20px;*/
-    /*max-width: 1200px; !* Set your desired maximum width *!*/
-    /*display: flex;*/
-    /*flex-direction: column;*/
-    /*justify-content: center;*/
-}
-.page_title{
-    margin: 0 auto;
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.user_page {
-    margin-bottom: 80px;
-
-    width: 100%;
-    display: flex;
-}
 
 .find_section {
-    box-shadow: rgb(194, 202, 214) 0.2em 0px;
-    border-right: 1px solid grey;
-    padding-right: 20px;
+    /*box-shadow: rgb(194, 202, 214) 0.2em 0px;*/
+    /*padding-right: 20px;*/
 }
 
 .find_section input {
-    margin-bottom: 20px;
+    /*margin-bottom: 20px;*/
 }
-
 .find_section button {
-    margin-top: 20px;
+    /*margin-top: 20px;*/
 }
 
+/*USER CONTAINER SECTION*/
 .users_container {
     padding: 20px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    position: relative;
 }
 
+/*USER BLOCK IMG NAME BTN SECTION*/
 .user_wrapper {
+    padding-top: 50px;
+    padding-bottom: 50px;
     display: flex;
     align-items: center;
     flex-direction: column;
     border: 2px solid grey;
     width: 240px;
-    height: 360px;
+    /*height: 360px;*/
     margin: 10px 10px 30px 10px;
     box-shadow: rgb(194, 202, 214) 0px 0.2em, rgb(194, 202, 214) 0px -0.2em, rgb(194, 202, 214) 0.2em 0px, rgb(194, 202, 214) -0.2em 0px;
 }
@@ -70,8 +52,5 @@
 .pagination_section {
     display: flex;
     justify-content: center;
-    position: absolute;
-    bottom: -40px;
-    left: 50%;
-    transform: translate(-50%);
+    margin-bottom: 30px;
 }

@@ -20,13 +20,14 @@ const UsersSearchForm = React.memo((props: UsersSearchFormPropsType) => {
     }
 
     return (<div>
-        <h3>Find user</h3>
         <Formik
             initialValues={{term: '', friend: String(props.filter)}}
             onSubmit={submit}
         >
             {({isSubmitting}) => (
-                <Form className="formik_container" >
+                <Form className="formik_container formik_dialogs_container" >
+                    <h3 className="formik_title formik_dialogs_title ">Find user</h3>
+
                     <Field type="text" name="term" placeholder="type user name..." />
 
 

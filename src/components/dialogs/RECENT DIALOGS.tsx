@@ -9,6 +9,7 @@ import {getUsersPageSelector} from "../../redux/selectors/UsersSelectors";
 import {ThunkDispatch} from "redux-thunk";
 import {RootState} from "../../redux/Redux-Store";
 import "../../css/dialogs.css"
+import "../../css/formik.css"
 
 type RecentDialogsPropsType = {
     dialogs: DialogsArrayType[],
@@ -94,7 +95,6 @@ const RecentDialogs: React.FC<RecentDialogsPropsType> = ({dialogs, newMessageCou
                         .map((dialog: DialogsArrayType) => (
                             <div key={dialog.id}>
                                 <div style={{paddingTop: "10px"}}>
-
                                     <div><UserAvatarPhoto photos={dialog.photos.small}/></div>
                                     <div>{dialog.userName} </div>
 

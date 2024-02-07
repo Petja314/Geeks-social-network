@@ -1,15 +1,12 @@
-.container {
-    /*margin: 20px;*/
-    /*max-width: 1200px; !* Set your desired maximum width *!*/
-    /*border: 1px solid black;*/
-}
 
+.component_page{
+    margin-top: 50px;
+    margin-bottom: 30px;
+}
 /*Main container  */
 .profile_wrapper{
     margin-top: 40px;
     box-shadow: rgb(194, 202, 214) 0px 0.2em, rgb(194, 202, 214) 0px -0.2em, rgb(194, 202, 214) 0.2em 0px, rgb(194, 202, 214) -0.2em 0px, rgb(133, 149, 173) 0.2em 0.4em, rgb(133, 149, 173) 0.4em 0.2em, rgb(82, 98, 122) 0.4em 0.6em, rgb(82, 98, 122) 0.6em 0.4em;
-    margin-left: 100px;
-    margin-right: 100px;
 }
 /*Container for both sections AVATAR and ABOUT ME*/
 .profile_edit_container{
@@ -34,8 +31,8 @@
     text-align: center;
     flex-direction: column;
     margin-left: 50px;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-left: 30px;
+    padding-right: 30px;
 
 }
 .avatar_title {
@@ -51,10 +48,10 @@
 }
 
 .avatar_img img{
+    box-shadow: rgb(194, 202, 214) 0px 0.2em, rgb(194, 202, 214) 0px -0.2em, rgb(194, 202, 214) 0.2em 0px, rgb(194, 202, 214) -0.2em 0px;
     margin-top: 20px;
     margin-bottom: 20px;
     width: 300px;
-    box-shadow: rgb(194, 202, 214) 0px 0.2em, rgb(194, 202, 214) 0px -0.2em, rgb(194, 202, 214) 0.2em 0px, rgb(194, 202, 214) -0.2em 0px;
 }
 /*Status Section in AVATAR */
 .status_container{
@@ -76,10 +73,9 @@
 }
 /*Wrapper to sepparate User Info and Contacts - FLEX - SPACE-BETWEEN */
 .profile_data_wrapper {
-    /*border: 1px solid black;*/
     display: flex;
-    justify-content: space-between;
-    /*gap: 30px;*/
+    /*justify-content: space-between;*/
+    gap: 30px;
 }
 
 /*// LIST OF USER INFO*/
@@ -133,7 +129,7 @@
 }
 
 .contact_form_title{
-    text-align: center;
+    background-color: rgb(194, 202, 214);
 }
 
 

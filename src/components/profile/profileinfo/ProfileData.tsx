@@ -9,8 +9,7 @@ type ProfileDataPropsType = {
 }
 const ProfileData = (props: ProfileDataPropsType) => {
     return <div>
-        <h2 className="contact_form_title">ABOUT ME </h2>
-
+        <h3 className="contact_form_title">ABOUT ME </h3>
 
         <div className="profile_data_wrapper">
             <ul className="profile_ul_list" style={{"listStyle": "none"}}>

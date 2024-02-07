@@ -88,21 +88,16 @@ const Users = () => {
     };
     // console.log('usersPage.users' , usersPage.users)
     return (
-        <div className="container">
+        <div className="component_page">
             <Preloader isFetching={isFetching}/>
-            {currentPage}
+            <h2>USERS PAGE</h2>
 
-
-            <div className="user_page">
-
-                <div className="find_section">
-                    <div>
-                        <UsersSearchForm
-                            filter={filter.friend}
-                            onFilterChanged={onFilterChanged}
-                        />
-                    </div>
-                </div>
+            <div className="find_section">
+                    <UsersSearchForm
+                        filter={filter.friend}
+                        onFilterChanged={onFilterChanged}
+                    />
+            </div>
 
                 <div className="users_container">
                     {
@@ -137,17 +132,20 @@ const Users = () => {
                                     </div>
                                 </div>
                             </div>)}
-                    <div className="pagination_section">
-                        <PaginationUsers
-                            totalUsersCount={totalUsersCount}
-                            pageSize={pageSize}
-                            currentPage={currentPage}
-                            onPageChange={handlePageChangeUsers}
-                        />
-                    </div>
+
                 </div>
 
+
+            <div className="pagination_section">
+                {/*{currentPage}*/}
+                <PaginationUsers
+                    totalUsersCount={totalUsersCount}
+                    pageSize={pageSize}
+                    currentPage={currentPage}
+                    onPageChange={handlePageChangeUsers}
+                />
             </div>
+
 
 
         </div>

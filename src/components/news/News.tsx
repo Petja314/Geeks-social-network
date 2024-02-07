@@ -102,7 +102,7 @@ const News = () => {
     console.log('visibleData', visibleData)
 
     return (
-        <div>
+        <div className="news_container" >
             <InfiniteScroll
                 style={{overflow: 'hidden'}}
                 dataLength={visibleData.length} //This is important field to render the next data
@@ -111,7 +111,6 @@ const News = () => {
                 loader={<h4>{!loading}</h4>}
             >
 
-                <div className="container">
                     <h2 style={{marginBottom: '30px', textAlign: 'center'}}>NEWS API</h2>
                     <section className="news-section">
                         {visibleData.map((item: NewsItems, index: number) => (
@@ -147,7 +146,6 @@ const News = () => {
                     <div style={{textAlign: "center"}}>
                         {!loading && <p style={{fontSize: "100px"}}>Loading...</p>}
                     </div>
-                </div>
             </InfiniteScroll>
         </div>
     );
