@@ -1,8 +1,7 @@
-import React, { useState} from 'react';
+import React, {useState} from 'react';
 import PaginationUsers from "../../users/PaginationUsers";
-import styles from './MyPosts.module.css';
 import {useDispatch, useSelector} from "react-redux";
-import { MyPostsInitialState, onPageChangeThunk, ResponseTestAPIDataType} from "../../../redux/MyPostsReducer";
+import {MyPostsInitialState, onPageChangeThunk, ResponseTestAPIDataType} from "../../../redux/MyPostsReducer";
 import {ThunkDispatch} from "redux-thunk";
 import {RootState} from "../../../redux/Redux-Store";
 import CurrentPostComponent from "./CurrentPostComponent";
@@ -11,6 +10,8 @@ import CreateNewPost from "./CreateNewPost";
 import {compose} from "redux";
 import {WithAuthRedirect} from "../../../hoc/WithAuthRedirect";
 import usePostFetchAdmin from "./usePostFetchAdmin";
+import {isDraggingAC} from "../../drag_drop_img/DragReducer";
+import "../../../css/posts/posts_main_container.css"
 
 const MyPostsContainer = () => {
     const userId: number | null = useSelector((state: RootState) => state.userAuthPage.userId) // Getting authorized userID (admin)
@@ -19,30 +20,43 @@ const MyPostsContainer = () => {
     const [newPost, setNewPost] = useState<ResponseTestAPIDataType>({id: 0, userId, title: '', content: '', likes: 0, image: ''}); //temporary  storage for new post
     const [editPost, setEditPost] = useState<ResponseTestAPIDataType | null>(null);//temporary storage for edit post section.
     // Run Fetch function to send posts data when the component mounts
+
     usePostFetchAdmin({userId})
     if (!posts) return <div>loading...</div> //Preloader
 
-    const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-        const file: File | undefined = e.target.files?.[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onloadend = async () => {
-                const resizedImage = reader.result as string;
 
+    const handleChangesPhoto = async (files: FileList | null) => {
+        if (files && files.length > 0) {
+            const selectedFile = files[0];
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const fileContent = e.target?.result as string;
                 if (editPost) {
                     // If there's an editPost, update its image
                     setEditPost({
                         ...editPost,
-                        image: resizedImage,
+                        image: fileContent,
                     });
                 } else {
                     // If there's no editPost, create a new post
-                    setNewPost({...newPost, image: resizedImage});
+                    setNewPost({ ...newPost, image: fileContent });
                 }
             };
-            reader.readAsDataURL(file);
+
+            reader.readAsDataURL(selectedFile);
         }
-    }; //Setting up image function , for CREATE and EDIT
+    };
+    const handleImageChange = (event : any) => {
+        event.preventDefault()
+        handleChangesPhoto(event.target.files)
+    }
+    const onDropHandler = (event: any) => {
+        event.preventDefault();
+        let files: FileList | null = event.dataTransfer.files;
+        handleChangesPhoto(files)
+        dispatch(isDraggingAC(false));
+    };
+
 
     // Pagination logic
     const indexOfLastPost: number = currentPage * pageSize
@@ -54,8 +68,9 @@ const MyPostsContainer = () => {
     //Finding post.id match to edit.id , to show CURRENT POST / EDIT POST SECTION
     const foundPost = currentPosts.find((item: ResponseTestAPIDataType) => item.id === editPost?.id)
     return (
-         <div className={styles.containerAllPosts}>
-            <h2 className={styles.postTitle}>POSTS</h2>
+        <div className="container_all_posts">
+            <h2 className="post_title">POSTS</h2>
+
 
             {/*VIEW CURRENT POSTS AND EDIT CURRENT POST SECTION*/}
             {!foundPost ?
@@ -66,8 +81,9 @@ const MyPostsContainer = () => {
                     currentPage={currentPage}
                     currentPosts={currentPosts}
                 />
-             :
+                :
                 <EditPostComponent
+                    onDropHandler={onDropHandler}
                     setEditPost={setEditPost}
                     editPost={editPost}
                     handleImageChange={handleImageChange}
@@ -77,6 +93,7 @@ const MyPostsContainer = () => {
 
             {/*CREATE NEW POST SECTION */}
             <CreateNewPost
+                onDropHandler={onDropHandler}
                 newPost={newPost}
                 setNewPost={setNewPost}
                 handleImageChange={handleImageChange}
@@ -87,7 +104,7 @@ const MyPostsContainer = () => {
 
 
             {/* PAGINATION */}
-            <div className={styles.paginationContainer}>
+            <div className="pagination_container">
                 <PaginationUsers
                     totalUsersCount={posts.length}
                     pageSize={pageSize}
@@ -96,7 +113,6 @@ const MyPostsContainer = () => {
                 />
             </div>
             {/*<div className={styles.paginationLabel}>CURRENT PAGE: {currentPage}</div>*/}
-
         </div>
     )
 }

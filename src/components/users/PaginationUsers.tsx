@@ -31,7 +31,7 @@ const PaginationUsers = (props: PaginationUsersType) => {
     let rightPortionPageNumber = portionNumber * portionSize
 
     useEffect(() => setPortionNumber(Math.ceil(props.currentPage / portionSize)), [props.currentPage]);
-    console.log('pages', props.currentPage)
+    // console.log('pages', props.currentPage)
     return (
         <div className="pagination_container" >
 

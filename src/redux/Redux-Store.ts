@@ -9,6 +9,7 @@ import MyPostsReducer from "./MyPostsReducer";
 import {FriendsReducer} from "./FriendsReducer";
 import {FloodChatReducer} from "./FloodChatReducer";
 import OpenAiReducer from "./OpenAiReducer";
+import {DragReducer} from "../components/drag_drop_img/DragReducer";
 
 export type RootState = ReturnType<typeof rootReducers>
  let rootReducers = combineReducers({
@@ -20,7 +21,8 @@ export type RootState = ReturnType<typeof rootReducers>
     myposts : MyPostsReducer,
     friendPage : FriendsReducer,
     demoChatPage : FloodChatReducer,
-    openAiPage : OpenAiReducer
+    openAiPage : OpenAiReducer,
+    dragReducer : DragReducer
 
 });
 

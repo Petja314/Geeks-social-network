@@ -1,7 +1,7 @@
-.usersPhoto{
+.users_photo {
     background: white;
     max-width: 110px;
 }
-.selectedPage{
+.selected_page {
     font-weight: bold;
 }

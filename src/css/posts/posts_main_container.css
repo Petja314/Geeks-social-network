@@ -1,0 +1,27 @@
+/*Main posts container*/
+.container_all_posts {
+    max-width: 700px;
+    margin: 0px auto;
+    font-weight: bold;
+    font-size: 18px;
+}
+.pagination_container {
+    margin-top: 20px;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.post_title {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+
+
+
+
+
+
+

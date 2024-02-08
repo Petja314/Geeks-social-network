@@ -1,4 +1,7 @@
 
+
+
+
 .component_page{
     margin-top: 50px;
     margin-bottom: 30px;
@@ -43,15 +46,14 @@
     color: black;
     font-size: 18px;
 }
-.select_photo{
-    margin: 0 auto;
-}
+
 
 .avatar_img img{
     box-shadow: rgb(194, 202, 214) 0px 0.2em, rgb(194, 202, 214) 0px -0.2em, rgb(194, 202, 214) 0.2em 0px, rgb(194, 202, 214) -0.2em 0px;
     margin-top: 20px;
     margin-bottom: 20px;
-    width: 300px;
+    width: 320px;
+    max-width: 160px;
 }
 /*Status Section in AVATAR */
 .status_container{

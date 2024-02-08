@@ -19,23 +19,27 @@ import user_avatar_17 from "../../assets/images/user_avatar_img/user_15.gif";
 import user_avatar_18 from "../../assets/images/user_avatar_img/user_15.gif";
 import user_avatar_19 from "../../assets/images/user_avatar_img/user_15.gif";
 import user_avatar_20 from "../../assets/images/user_avatar_img/user_15.gif";
-import styles from "./users.module.css";
+// import styles from "../../css/avatar.css";
+import "../../css/avatar.css"
+
 
 const UserAvatarPhoto = (props: any) => {
     const user_images = [
         user_avatar_1, user_avatar_2, user_avatar_3, user_avatar_4, user_avatar_5, user_avatar_6, user_avatar_7, user_avatar_8, user_avatar_9, user_avatar_10, user_avatar_11, user_avatar_12, user_avatar_13, user_avatar_14, user_avatar_15, user_avatar_16, user_avatar_17, user_avatar_18, user_avatar_19, user_avatar_20
     ]
 
+    // console.log('props photos', props.photos)
+
     return (
         <div className="avatar_img">
             {props.photos !== null ? (<span>
-            <img className={styles.usersPhoto} src={props.photos} alt=""/>
+            <img className="users_photo user_profile_photo" src={props.photos} alt=""/>
                 </span>
             ) : (
                 <span>
             {/*<div> photo doesn't exist.</div> looking for an avatar :*/}
            <div>
-               <img className={styles.usersPhoto} src={user_images[Math.floor(Math.random() * user_images.length)]} alt=""/>
+               <img className="users_photo user_profile_photo" src={user_images[Math.floor(Math.random() * user_images.length)]} alt=""/>
            </div>
             </span>
             )

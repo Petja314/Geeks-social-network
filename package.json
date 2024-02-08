@@ -10,6 +10,7 @@
   "homepage": "https://github.com/Petja314/socialnetwork_samurai.git",
   "dependencies": {
     "@hackernoon/pixel-icon-library": "^1.0.1",
+    "@reduxjs/toolkit": "^2.1.0",
     "@testing-library/user-event": "^13.5.0",
     "@types/crypto-js": "^4.2.2",
     "@types/jest": "^29.5.6",

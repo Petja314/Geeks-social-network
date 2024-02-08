@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import './news.css';
+import '../../css/news.css';
 import {newsAPI} from '../../api/NewsAPI';
 import {robot_img_array} from '../../assets/images/robots_images/robot_array';
 import img_is_coming from '../../assets/images/img_in_progress/img_is_coming.jpg';

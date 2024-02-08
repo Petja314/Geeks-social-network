@@ -3,7 +3,9 @@ import React from "react";
 import {ThunkDispatch} from "redux-thunk";
 import {RootState} from "../../../redux/Redux-Store";
 import {useDispatch} from "react-redux";
-import styles from "./MyPosts.module.css";
+import "../../../css/profile_edit.css"
+import "../../../css/posts/create_new_post.css"
+import DragPhoto from "../../drag_drop_img/DragPhoto";
 
 export type CreateNewPostPropsType = {
     newPost: ResponseTestAPIDataType
@@ -12,8 +14,9 @@ export type CreateNewPostPropsType = {
     posts: Array<ResponseTestAPIDataType>
     userId: number | null
     pageSize: number
+    onDropHandler: (event: any) => void
 }
-const CreateNewPost: React.FC<CreateNewPostPropsType> = ({newPost, setNewPost, handleImageChange, posts, userId, pageSize}) => {
+const CreateNewPost: React.FC<CreateNewPostPropsType> = ({newPost, setNewPost, handleImageChange, posts, userId, pageSize, onDropHandler}) => {
     const dispatch: ThunkDispatch<RootState, void, any> = useDispatch()
     const createPost = () => {
         const newPostId = posts.length > 0 ? posts[posts.length - 1].id + 1 : 1
@@ -38,42 +41,47 @@ const CreateNewPost: React.FC<CreateNewPostPropsType> = ({newPost, setNewPost, h
     return (
         <div>
             {/* Create a new Post */}
-            <div className={styles.newPostContainer}>
-                <div>
-                    <div className={styles.changeTitle} >
-                       <h3 className={styles.createPostTitle} >Create new post</h3>
-                    <input
-                        value={newPost.title}
-                        type="text"
-                        placeholder="Title"
-                        onChange={(event: React.ChangeEvent<HTMLInputElement>) => setNewPost({...newPost, title: event.currentTarget.value})}
-                    />
+            <div className="new_post_container">
+
+                <h3 className="create_post_title">Create new post</h3>
+
+
+                    <div className="create_new_post_info_section">
+                        <input
+                            value={newPost.title}
+                            type="text"
+                            placeholder="Title"
+                            onChange={(event: React.ChangeEvent<HTMLInputElement>) => setNewPost({...newPost, title: event.currentTarget.value})}
+                        />
+                        <div>
+                        <textarea
+                            value={newPost.content}
+                            placeholder="Type a new post text..."
+                            onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => setNewPost({...newPost, content: event.currentTarget.value})}
+                        ></textarea>
                         </div>
-                </div>
-
-                <div className={styles.changeContent}>
-                                    <textarea
-                                        value={newPost.content}
-                                        placeholder="Type a new post text..."
-                                        onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => setNewPost({...newPost, content: event.currentTarget.value})}
-                                    ></textarea>
-                </div>
+                    </div>
 
 
-                <div className={styles.selectImage} >
-                    <span className={styles.selectImageTitle} >Select image:</span>
-                    <input key={newPost.image} type="file" accept="image/*" onChange={handleImageChange}/>
-                </div>
-                <div>
-                    <img className={styles.postImage} src={newPost.image}/>
+                <div className="upload_image_section">
+                    <div className="select_image_title">Select image:</div>
+
+                    <img className="post_image" src={newPost.image}/>
+                    <div className="photo_input_section">
+                        <DragPhoto onDropHandler={onDropHandler}
+                        />
+                    </div>
+                    <input className="custom-file-input" type="file" accept="image/*" onChange={handleImageChange}/>
+
+                    <div className="post_buttons">
+                        <button disabled={disableSentEmpty} onClick={createPost}>
+                            Create a post
+                        </button>
+                        <button onClick={deleteAllPosts}>Delete all posts</button>
+                    </div>
                 </div>
 
-                <div className={styles.postButtons}>
-                    <button disabled={disableSentEmpty} onClick={createPost}>
-                        Create a post
-                    </button>
-                    <button onClick={deleteAllPosts}>Delete all posts</button>
-                </div>
+
             </div>
         </div>
     )

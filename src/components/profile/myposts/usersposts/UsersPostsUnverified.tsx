@@ -3,7 +3,6 @@ import { MyPostsInitialState, onPageChangeThunk, ResponseTestAPIDataType, setUnv
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../../../redux/Redux-Store";
 import {ThunkDispatch} from "redux-thunk";
-import styles from "../MyPosts.module.css";
 import CurrentPostComponent from "../CurrentPostComponent";
 import PaginationUsers from "../../../users/PaginationUsers";
 import usePostFetchUsers from "./usePostFetchUsers";
@@ -25,9 +24,8 @@ const UsersPostsUnverified: React.FC<{ idUserURL: number }> = ({idUserURL}) => {
     };
     return (
         <div>
-
-            <div className={styles.container}>
-                <h2 className={styles.heading}>POSTS</h2>
+            <div >
+                <h2>POSTS</h2>
 
                 <CurrentPostComponent
                     idUserURL={idUserURL}
@@ -37,7 +35,7 @@ const UsersPostsUnverified: React.FC<{ idUserURL: number }> = ({idUserURL}) => {
                     posts={posts}
                 />
 
-                <div className={styles.paginationContainer}>
+                <div >
                     <PaginationUsers
                         totalUsersCount={posts.length}
                         pageSize={pageSize}
