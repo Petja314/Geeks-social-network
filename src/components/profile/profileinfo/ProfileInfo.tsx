@@ -7,7 +7,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {ProfileEditForm} from "./ProfileEditForm";
 import ProfileData from "./ProfileData";
 import UserAvatarPhoto from "../../users/UserAvatarPhoto";
-import "../../../css/profile_edit.css"
+import "../../../css/profile/profile_edit.css"
 import DragPhoto from "../../drag_drop_img/DragPhoto";
 import {isDraggingAC} from "../../drag_drop_img/DragReducer";
 
@@ -46,30 +46,32 @@ const ProfileInfo = (props: ProfileInfoPropsType) => {
 
 
     return (
-        <div className="component_page">
+        <div className="profile_container">
             {/*<img style={{"width": "15%"}} src={props.profile.photos.small || userPhoto} alt=""/>*/}
             <h2>PROFILE</h2>
 
-            <div className="profile_wrapper">
+            <div className="profile_section">
                 <h3 className="about_me_title">DEVELOPER INFORMATION</h3>
-                <div className="profile_edit_container">
+
+                <div className="profile_info_section">
                     <div className="profile_avatar_container">
-                        <span className="avatar_title">  YOUR AVATAR  </span>
-                        <UserAvatarPhoto photos={props.profile.photos.small}/>
-
-                        <div className="photo_input_section">
-                            <DragPhoto
-                                onDropHandler={onDropHandler}
-                            />
-                        </div>
-                        <div>
-                            {props.isOwner && <input className="custom-file-input" type={"file"} onChange={onMainPhotoSelected}/>}
+                        <span>  YOUR AVATAR  </span>
+                        <div className="profile_avatar_img" >
+                            <UserAvatarPhoto photos={props.profile.photos.small}/>
                         </div>
 
-
-
-                        <span className="avatar_title">
-                    NAME:{props.profile.fullName}
+                        {/*<div className="photo_input_section">*/}
+                        {/*    <DragPhoto*/}
+                        {/*        onDropHandler={onDropHandler} />*/}
+                        {/*</div>*/}
+                            {props.isOwner &&
+                                <div className="photo_input_section"> <DragPhoto
+                                    onDropHandler={onDropHandler} />
+                                    <input className="custom-file-input" type={"file"} onChange={onMainPhotoSelected}/>
+                                </div>
+                                }
+                        <span>
+                         NAME:{props.profile.fullName}
                             <ProfileStatus
                                 userId={props.userId}
                                 status={props.status}
@@ -95,9 +97,7 @@ const ProfileInfo = (props: ProfileInfoPropsType) => {
                             />}
                     </div>
 
-
                     {/*Show User Data Form depends on edit mode state*/}
-
                 </div>
 
             </div>

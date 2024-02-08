@@ -20,7 +20,7 @@ import user_avatar_18 from "../../assets/images/user_avatar_img/user_15.gif";
 import user_avatar_19 from "../../assets/images/user_avatar_img/user_15.gif";
 import user_avatar_20 from "../../assets/images/user_avatar_img/user_15.gif";
 // import styles from "../../css/avatar.css";
-import "../../css/avatar.css"
+import "../../css/common css/avatar.css"
 
 
 const UserAvatarPhoto = (props: any) => {

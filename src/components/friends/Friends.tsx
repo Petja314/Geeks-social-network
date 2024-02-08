@@ -12,7 +12,7 @@ import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
 import Preloader from "../../common/preloader/Preloader";
 import UserAvatarPhoto from "../users/UserAvatarPhoto";
 import {startChatThunk} from "../../redux/DialogsReducer";
-import "../../css/users.css"
+import "../../css/users/users-friends.css"
 
 const Friends = () => {
     const dispatch: ThunkDispatch<RootState, void, any> = useDispatch();
@@ -29,26 +29,20 @@ const Friends = () => {
     const handlePageChangeUsers = (pageNumber: number) => {
         dispatch(setFriendListThunkCreator(pageNumber, true)); //dispatch current page
     };
-
     return (
-        <div className="component_page">
-            <Preloader isFetching={isFetching}/>
-            <h2 className="page_title">List of friends</h2>
+        <div className="user_container">
+            <div className="find_section">
+                <h2 >List of friends</h2>
+            </div>
 
-
-            <div className="user_page">
-                <div className="users_container">
+                <div className="users_section">
                     {friends.map((item) => (
-                        <div className="user_wrapper" key={item.id}>
-                            <div className="user_section">
-
+                        <div className="user_section_box" key={item.id}>
                                 {/*NAVIGATING TO THE USER PROFILE BY CLICK ON IMAGE*/}
-                                <div style={{"maxWidth": "40%"}}>
                                     <NavLink to={'/profile/' + item.id}>
                                         {/*<span><img src={item.photos.small !== null ? item.photos.small : userPhoto} className={styles.usersPhoto}/></span>*/}
                                         <UserAvatarPhoto photos={item.photos.small}/>
                                     </NavLink>
-                                </div>
                                 <div className="user_name">{item.name}</div>
 
 
@@ -70,11 +64,9 @@ const Friends = () => {
                                 </div>
 
 
-                            </div>
                         </div>
                     ))}
                 </div>
-            </div>
 
             <div className="pagination_section">
                 <PaginationUsers
@@ -84,6 +76,10 @@ const Friends = () => {
                     onPageChange={handlePageChangeUsers}
                 />
             </div>
+
+
+            <Preloader isFetching={isFetching}/>
+
 
         </div>
     )

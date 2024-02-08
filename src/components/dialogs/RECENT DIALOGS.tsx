@@ -8,8 +8,8 @@ import {FilterType, getUsersThunkCreator, UsersArrayType, UsersComponentTypeArra
 import {getUsersPageSelector} from "../../redux/selectors/UsersSelectors";
 import {ThunkDispatch} from "redux-thunk";
 import {RootState} from "../../redux/Redux-Store";
-import "../../css/dialogs.css"
-import "../../css/formik.css"
+import "../../css/dialogs messenger/dialogs.css"
+import "../../css/common css/formik.css"
 
 type RecentDialogsPropsType = {
     dialogs: DialogsArrayType[],

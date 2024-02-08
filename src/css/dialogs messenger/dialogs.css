@@ -13,33 +13,31 @@
     flex-wrap: wrap;
 }
 
-.dialogs_right {
-    padding: 10px;
-}
-
-.dialogs_left {
-    text-align: right;
-    padding: 10px;
-}
 
 
+/*-------------------------------------------------------------------------------------------------------------------*/
 
-.dialogs_wrapper {
+.dialogs_container{
     margin-top: 50px;
-    margin-bottom: 70px;
+    margin-bottom: 100px;
+    /*border: 2px solid red;*/
+}
+.dialogs_container h2{
+    margin-bottom: 50px;
+}
+
+.dialogs_section {
+    margin: 0 auto;
     box-shadow: rgb(194, 202, 214) 0px 0.2em, rgb(194, 202, 214) 0px -0.2em, rgb(194, 202, 214) 0.2em 0px, rgb(194, 202, 214) -0.2em 0px, rgb(133, 149, 173) 0.2em 0.4em, rgb(133, 149, 173) 0.4em 0.2em, rgb(82, 98, 122) 0.4em 0.6em, rgb(82, 98, 122) 0.6em 0.4em;
-    /*border: 1px solid red;*/
     display: flex;
-    justify-content: center;
-    /*width: 100%;*/
-    width: 1200px;
+    width: 90%;
     height: 800px;
 }
 
 .recent_dialogs_container {
+    /*border: 2px solid black;*/
     background-color: white;
-    width: 450px;
-    /*width: 30%;*/
+    width: 40%;
     height: 100%;
 }
 
@@ -58,10 +56,6 @@
 .formik_dialogs_container{
     margin: 0;
 }
-.formik_find_btn {
-    margin-top: 10px;
-}
-
 .underline {
     color: grey;
     margin-top: 10px;
@@ -69,6 +63,7 @@
 
 
 .chat_container {
+    /*border: 2px solid blue;*/
     background-color: white;
     width: 100%;
     height: 100%;
@@ -78,16 +73,27 @@
     height: 600px;
 }
 
+.dialogs_right {
+    padding: 10px;
+}
+
+.dialogs_left {
+    text-align: right;
+    padding: 10px;
+}
+
 .chat_inner_section {
     border-top: 3px solid rgb(200, 207, 218);
 }
 
-
 .chat_inner_section textarea {
     box-shadow: rgb(194, 202, 214) 0px 0.2em, rgb(194, 202, 214) 0px -0.2em, rgb(194, 202, 214) 0.2em 0px, rgb(194, 202, 214) -0.2em 0px;
     background-color: lightgrey;
-    padding: 40px;
-    max-width: 90%;
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    width: 100%;
+    height: 120px;
+    padding: 10px;
+    font-size: 18px;
     border-radius: 2px;
     font-weight: bold;
     border: none;

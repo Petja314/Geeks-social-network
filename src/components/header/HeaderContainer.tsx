@@ -6,9 +6,7 @@ import {RootState} from "../../redux/Redux-Store";
 import {ThunkDispatch} from "redux-thunk";
 import "../../css/app.css"
 import logo from "../../assets/images/logo/giphy.png"
-import "../../css/header.css"
-
-
+import "../../css/header/header.css"
 function HeaderContainer() {
     const {login, isAuth}: AuthState = useSelector((state: RootState) => state.userAuthPage)
     const dispatch: ThunkDispatch<RootState, void, any> = useDispatch()
@@ -27,7 +25,7 @@ function HeaderContainer() {
                         {login} - Log out
                     </button>
                 ) : (
-                    <button className="multi_button">
+                    <button >
                         <NavLink to={"/login"}>Login</NavLink>
                     </button>
                 )}

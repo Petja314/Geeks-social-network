@@ -34,9 +34,6 @@ const ProfileContainer = () => {
 
     }, [id, authorizedUserId])
 
-
-
-
     // if (status === "") return <div>loading...</div>
     // console.log('profile container status :' , status)
     return (

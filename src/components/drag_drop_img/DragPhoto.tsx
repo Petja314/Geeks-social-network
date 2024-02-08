@@ -1,5 +1,5 @@
 import React from 'react';
-import "../../css/profile_edit.css"
+import "../../css/profile/profile_edit.css"
 import {useDispatch, useSelector} from "react-redux";
 import {DragStateType, isDraggingAC} from "./DragReducer";
 import {RootState} from "../../redux/Redux-Store";

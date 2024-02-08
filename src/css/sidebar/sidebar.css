@@ -1,9 +1,10 @@
 .sidebar{
+    /*border: 2px solid red;*/
     background-color: rgb(19, 21, 19);
     grid-area: sidebar;
 }
 
-.sidebar_container ul {
+.sidebar ul{
     display: flex;
     justify-content: space-evenly;
     list-style-type: none;

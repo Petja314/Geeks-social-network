@@ -1,20 +1,17 @@
-
-
-
-
-.component_page{
+.profile_container{
     margin-top: 50px;
     margin-bottom: 30px;
 }
 /*Main container  */
-.profile_wrapper{
+.profile_section{
     margin-top: 40px;
     box-shadow: rgb(194, 202, 214) 0px 0.2em, rgb(194, 202, 214) 0px -0.2em, rgb(194, 202, 214) 0.2em 0px, rgb(194, 202, 214) -0.2em 0px, rgb(133, 149, 173) 0.2em 0.4em, rgb(133, 149, 173) 0.4em 0.2em, rgb(82, 98, 122) 0.4em 0.6em, rgb(82, 98, 122) 0.6em 0.4em;
 }
 /*Container for both sections AVATAR and ABOUT ME*/
-.profile_edit_container{
+.profile_info_section{
+    /*border: 2px solid red;*/
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
     position: relative;
     font-weight: bold;
     font-size: 18px;
@@ -26,6 +23,7 @@
 /*AVATAR SECTION*/
 /*Container For AVATAR*/
 .profile_avatar_container {
+    /*border: 2px solid blue;*/
     box-shadow: rgb(194, 202, 214) 0px 0.2em, rgb(194, 202, 214) 0px -0.2em, rgb(194, 202, 214) 0.2em 0px, rgb(194, 202, 214) -0.2em 0px;
     width: 20%;
     background-color: rgb(246, 247, 249);
@@ -34,26 +32,7 @@
     text-align: center;
     flex-direction: column;
     margin-left: 50px;
-    padding-left: 30px;
-    padding-right: 30px;
-
-}
-.avatar_title {
-    padding-top: 20px;
-    padding-bottom: 20px;
-    text-transform: uppercase;
-    font-weight: bold;
-    color: black;
-    font-size: 18px;
-}
-
-
-.avatar_img img{
-    box-shadow: rgb(194, 202, 214) 0px 0.2em, rgb(194, 202, 214) 0px -0.2em, rgb(194, 202, 214) 0.2em 0px, rgb(194, 202, 214) -0.2em 0px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    width: 320px;
-    max-width: 160px;
+    padding: 30px;
 }
 /*Status Section in AVATAR */
 .status_container{
@@ -69,57 +48,59 @@
 /*CONTACTS - ABOUT ME SECTION*/
 /*Main Container for contacts USERS and ADMIN*/
 .profile_data_container{
-    /*border: 1px solid black;*/
+    /*border: 2px solid black;*/
     margin-left: 90px;
-
 }
 /*Wrapper to sepparate User Info and Contacts - FLEX - SPACE-BETWEEN */
-.profile_data_wrapper {
+.profile_about_me_section {
     display: flex;
-    /*justify-content: space-between;*/
     gap: 30px;
 }
-
+.profile_user_info_section{
+    /*border: 2px solid black;*/
+}
 /*// LIST OF USER INFO*/
-.profile_ul_list{
+
+.profile_list_section{
     margin: 0;
     padding: 0;
 }
-.profile_ul_list li {
+.profile_list_section ul{
+    padding-left: 0;
+}
+.profile_list_section li {
+    list-style: none;
     padding-top: 20px;
 }
-.profile_ul_list span {
-    margin-bottom: 10px;
+.profile_list_section span {
+    margin: 10px;
     display: inline-block;
-    margin-right: 10px;
     box-shadow: rgb(194, 202, 214) 0px 0.2em, rgb(194, 202, 214) 0px -0.2em, rgb(194, 202, 214) 0.2em 0px, rgb(194, 202, 214) -0.2em 0px;
 }
 
-.profile_ul_list  textarea {
+.profile_list_section  textarea,
+.profile_list_section  input
+{
     background-color: rgb(200, 207, 218);
-    width: 100%;
+    width: 90%;
     border-radius: 2px;
-    padding: 5px;
+    padding: 10px;
     font-weight: bold;
     border: none;
     resize: none;
 }
-.profile_ul_list  input {
-    background-color: rgb(200, 207, 218);
-    width: 100%;
-    border-radius: 2px;
-    padding: 15px;
-    font-weight: bold;
-    border: none;
-    resize: none;
+
+.profile_avatar_img img{
+   width: 180px;
 }
 
 
 /*CHECKBOX*/
 
 /*CONTACTS LIST */
-.contacts_list{
-    margin-right: 50px;
+.contacts_list_section{
+    /*border: 2px solid red;*/
+    padding-right: 50px;
 }
 .contacts_form_list{
     padding-top: 10px;
@@ -134,21 +115,17 @@
     background-color: rgb(194, 202, 214);
 }
 
-
-
 /*BUTTON TO EDIT FORM*/
-.edit_form_btn {
+.edit_form_btn_section {
     margin-top: 30px;
     margin-bottom: 20px;
-    /*text-align: center;*/
 
 }
+
 .edit_form_btn button {
     padding: 15px 60px 15px 60px;
     font-size : 15px
 }
-
-
 
 /*Profile header section*/
 .about_me_title{

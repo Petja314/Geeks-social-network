@@ -1,13 +1,14 @@
-.container {
-    margin: 20px;
-    max-width: 1200px; /* Set your desired maximum width */
+.login_container {
+    margin-top: 50px;
+    margin-bottom: 50px;
 }
 .login_section{
+    /*border: 2px solid red;*/
     display: flex;
     justify-content: space-between;
-    /*gap: 150px;*/
 }
 .login_form_fields{
+    /*border: 2px solid red;*/
     font-size: 18px ;
     border: 3px solid rgb(110, 109, 95);
     background: rgb(242, 241, 229);
@@ -26,7 +27,6 @@
     color : white;
     background-color: rgb(17, 17, 17);
     font-weight: bold;
-
     padding: 10px;
 }
 
@@ -35,8 +35,6 @@
     width: 60px;
     margin: 0 auto;
 }
-
-
 .login_title{
     margin-top: 80px;
     padding-bottom: 20px;

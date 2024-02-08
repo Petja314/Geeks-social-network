@@ -15,6 +15,7 @@ import PageNotFound from "./components/404/PageNotFound";
 import Preloader from "./common/preloader/Preloader";
 import SideBar from "./components/sidebar/SideBar";
 import "./css/app.css"
+import Footer from "./components/footer/Footer";
 
 
 const AppComp = () => {
@@ -33,7 +34,7 @@ const AppComp = () => {
     }
 
     return (
-        <div  className="app_wrapper">
+        <div className="app_wrapper">
             <HeaderContainer/>
             <SideBar />
                 <div className="main">
@@ -51,11 +52,8 @@ const AppComp = () => {
                     </Routes>
                     </div>
                 </div>
+            <Footer/>
 
-
-                <div className="footer">
-                    Footer Design ©{new Date().getFullYear()} Created by Web Dev
-                </div>
         </div>
 
 

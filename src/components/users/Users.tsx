@@ -19,10 +19,9 @@ import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
 import UsersSearchForm from "./UsersSearchForm";
 import {ThunkDispatch} from "redux-thunk";
 import {RootState} from "../../redux/Redux-Store";
-import {user_images} from "../../assets/images/user_avatar_img/user_avatar_array";
 import UserAvatarPhoto from "./UserAvatarPhoto";
 import {startChatThunk} from "../../redux/DialogsReducer";
-import "../../css/users.css"
+import "../../css/users/users-friends.css"
 
 
 export interface LocationParams {
@@ -88,28 +87,26 @@ const Users = () => {
     };
     // console.log('usersPage.users' , usersPage.users)
     return (
-        <div className="component_page">
-            <Preloader isFetching={isFetching}/>
-            <h2>USERS PAGE</h2>
+        <div className="user_container">
 
             <div className="find_section">
+                <h2>USERS PAGE</h2>
                     <UsersSearchForm
                         filter={filter.friend}
                         onFilterChanged={onFilterChanged}
                     />
             </div>
 
-                <div className="users_container">
+
+
+                <div className="users_section">
                     {
                         usersPage.users.map((item) =>
-                            <div className="user_wrapper" key={item.id}>
-                                <div className="user_section">
+                            <div className="user_section_box" key={item.id}>
                                     {/*NAVIGATING TO THE USER PROFILE BY CLICK ON IMAGE*/}
-                                    <div style={{"maxWidth": "40%"}}>
                                         <NavLink to={'/profile/' + item.id}>
                                             <UserAvatarPhoto photos={item.photos.small}/>
                                         </NavLink>
-                                    </div>
                                     <div className="user_name">{item.name}</div>
 
 
@@ -130,14 +127,12 @@ const Users = () => {
                                             <button onClick={() => dispatch(startChatThunk(item.id, item.name, item.photos.small))}>Start Chat</button>
                                         </NavLink>
                                     </div>
-                                </div>
                             </div>)}
 
                 </div>
 
 
             <div className="pagination_section">
-                {/*{currentPage}*/}
                 <PaginationUsers
                     totalUsersCount={totalUsersCount}
                     pageSize={pageSize}
@@ -146,6 +141,7 @@ const Users = () => {
                 />
             </div>
 
+            <Preloader isFetching={isFetching}/>
 
 
         </div>

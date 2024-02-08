@@ -1,6 +1,9 @@
 import React from 'react';
-import "../../css/login.css"
+import "../../css/login/login.css"
 
+// PLEASE MAKE SURE THAT YOU LOGIN WITH A RIGHT CREDENTIALS PROVIDED BELOW
+// email : .....
+// password : ....
 const LoginReadMe = () => {
     return (
         <div className="container_brief">

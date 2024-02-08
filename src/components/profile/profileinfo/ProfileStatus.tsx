@@ -2,7 +2,6 @@ import React, {ChangeEvent, useEffect, useState} from 'react';
 import {useDispatch} from "react-redux";
 import { updateStatusThunkCreator} from "../../../redux/ProfileReducer";
 
-
 type ProfileStatusPropsType = {
     status: string | null,
     isOwner: boolean
@@ -50,7 +49,6 @@ const ProfileStatus = (props: ProfileStatusPropsType) => {
     // console.log('ProfileStatus' , props.status)
     return (
         <div className="status_container">
-
             {!editMode &&
                 <div>
                     <div>status :
@@ -58,7 +56,6 @@ const ProfileStatus = (props: ProfileStatusPropsType) => {
                     </div>
                 </div>
             }
-
             {editMode &&
                 <div >
                     <input

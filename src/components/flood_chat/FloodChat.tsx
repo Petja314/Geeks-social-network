@@ -5,7 +5,7 @@ import {RootState} from "../../redux/Redux-Store";
 import {MessageInfoType} from "../../api/FloodChatApi";
 import {compose} from "redux";
 import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
-import "../../css/openai.css"
+import "../../css/open_ai/openai-flood-chat.css"
 
 const FloodChat = () => {
     const dispatch: any = useDispatch()
@@ -32,10 +32,12 @@ const FloodChat = () => {
 
     console.log('messages', messages)
     return (
-        <div className="component_page_chat">
+        <div className="open_ai_container">
+
+
+
             <div className="openai_section">
                 <div className="title"><h1>CHAT</h1></div>
-
                 < div
                     ref={scrollContainerRef}
                     style={{

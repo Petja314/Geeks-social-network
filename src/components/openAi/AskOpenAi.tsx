@@ -1,6 +1,6 @@
-import React, {useEffect, useRef, useState, KeyboardEvent } from 'react';
+import React, {useEffect, useRef, useState, KeyboardEvent} from 'react';
 import {Field, Form, Formik} from "formik";
-import "../../css/openai.css"
+import "../../css/open_ai/openai-flood-chat.css"
 import {useDispatch, useSelector} from "react-redux";
 import {MessagesResponseAiType, OpenAiAction, OpenAiTypes, postMessageToAiThunk} from "../../redux/OpenAiReducer";
 import {RootState} from "../../redux/Redux-Store";
@@ -20,7 +20,7 @@ const AskOpenAi = () => {
             dispatch(OpenAiAction.clearMessagesAC());
         };
     }, []);
-    const sendMessageOpenAi =  async () => {
+    const sendMessageOpenAi = async () => {
         setIsLoading(true)
         await dispatch(postMessageToAiThunk("user", userInput))
         setIsLoading(false)
@@ -29,53 +29,47 @@ const AskOpenAi = () => {
     const handleSubmit = async () => {
         await sendMessageOpenAi()
     }
-    const handleKeyDown = (event : KeyboardEvent<HTMLImageElement>) => {
-        if (event.keyCode === 13 ) {
+    const handleKeyDown = (event: KeyboardEvent<HTMLImageElement>) => {
+        if (event.keyCode === 13) {
             sendMessageOpenAi()
         }
     }
     return (
-        <div className="component_page_chat">
+        <div className="open_ai_container">
+            <div className="openai_section">
+                <div className="title">
+                    <h1>CHAT BOT OPEN AI</h1>
+                </div>
 
-            <div className="openai_section" >
+                <OpenAiResponse
+                    isLoading={isLoading}
+                />
 
-            <div className="title">
-                <h1 >CHAT BOT OPEN AI</h1>
-            </div>
-
-
-
-            <OpenAiResponse
-                isLoading={isLoading}
-            />
-
-                <div className="openai_inner_section" >
+                <div className="openai_inner_section">
                     <Formik initialValues={{}} onSubmit={handleSubmit}>
                         <Form>
-                            <div >
+                            <div>
                                 <Field
                                     onKeyDown={handleKeyDown}
-                                    className="input-textarea"
                                     component="textarea"
                                     value={userInput}
-                                    onChange={(event:  React.ChangeEvent<HTMLInputElement>) => dispatch(OpenAiAction.inputValueSentAC(event.target.value))}
+                                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => dispatch(OpenAiAction.inputValueSentAC(event.target.value))}
                                 />
-                                <button  className="submit-button" type="submit">
+                                <button className="submit-button" type="submit">
                                     Submit
                                 </button>
                             </div>
                         </Form>
                     </Formik>
                 </div>
-
             </div>
         </div>
     );
 };
 type OpenAiResponseProps = {
-    isLoading : boolean
+    isLoading: boolean
 }
-const OpenAiResponse = ({isLoading} : OpenAiResponseProps) => {
+const OpenAiResponse = ({isLoading}: OpenAiResponseProps) => {
     const welcomeTextAi: string = TypingEffect('Hey developer, I am your personal AI. I am here and ready for any questions you may have. Lets engage in a conversation!', 40)
     // const aiResponseText: string = TypingEffect(props.chatBotResponse, 20)
     const {messages}: OpenAiTypes = useSelector((state: RootState) => state.openAiPage)
@@ -84,12 +78,12 @@ const OpenAiResponse = ({isLoading} : OpenAiResponseProps) => {
         if (onScrollDownRef.current) {
             onScrollDownRef.current.scrollTop = onScrollDownRef.current.scrollHeight;
         }
-    },[messages])
+    }, [messages])
 
     const messagesJSX = messages.map((item: MessagesResponseAiType) => (
-        <div style={{ padding: "10px" }}>
+        <div style={{padding: "10px"}}>
             {item.role === "user" ? (
-                <div style={{ color: "red" }}> {item.role} : {item.content} </div>
+                <div style={{color: "red"}}> {item.role} : {item.content} </div>
             ) : (
                 <div> {item.role} : {item.content} </div>
             )}
@@ -97,7 +91,6 @@ const OpenAiResponse = ({isLoading} : OpenAiResponseProps) => {
     ))
     return (
         <div ref={onScrollDownRef} className="response_section" style={{overflowY: "auto"}}>
-
             {isLoading ? (
                 <div>{messagesJSX}</div>
             ) : messages.length > 0 ? (

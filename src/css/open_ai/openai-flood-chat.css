@@ -1,17 +1,18 @@
-.component_page_chat{
+.open_ai_container{
     margin-top: 50px;
     margin-bottom: 50px;
 }
 .openai_section {
-    /*margin-bottom: 50px;*/
+    /*border: 2px solid blue;*/
     margin: 0 auto;
     background-color: white;
     box-shadow: rgb(194, 202, 214) 0px 0.2em, rgb(194, 202, 214) 0px -0.2em, rgb(194, 202, 214) 0.2em 0px, rgb(194, 202, 214) -0.2em 0px, rgb(133, 149, 173) 0.2em 0.4em,     rgb(133, 149, 173) 0.4em 0.2em, rgb(82, 98, 122) 0.4em 0.6em, rgb(82, 98, 122) 0.6em 0.4em;
-    width: 1000px;
+    width: 80%;
     height: 600px;
 }
 
 .title {
+    /*border: 2px solid green;*/
     background-color: rgb(194, 202, 214);
     text-align: center;
     padding-bottom: 10px;
@@ -20,7 +21,7 @@
 }
 
 .response_section{
-    /*border: 1px solid red;*/
+    /*border: 2px solid yellow;*/
     height: 350px   ;
     padding: 20px;
     font-weight: bold;
@@ -31,22 +32,22 @@
 
 
 .openai_inner_section{
-    /*border: 2px solid blue;*/
+    /*border: 2px solid red;*/
     position: relative;
     background-color: rgb(200, 207, 218);
     height: 100px;
-
 }
 
 .openai_inner_section textarea {
     margin: 5px;
     padding: 5px;
     height: 80px;
-    width: 850px;
+    width: 85%;
     border: 2px solid white;
     border-radius: 2px;
     background-color: rgb(200, 207, 218);
     resize: none;
+    font-size: 18px;
 }
 .openai_inner_section button {
     padding: 30px;

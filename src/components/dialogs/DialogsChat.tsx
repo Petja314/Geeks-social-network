@@ -80,21 +80,19 @@ const DialogsChat: React.FC<DialogsChatPropsType> = ({friendIdLocal, currentPage
 
                     <div className="sticky">
                         <div>{selectedUser.selectedUserName}</div>
-                        <div style={{maxWidth: "200px"}}><UserAvatarPhoto photos={selectedUser.photo}/></div>
+                        <div><UserAvatarPhoto photos={selectedUser.photo}/></div>
                     </div>
-                    <div style={{paddingLeft: "30px"}}>
+                    <div>
                         {messages.map((message: DialogsMessagesArrayType) => (
-
                             <div  key={message.id} className={authorizedUserId === message.senderId ? "dialogs_right" : "dialogs_left"}>
                                 User: {message.senderName}
-                                <div
-                                    style={{paddingTop: "10px"}}>Message : {message.body}
+                                <div >Message : {message.body}
                                     <button onClick={() => {
                                         dispatch(deleteMessageThunk(message.id))
                                     }}>delete
                                     </button>
                                 </div>
-                                <hr style={{marginTop: "10px"}}/>
+                                <hr className="underline"/>
                             </div>
 
                         ))}
@@ -107,7 +105,6 @@ const DialogsChat: React.FC<DialogsChatPropsType> = ({friendIdLocal, currentPage
                         <textarea
                             onKeyDown={handleKeyDown}
                             placeholder="Select user to chat!"
-                            style={{width: "100%", height: "50px"}}
                             disabled={!friendIdLocal}
                             onChange={handleInputChange}
                             ref={messageRef}

@@ -43,7 +43,7 @@ const CurrentPostComponent: React.FC<CurrentPostPropsType> = ({posts, pageSize, 
     };
 
     return (
-        <div>
+        <div className="container_all_posts">
                 {currentPosts.map((item: ResponseTestAPIDataType, index: number) => (
                     <div key={item.id} className={`current_post_items_${index + 1}`}>
 

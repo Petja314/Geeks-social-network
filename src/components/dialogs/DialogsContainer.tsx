@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {actionsDialogs, DialogsStateTypes, fetchDialogsThunk, newMessageReceivedThunk, refreshMessagesThunk} from "../../redux/DialogsReducer";
 import {FilterType,  getUsersThunkCreator} from "../../redux/UsersReducer";
 import {getCurrentPageSelector, getUsersFilterSelector} from "../../redux/selectors/UsersSelectors";
-import '../../css/dialogs.css'
+import '../../css/dialogs messenger/dialogs.css'
 import {compose} from "redux";
 import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
 import DialogsChat from "./DialogsChat";
@@ -62,10 +62,10 @@ const DialogsContainer = () => {
 
 
     return (
-        <div className="component_page" >
+        <div className="dialogs_container" >
 
             <h2>Messenger</h2>
-            <div className="dialogs_wrapper">
+            <div className="dialogs_section">
                 <RecentDialogs
                     pageSizeDialogs={pageSizeDialogs}
                     dialogs={dialogs}

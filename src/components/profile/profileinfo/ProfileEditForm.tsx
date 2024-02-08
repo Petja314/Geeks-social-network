@@ -3,7 +3,7 @@ import {actionsProfile, ProfileDataType, saveProfileThunk} from "../../../redux/
 import {Field, Form, Formik, FormikHelpers} from "formik";
 import {useDispatch, useSelector} from "react-redux";
 import {MyInput} from "../../login/Login";
-import "../../../css/profile_edit.css"
+import "../../../css/profile/profile_edit.css"
 
 
 type ProfileDataFormProps = {
@@ -35,66 +35,67 @@ export const ProfileEditForm = (props: ProfileDataFormProps) => {
             onSubmit={handleSubmit}
         >
             <Form>
-                <ul className="profile_ul_list" style={{listStyle: 'none'}}>
-                    <li>
-                        <span>Full name : </span>
-                        <Field
-                            name="fullName"
-                            component={MyInput}
-                            placeholder="Full name"
-                        />
-                    </li>
-
-                    <li>
-                        <span>Am I looking for a job</span>
-                        <Field
-                            name="lookingForAJob"
-                            type="checkbox"
-                            component={MyInput}
-                            placeholder="Am I looking for a job"
-                        />
-                    </li>
-                    <li>
-                        <span>My professional skills:</span>
-                        <Field
-                            name="lookingForAJobDescription"
-                            component="textarea"
-                            placeholder="My professional skills"
-                        />
-                    </li>
-                    <li>
-                        <span>About me</span>
-                        <Field
-                            name="aboutMe"
-                            component="textarea"
-                            placeholder="About me"
-                        />
-                    </li>
-
-                    <li>Contacts:{Object.keys(props.initialValues.contacts).map(key => (
-                        <div key={key}>
-                            <span>{key} : </span>
+                <div className="profile_list_section">
+                    <ul>
+                        <li>
+                            <span>Full name : </span>
                             <Field
-                                name={`contacts.${key}`}
+                                name="fullName"
                                 component={MyInput}
-                                placeholder={key}
+                                placeholder="Full name"
                             />
-                            {fieldsErrors &&
-                                fieldsErrors.map((item: any) => item.toLowerCase().includes(key) ?
-                                    <span style={{color: "red", fontWeight: "bold"}}>{item} , please type correct link : example.com </span> : null)
-                            }
-                        </div>
-                    ))} </li>
+                        </li>
+
+                        <li>
+                            <span>Am I looking for a job</span>
+                            <Field
+                                name="lookingForAJob"
+                                type="checkbox"
+                                component={MyInput}
+                                placeholder="Am I looking for a job"
+                            />
+                        </li>
+                        <li>
+                            <span>My professional skills:</span>
+                            <Field
+                                name="lookingForAJobDescription"
+                                component="textarea"
+                                placeholder="My professional skills"
+                            />
+                        </li>
+                        <li>
+                            <span>About me</span>
+                            <Field
+                                name="aboutMe"
+                                component="textarea"
+                                placeholder="About me"
+                            />
+                        </li>
+
+                        <li>Contacts:{Object.keys(props.initialValues.contacts).map(key => (
+                            <div key={key}>
+                                <span>{key} : </span>
+                                <Field
+                                    name={`contacts.${key}`}
+                                    component={MyInput}
+                                    placeholder={key}
+                                />
+                                {fieldsErrors &&
+                                    fieldsErrors.map((item: any) => item.toLowerCase().includes(key) ?
+                                        <span style={{color: "red", fontWeight: "bold"}}>{item} , please type correct link : example.com </span> : null)
+                                }
+                            </div>
+                        ))} </li>
 
 
-                </ul>
-
+                    </ul>
+                </div>
                 <div className="edit_form_btn">
-                {props.isOwner && (
-                    <div>
-                        <button type="submit">Save</button>
-                    </div>
-                )}
+                    {props.isOwner && (
+                        <div>
+                            <button type="submit">Save</button>
+                        </div>
+                    )}
                 </div>
             </Form>
         </Formik>

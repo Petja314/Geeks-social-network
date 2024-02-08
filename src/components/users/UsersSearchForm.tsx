@@ -1,7 +1,7 @@
 import React from "react";
 import {FilterType, FormType} from "../../redux/UsersReducer";
 import {Field, Form, Formik} from "formik";
-import "../../css/formik.css"
+import "../../css/common css/formik.css"
 
 type UsersSearchFormPropsType = {
     filter?: boolean | null

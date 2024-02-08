@@ -7,7 +7,7 @@ import {Field, Form, Formik, FormikProps} from "formik";
 import Cookie from "js.cookie";
 import {ThunkDispatch} from "redux-thunk";
 import {RootState} from "../../redux/Redux-Store";
-import "../../css/login.css"
+import "../../css/login/login.css"
 import LoginReadMe from "./LoginReadMe";
 
 type FormikTypes = {
@@ -36,14 +36,10 @@ const Login = () => {
         Cookie.set('password', rememberMe ? password : '');
     };
     return (
-        <div className="container">
-
+        <div className="login_container">
             <div className="login_section">
-
-
                 <div className="login_form_fields">
-
-                <Formik
+                    <Formik
                     enableReinitialize
                     initialValues={{
                         // email: storedEmail,

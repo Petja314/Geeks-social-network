@@ -3,7 +3,7 @@ import React from "react";
 import {ThunkDispatch} from "redux-thunk";
 import {RootState} from "../../../redux/Redux-Store";
 import {useDispatch} from "react-redux";
-import "../../../css/profile_edit.css"
+import "../../../css/profile/profile_edit.css"
 import "../../../css/posts/create_new_post.css"
 import DragPhoto from "../../drag_drop_img/DragPhoto";
 

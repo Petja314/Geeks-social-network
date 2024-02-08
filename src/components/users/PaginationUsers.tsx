@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import arrow_right from "../../assets/images/icons/Arrow Right.png"
 import arrow_left from "../../assets/images/icons/Arrow Left.png"
-import "../../css/pagination.css"
+import "../../css/common css/pagination.css"
 
 
 type PaginationUsersType = {
