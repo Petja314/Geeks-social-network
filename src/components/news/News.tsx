@@ -55,10 +55,9 @@ const News = () => {
                     const response = await newsAPI.getAllNews();
                     localStorage.setItem('AlphaAvantageApi', JSON.stringify(response.data));
                     // debugger
-                    if(response.data.feed) {
+                    if (response.data.feed) {
                         setData(response.data.feed);
-                    }
-                    else {
+                    } else {
                         alert('API ERROR - FREE LIMIT IS OVER COME BACK TOMORROW! ')
                     }
                 }
@@ -102,7 +101,7 @@ const News = () => {
     console.log('visibleData', visibleData)
 
     return (
-        <div className="news_container" >
+        <div className="news_container">
             <InfiniteScroll
                 style={{overflow: 'hidden'}}
                 dataLength={visibleData.length} //This is important field to render the next data
@@ -111,41 +110,42 @@ const News = () => {
                 loader={<h4>{!loading}</h4>}
             >
 
-                    <h2 style={{marginBottom: '30px', textAlign: 'center'}}>NEWS API</h2>
-                    <section className="news-section">
-                        {visibleData.map((item: NewsItems, index: number) => (
-                            // <article className={storyCard(index)} key={index}>
-                            <article style={{gridColumn: determineGridSpan(index)}} className={`story-card_${index + 1}`} key={index}>
-                                <a href={item.url}>
-                                    <div className="title_wrapper">{item.title}</div>
-                                    <div className="image-wrapper">
-                                        <a href="">
+                <h2>NEWS API</h2>
+                <section className="news-section">
+                    {visibleData.map((item: NewsItems, index: number) => (
+                        // <article className={storyCard(index)} key={index}>
+                        <article style={{gridColumn: determineGridSpan(index)}} className={`story-card_${index + 1}`} key={index}>
+                            <a href={item.url}>
+                                <div className="title_wrapper">{item.title}</div>
+                                <div className="image-wrapper">
+                                    <a href="">
                     <span className="img_span">
                       <img src={item.banner_image !== null ? item.banner_image : img_is_coming} alt=""/>
                     </span>
-                                        </a>
-                                        <span>
+                                    </a>
+                                    <span>
                     <div className="tag">
                       <div>#{item.category_within_source !== 'n/a' ? item.category_within_source : 'top category'}</div>
                     </div>
                   </span>
-                                    </div>
-                                    <div className="meta">
-                                        <div className="profile">
-                                            <div className="profile-container">
-                                                <img style={{maxWidth: '50px'}} src={robot_img_array[index]} alt=""/>
-                                            </div>
-                                            {item.authors}
+                                </div>
+                                <div className="meta">
+                                    <div className="profile">
+                                        <div className="profile-container">
+                                            <img style={{maxWidth: '50px'}} src={robot_img_array[index]} alt=""/>
                                         </div>
-                                        <div style={{marginLeft: '50px'}}>{item.summary}</div>
+                                        {item.authors}
                                     </div>
-                                </a>
-                            </article>
-                        ))}
-                    </section>
-                    <div style={{textAlign: "center"}}>
-                        {!loading && <p style={{fontSize: "100px"}}>Loading...</p>}
-                    </div>
+                                    <div style={{marginLeft: '50px'}}></div>
+                                    {/*//{item.summary}*/}
+                                </div>
+                            </a>
+                        </article>
+                    ))}
+                </section>
+                <div style={{textAlign: "center"}}>
+                    {!loading && <p style={{fontSize: "100px"}}>Loading...</p>}
+                </div>
             </InfiniteScroll>
         </div>
     );

@@ -36,6 +36,7 @@
 
 
 .user_name {
+    margin-bottom: 10px;
     color: white;
     font-weight: bold;
     text-align: center;
@@ -56,4 +57,14 @@
     display: flex;
     justify-content: center;
     margin-bottom: 30px;
+}
+
+@media (max-width: 450px) {
+    .user_section_box{
+        padding-top: 35px;
+        padding-bottom: 35px;
+    }
+    .followed_section{
+        margin-top: 0;
+    }
 }

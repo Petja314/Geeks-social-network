@@ -42,7 +42,7 @@ body {
 
 /*MAIN BODY */
 .main{
-    border: 2px solid red;
+    /*border: 2px solid red;*/
     grid-area: main;
     display: flex;
     justify-content: space-around;

@@ -66,13 +66,15 @@
     }
 
     .sidebar_show ul {
+        margin-bottom: 230px;
         padding: 30px;
         border-radius: 1rem;
         list-style-type: none;
     }
 
     .sidebar_show li {
-        margin-top: 30px;
+        margin-top: 25px;
+        font-size: 15px;
     }
 
     .sidebar_list a {

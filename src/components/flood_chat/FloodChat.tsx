@@ -6,6 +6,7 @@ import {MessageInfoType} from "../../api/FloodChatApi";
 import {compose} from "redux";
 import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
 import "../../css/open_ai/openai-flood-chat.css"
+import sendBtn from "../../assets/images/icons/send.png";
 
 const FloodChat = () => {
     const dispatch: any = useDispatch()
@@ -33,15 +34,12 @@ const FloodChat = () => {
     console.log('messages', messages)
     return (
         <div className="open_ai_container">
-
-
-
             <div className="openai_section">
                 <div className="title"><h1>CHAT</h1></div>
+
                 < div
                     ref={scrollContainerRef}
                     style={{
-                        // maxHeight: '400px',
                         overflowY: 'auto',
                     }}
                 >
@@ -81,9 +79,12 @@ const AddMessageForm = () => {
 
     return (
         <div className="openai_inner_section">
-            <div>
+            <div className="input-container">
                 <textarea value={inputMessage} onChange={(e) => setInputMessage(e.target.value)}/>
-                <button onClick={sendMessage}> Submit</button>
+                <button  className="submit-button" onClick={sendMessage}>
+                    <img src={sendBtn} alt=""/>
+                    {/*Submit*/}
+                </button>
             </div>
 
         </div>
