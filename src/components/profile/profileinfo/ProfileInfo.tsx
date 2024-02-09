@@ -60,17 +60,17 @@ const ProfileInfo = (props: ProfileInfoPropsType) => {
                             <UserAvatarPhoto photos={props.profile.photos.small}/>
                         </div>
 
-                        {/*<div className="photo_input_section">*/}
-                        {/*    <DragPhoto*/}
-                        {/*        onDropHandler={onDropHandler} />*/}
-                        {/*</div>*/}
                             {props.isOwner &&
-                                <div className="photo_input_section"> <DragPhoto
-                                    onDropHandler={onDropHandler} />
+                                <div >
+                                    <div className="photo_input_section">
+                                        <DragPhoto
+                                            onDropHandler={onDropHandler} />
+                                    </div>
                                     <input className="custom-file-input" type={"file"} onChange={onMainPhotoSelected}/>
                                 </div>
+
                                 }
-                        <span>
+                        <span className="user_name" >
                          NAME:{props.profile.fullName}
                             <ProfileStatus
                                 userId={props.userId}

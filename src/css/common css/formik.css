@@ -1,9 +1,7 @@
 .formik_container{
-    /*border: 2px solid orange;*/
     display: flex;
     align-items: center;
     gap: 20px;
-    /*padding-left: 90px;*/
 }
 
 .formik_container input{
@@ -57,4 +55,16 @@
 
 .formik_title{
     /*color: white;*/
+}
+
+/*MOBILE*/
+
+@media (max-width : 650px) {
+    .formik_container{
+        display: flex;
+        align-items: flex-start;
+        width: 200px;
+        flex-direction: column;
+        gap: 20px;
+    }
 }

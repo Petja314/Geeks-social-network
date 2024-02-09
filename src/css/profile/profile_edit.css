@@ -1,6 +1,5 @@
 .profile_container{
-    margin-top: 50px;
-    margin-bottom: 30px;
+    padding: 20px;
 }
 /*Main container  */
 .profile_section{
@@ -25,7 +24,7 @@
 .profile_avatar_container {
     /*border: 2px solid blue;*/
     box-shadow: rgb(194, 202, 214) 0px 0.2em, rgb(194, 202, 214) 0px -0.2em, rgb(194, 202, 214) 0.2em 0px, rgb(194, 202, 214) -0.2em 0px;
-    width: 20%;
+    /*width: 20%;*/
     background-color: rgb(246, 247, 249);
     height: fit-content;
     display: flex;
@@ -62,8 +61,8 @@
 /*// LIST OF USER INFO*/
 
 .profile_list_section{
-    margin: 0;
-    padding: 0;
+    /*margin: 0;*/
+    /*padding: 0;*/
 }
 .profile_list_section ul{
     padding-left: 0;
@@ -73,7 +72,9 @@
     padding-top: 20px;
 }
 .profile_list_section span {
-    margin: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    /*margin: 10px;*/
     display: inline-block;
     box-shadow: rgb(194, 202, 214) 0px 0.2em, rgb(194, 202, 214) 0px -0.2em, rgb(194, 202, 214) 0.2em 0px, rgb(194, 202, 214) -0.2em 0px;
 }
@@ -100,15 +101,16 @@
 /*CONTACTS LIST */
 .contacts_list_section{
     /*border: 2px solid red;*/
-    padding-right: 50px;
 }
 .contacts_form_list{
-    padding-top: 10px;
-    padding-bottom: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 .contacts_form_list span{
     box-shadow: rgb(194, 202, 214) 0px 0.2em, rgb(194, 202, 214) 0px -0.2em, rgb(194, 202, 214) 0.2em 0px, rgb(194, 202, 214) -0.2em 0px;
-    margin-right: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 10px;
 }
 
 .contact_form_title{
@@ -139,3 +141,102 @@
 
 
 
+/* Responsive styles for medium screens */
+
+@media  (max-width: 900px) {
+    .profile_info_section {
+        flex-direction: column;
+        padding: 0;
+        /*align-items: center;*/
+    }
+
+    .profile_avatar_img img{
+        width: 200px;
+    }
+    .photo_input_section{
+        width: 400px;
+        margin: 0 auto;
+    }
+    .user_name{
+        color: #1a1919;
+        margin-top: 10px;
+    }
+
+    .profile_avatar_container {
+        margin-left: 0;
+        box-shadow : none;
+    }
+    .profile_about_me_section{
+        justify-content: center;
+    }
+    .contact_form_title{
+        padding-top: 10px;
+        padding-bottom: 10px;
+        margin-top: 0;
+        text-align: center;
+        font-size: 24px;
+    }
+
+    .user_info_title{
+        margin-bottom: 15px;
+        margin-left: 10px;
+    }
+    .edit_form_btn_section{
+        text-align: center;
+    }
+
+    .profile_data_container {
+        margin-left: 0;
+    }
+}
+
+@media  (max-width: 700px) {
+    .profile_about_me_section{
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+        /*align-items: center;*/
+    }
+    .user_info_title{
+        margin-bottom: 15px;
+        text-align: center;
+    }
+    .user_contacts_title{
+        text-align: center;
+        /*margin: 0;*/
+    }
+    .contacts_list_section{
+        /*padding: 0;*/
+    }
+    .photo_input_section{
+        width: 250px;
+    }
+    .edit_form_btn_section{
+        margin-bottom: 30px;
+    }
+}
+
+
+@media  (max-width: 420px) {
+    .profile_list_section span {
+        display: block; /* Display each span as a block element */
+    }
+    .contacts_list_section span{
+        display: block;
+    }
+    .photo_input_section{
+        width: 170px;
+        padding: 5px;
+    }
+    .edit_form_btn_section{
+        margin-top: 10px;
+    }
+}
+
+
+@media  (max-width: 420px) {
+    .photo_input_section{
+        width: 140px;
+        padding: 5px;
+    }
+}

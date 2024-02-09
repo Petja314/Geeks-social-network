@@ -8,6 +8,7 @@ import {ThunkDispatch} from "redux-thunk";
 import {TypingEffect} from "./typing-effect";
 import {compose} from "redux";
 import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
+import sendBtn from "../../assets/images/icons/send.png"
 
 const AskOpenAi = () => {
     const dispatch: ThunkDispatch<RootState, void, any> = useDispatch()
@@ -48,7 +49,7 @@ const AskOpenAi = () => {
                 <div className="openai_inner_section">
                     <Formik initialValues={{}} onSubmit={handleSubmit}>
                         <Form>
-                            <div>
+                            <div className="input-container">
                                 <Field
                                     onKeyDown={handleKeyDown}
                                     component="textarea"
@@ -56,7 +57,8 @@ const AskOpenAi = () => {
                                     onChange={(event: React.ChangeEvent<HTMLInputElement>) => dispatch(OpenAiAction.inputValueSentAC(event.target.value))}
                                 />
                                 <button className="submit-button" type="submit">
-                                    Submit
+                                    <img src={sendBtn} alt=""/>
+                                    {/*Submit*/}
                                 </button>
                             </div>
                         </Form>

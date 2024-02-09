@@ -5,6 +5,7 @@
     background-color: rgb(19, 21, 19);
     padding: 20px;
     margin-top: 30px;
+    margin-bottom: 30px;
 }
 .create_post_title {
     color: white;
@@ -63,3 +64,16 @@
     padding: 20px;
 }
 
+
+
+@media (max-width: 650px) {
+    .create_new_post_info_section textarea, .create_new_post_info_section input{
+        width: 90%;
+    }
+}
+
+@media (max-width: 450px) {
+    .create_new_post_info_section textarea, .create_new_post_info_section input{
+        width: 85%;
+    }
+}

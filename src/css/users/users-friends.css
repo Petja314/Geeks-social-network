@@ -1,6 +1,11 @@
 /*USER CONTAINER SECTION*/
 .user_container{
-    margin-top: 50px;
+    border: 2px solid blue;
+    padding: 20px;
+}
+
+.find_section{
+    margin-left: 20px;
 }
 
 .users_section {

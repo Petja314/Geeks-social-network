@@ -28,24 +28,22 @@ const UsersSearchForm = React.memo((props: UsersSearchFormPropsType) => {
                 <Form className="formik_container formik_dialogs_container" >
                     <h3 className="formik_title formik_dialogs_title ">Find user</h3>
 
-                    <Field type="text" name="term" placeholder="type user name..." />
+
+                        <Field type="text" name="term" placeholder="type user name..." />
+                        {props.filter !== undefined && ( // Conditionally render friend selection field
+                            <div  className="custom-select-container">
+                                <Field name="friend" as="select" className="formik-select">
+                                    <option value="null">All</option>
+                                    <option value="true">Only followed</option>
+                                    <option value="false">Only unfollowed</option>
+                         </Field>
+                            </div>
+                        )}
 
 
-                    {props.filter !== undefined && ( // Conditionally render friend selection field
-                        <div  className="custom-select-container">
-                            <Field name="friend" as="select" className="formik-select">
-                                <option value="null">All</option>
-                                <option value="true">Only followed</option>
-                                <option value="false">Only unfollowed</option>
-                            </Field>
-                        </div>
-
-                    )}
-                    <div style={{marginTop : "5px"}} >
                         <button className="formik_find_btn" type="submit" disabled={isSubmitting}>
                             Find
                         </button>
-                    </div>
 
                 </Form>
             )}

@@ -3,10 +3,18 @@ import {NavLink} from "react-router-dom";
 import "../../css/app.css"
 import "../../css/sidebar/sidebar.css"
 
-const SideBar = () => {
+const SideBar = (props : any) => {
+
+    const handleLinkClick = () => {
+        if (props.handleLinkClick) {
+            props.handleLinkClick()
+        }
+    }
     return (
-        <div className="sidebar">
-                <ul className="sidebar_list" >
+        // <div className="sidebar">
+        // "sidebar sidebar_mobile "
+        <div className={ props.show  ? "sidebar_show" : "sidebar"}  >
+                <ul className="sidebar_list"  onClick={handleLinkClick}>
                     <li><NavLink to={"/profile"}>Profile</NavLink></li>
                     <li><NavLink to={"/users"}>Users</NavLink></li>
                     <li><NavLink to={"/ask_ai"}>Ask AI</NavLink></li>

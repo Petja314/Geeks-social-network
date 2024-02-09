@@ -16,21 +16,21 @@ const ProfileData = (props: ProfileDataPropsType) => {
             <div className="profile_user_info_section">
 
                 <div className="profile_list_section">
-                <ul >
-                    <div>User Info #</div>
-                    <li><span>Full name: </span> {props.profile.fullName} </li>
-                    <li><span>Am I looking for a job?</span> {props.profile.lookingForAJob ? "yes" : "no"} </li>
+                {/*<ul >*/}
+                    <h3 className="user_info_title" >User Info #</h3>
+                    <div><span>Full name: </span> {props.profile.fullName} </div>
+                    <div><span>Am I looking for a job?</span> {props.profile.lookingForAJob ? "yes" : "no"} </div>
                     {props.profile.lookingForAJob &&
-                        <li><span>My professional skills</span> {props.profile.lookingForAJobDescription} </li>
+                        <div><span>My skills:</span> {props.profile.lookingForAJobDescription} </div>
                     }
-                    <li><span>About me: </span> {props.profile.aboutMe}</li>
-                </ul>
+                    <div><span>About me: </span> {props.profile.aboutMe}</div>
+                {/*</ul>*/}
                 </div>
             </div>
 
 
             <div className="contacts_list_section">
-                <span>Contacts # </span>
+                <h3 className="user_contacts_title" >Contacts # </h3>
                 {Object.keys(props.profile.contacts).map((key) => {
                     const contactKey = key as keyof ContactsType; // Type assertion
                     return (

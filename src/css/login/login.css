@@ -1,6 +1,8 @@
 .login_container {
-    margin-top: 50px;
-    margin-bottom: 50px;
+    padding: 40px;
+    /*border: 2px solid blue;*/
+    /*margin-top: 10px;*/
+    /*margin-bottom: 10px;*/
 }
 .login_section{
     /*border: 2px solid red;*/
@@ -80,3 +82,31 @@
     font-size: 20px;
 }
 
+/*MOBILE*/
+
+@media(max-width: 900px) {
+    .container_brief{
+    display: none;
+}
+    .login_section button {
+        margin-bottom: 50px;
+    }
+}
+@media(max-width: 580px) {
+    .login_container{
+        padding: 0px;
+    }
+    .login_form_fields{
+        font-size: 14px;
+    }
+}
+
+
+@media(max-width: 400px) {
+.login_title{
+    font-size: 20px ;
+}
+    .login_form_fields button{
+        padding: 15px;
+    }
+}

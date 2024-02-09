@@ -1,5 +1,7 @@
 .open_ai_container{
-    margin-top: 50px;
+    /*display: none;*/
+    border: 2px solid yellow;
+    margin-top: 30px;
     margin-bottom: 50px;
 }
 .openai_section {
@@ -20,39 +22,51 @@
     font-weight: bold;
 }
 
-.response_section{
-    /*border: 2px solid yellow;*/
-    height: 350px   ;
+.response_section {
+    height: 350px;
     padding: 20px;
     font-weight: bold;
     text-transform: uppercase;
     font-size: 18px;
 }
 
-
-
-.openai_inner_section{
-    /*border: 2px solid red;*/
+.openai_inner_section {
     position: relative;
     background-color: rgb(200, 207, 218);
     height: 100px;
 }
 
 .openai_inner_section textarea {
-    margin: 5px;
-    padding: 5px;
-    height: 80px;
-    width: 85%;
     border: 2px solid white;
     border-radius: 2px;
     background-color: rgb(200, 207, 218);
     resize: none;
     font-size: 18px;
+    padding-right: 70px; /* Adjust the padding to leave space for the image */
 }
+
 .openai_inner_section button {
-    padding: 30px;
     position: absolute;
     right: 5px;
     bottom: 5px;
+    border: none;
+    background-color: transparent;
 }
 
+.submit-button img {
+    width: 50px;
+    margin-right: 20px;
+}
+
+.input-container {
+    display: flex;
+    padding: 10px;
+}
+
+.input-container textarea {
+    flex: 1;
+    resize: none;
+    padding: 10px 50px 10px 10px;
+    height: 60px;
+    width: 100%;
+}
