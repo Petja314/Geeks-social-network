@@ -83,7 +83,7 @@ const RecentDialogs: React.FC<RecentDialogsPropsType> = ({dialogs, newMessageCou
                 }}
             >
                 <div className="sticky">
-                    <div>
+                    <div  >
                         <UsersSearchForm onFilterChanged={onFilterChanged}/>
                     </div>
                 </div>

@@ -4,10 +4,10 @@
       "axios": "axios/dist/node/axios.cjs"
     }
   },
-  "name": "1-lesson",
+  "name": "geeks-network",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://Petja314.github.com/Project",
+  "homepage": "https://Petja314.github.io/Project",
   "dependencies": {
     "@hackernoon/pixel-icon-library": "^1.0.1",
     "@reduxjs/toolkit": "^2.1.0",
@@ -61,7 +61,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "predeploy": "yarn run build",
+    "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
   "eslintConfig": {

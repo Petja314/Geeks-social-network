@@ -7,6 +7,7 @@ import {RootState} from "../../redux/Redux-Store";
 import InfiniteScroll from "react-infinite-scroll-component";
 import recylceBin from "../../assets/images/icons/bin.jpeg"
 import "../../css/dialogs messenger/dialogs.css"
+import sendBtn from "../../assets/images/icons/send.png";
 
 
 export type DialogsChatPropsType = {
@@ -28,7 +29,7 @@ const DialogsChat: React.FC<DialogsChatPropsType> = ({friendIdLocal, currentPage
     const messageRef: React.MutableRefObject<any> = useRef<string>('')
     const lastPageChat = Math.ceil(pagesTotalCount / pageSize)
     const authorizedUserId: number | null = useSelector((state: RootState) => state.userAuthPage.userId)
-    const messageId : string = useSelector((state: RootState) => state.messagesPage.messageId)
+    const messageId: string = useSelector((state: RootState) => state.messagesPage.messageId)
     const [activeBtn, setActiveBtn] = useState<boolean>(false)
 
     //SCROLL AT THE BOTTOM BY DEFAULT
@@ -72,25 +73,24 @@ const DialogsChat: React.FC<DialogsChatPropsType> = ({friendIdLocal, currentPage
     return (
         <div className="chat_container">
 
-            {/*CHAT SECTION*/}
-            {/*<div  style={{position: "relative"}}>*/}
+                {/*CHAT SECTION*/}
                 {/*<div>current page flood_chat : {currentPageChat}</div>*/}
                 <div
                     className="chat_section"
                     ref={scrollContainerRef}
                     onScroll={scrollHandlerMessages}
-                    style={{ overflowY: "auto"}}>
+                    style={{overflowY: "auto"}}>
 
                     <div className="sticky">
-                        <div>{selectedUser.selectedUserName}</div>
+                        <div className="selected_user_title" >{selectedUser.selectedUserName}</div>
                         <div><UserAvatarPhoto photos={selectedUser.photo}/></div>
                     </div>
                     <div>
                         {messages.map((message: DialogsMessagesArrayType) => (
-                            <div  key={message.id} className={authorizedUserId === message.senderId ? "dialogs_right" : "dialogs_left"}>
+                            <div key={message.id} className={authorizedUserId === message.senderId ? "dialogs_right" : "dialogs_left"}>
                                 User: {message.senderName}
-                                <div className="message_section" >Message : {message.body}
-                                    <button  onClick={() => {
+                                <div className="message_section">Message : {message.body}
+                                    <button onClick={() => {
                                         dispatch(deleteMessageThunk(message.id))
                                     }}>
                                         <img src={recylceBin} alt=""/>
@@ -102,11 +102,13 @@ const DialogsChat: React.FC<DialogsChatPropsType> = ({friendIdLocal, currentPage
 
                         ))}
                     </div>
+
                 </div>
 
-
                 {/*CHAT INNER SECTION*/}
-                <div className="chat_inner_section" >
+                <div className="chat_inner_section">
+                    <div className="input-container">
+
                         <textarea
                             onKeyDown={handleKeyDown}
                             placeholder="Select user to chat!"
@@ -115,19 +117,26 @@ const DialogsChat: React.FC<DialogsChatPropsType> = ({friendIdLocal, currentPage
                             ref={messageRef}
                         />
                         {/*DISABLE BUTTON IF FRIEND IS NOT SELECTED*/}
-                        <div>
-                            <button disabled={!friendIdLocal || !activeBtn} onClick={sendMessage}>Send Message</button>
-                            <button onClick={() => {
-                                dispatch(restoreMessageThunk(messageId))
-                            }}> restore last message
+                        <div className="send_message_btn">
+                            <button disabled={!friendIdLocal || !activeBtn} onClick={sendMessage}>
+                                {/*Send Message*/}
+                                <img src={sendBtn} alt=""/>
                             </button>
                         </div>
+
+                        <div className="restore_message_btn">
+                            <button onClick={() => {
+                                dispatch(restoreMessageThunk(messageId))
+                            }}> undo
+                            </button>
+                        </div>
+                    </div>
                 </div>
 
-            {/*</div>*/}
+
         </div>
     );
 };
 
 const DialogsChatMemoComponent = React.memo(DialogsChat)
-export default  DialogsChatMemoComponent
+export default DialogsChatMemoComponent
