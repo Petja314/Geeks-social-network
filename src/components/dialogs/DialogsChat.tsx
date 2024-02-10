@@ -5,6 +5,9 @@ import {useDispatch, useSelector} from "react-redux";
 import {ThunkDispatch} from "redux-thunk";
 import {RootState} from "../../redux/Redux-Store";
 import InfiniteScroll from "react-infinite-scroll-component";
+import recylceBin from "../../assets/images/icons/bin.jpeg"
+import "../../css/dialogs messenger/dialogs.css"
+
 
 export type DialogsChatPropsType = {
     friendIdLocal: null | any; // Adjust the type accordingly
@@ -86,10 +89,12 @@ const DialogsChat: React.FC<DialogsChatPropsType> = ({friendIdLocal, currentPage
                         {messages.map((message: DialogsMessagesArrayType) => (
                             <div  key={message.id} className={authorizedUserId === message.senderId ? "dialogs_right" : "dialogs_left"}>
                                 User: {message.senderName}
-                                <div >Message : {message.body}
-                                    <button onClick={() => {
+                                <div className="message_section" >Message : {message.body}
+                                    <button  onClick={() => {
                                         dispatch(deleteMessageThunk(message.id))
-                                    }}>delete
+                                    }}>
+                                        <img src={recylceBin} alt=""/>
+                                        {/*delete*/}
                                     </button>
                                 </div>
                                 <hr className="underline"/>

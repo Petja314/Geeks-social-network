@@ -70,7 +70,7 @@ const ProfileInfo = (props: ProfileInfoPropsType) => {
                                 </div>
 
                                 }
-                        <span className="user_name" >
+                        <span className="profile_user_name" >
                          NAME:{props.profile.fullName}
                             <ProfileStatus
                                 userId={props.userId}

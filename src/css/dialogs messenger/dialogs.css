@@ -103,3 +103,14 @@
 .chat_inner_section button {
     margin: 5px;
 }
+
+.message_section button {
+    background-color: transparent;
+    border: none;
+    color: white;
+    padding: 0;
+}
+
+.message_section img {
+    width: 50px;
+}

@@ -7,7 +7,7 @@
   "name": "1-lesson",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://github.com/Petja314/socialnetwork_samurai.git",
+  "homepage": "https://Petja314.github.com/Project",
   "dependencies": {
     "@hackernoon/pixel-icon-library": "^1.0.1",
     "@reduxjs/toolkit": "^2.1.0",
@@ -31,6 +31,7 @@
     "filepond": "^4.30.4",
     "final-form": "^4.20.10",
     "formik": "^2.4.5",
+    "gh-pages": "^6.1.1",
     "js.cookie": "^0.0.4",
     "less": "^4.2.0",
     "lodash": "^4.17.21",
@@ -60,7 +61,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "predeploy": "npm run build",
+    "predeploy": "yarn run build",
     "deploy": "gh-pages -d build"
   },
   "eslintConfig": {

@@ -50,7 +50,7 @@ const FloodChat = () => {
                                 <img style={{width: '40px', borderRadius: '50%'}} src={item.photo} alt=""/>
 
                                 <span style={{fontWeight: 'bold', color: '#1890ff'}}>
-                  {item.userName}
+                        {item.userName}
                 </span>
                                 <p>{item.message}</p>
                             </div>
