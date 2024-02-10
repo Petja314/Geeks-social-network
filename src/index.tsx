@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import {BrowserRouter} from "react-router-dom";
+import {BrowserRouter, HashRouter} from "react-router-dom";
 import store from "./redux/Redux-Store";
 import {Provider} from "react-redux";
 import AppComp from "./AppComp";
@@ -15,12 +15,12 @@ const root = ReactDOM.createRoot(
 // let rerenderEntireTree = () => {
     root.render(
         <React.StrictMode>
-            <BrowserRouter>
+            <HashRouter>
                 <Provider store={store} >
                     <AppComp/>
                     {/*<App/>*/}
                 </Provider>
-            </BrowserRouter>
+            </HashRouter>
 
         </React.StrictMode>
     );
