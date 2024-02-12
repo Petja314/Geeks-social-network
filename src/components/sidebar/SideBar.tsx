@@ -4,15 +4,12 @@ import "../../css/app.css"
 import "../../css/sidebar/sidebar.css"
 
 const SideBar = (props : any) => {
-
     const handleLinkClick = () => {
         if (props.handleLinkClick) {
             props.handleLinkClick()
         }
     }
     return (
-        // <div className="sidebar">
-        // "sidebar sidebar_mobile "
         <div className={ props.show  ? "sidebar_show" : "sidebar"}  >
                 <ul className="sidebar_list"  onClick={handleLinkClick}>
                     <li><NavLink to={"/profile"}>Profile</NavLink></li>

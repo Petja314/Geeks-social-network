@@ -19,15 +19,11 @@ import Footer from "./components/footer/Footer";
 
 
 const App = () => {
-
     const initialized = useSelector((state: any) => state.app.initialized)
-    // console.log('initialized', initialized)
-
     const dispatch: any = useDispatch();
     useEffect(() => {
         dispatch(initializeApp());
     }, [dispatch]);
-
 
     if (!initialized) {
         return <Preloader isFetching={true}/>
@@ -53,10 +49,7 @@ const App = () => {
                     </div>
                 </div>
             <Footer/>
-
         </div>
-
-
     );
 };
 export default App

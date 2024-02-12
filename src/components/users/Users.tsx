@@ -37,7 +37,6 @@ const Users = () => {
     const dispatch: ThunkDispatch<RootState, void, any> = useDispatch()
     const navigate: NavigateFunction = useNavigate();
     const location: LocationParams = useLocation()
-
     // Selectors
     const usersPage: UsersComponentTypeArrays = useSelector(getUsersPageSelector)
     const totalUsersCount: number = useSelector(getTotalUsersCountSelector)

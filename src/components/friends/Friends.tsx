@@ -1,7 +1,6 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {getFollowingInProgressSelector, getIsFetchingSelector} from "../../redux/selectors/UsersSelectors";
-import {unfollowUserThunkCreator} from "../../redux/UsersReducer";
+import {getFollowingInProgressSelector} from "../../redux/selectors/UsersSelectors";
 import PaginationUsers from "../users/PaginationUsers";
 import {FriendsListStateType, setFriendListThunkCreator, unfollowFriendThunkCreator} from "../../redux/FriendsReducer";
 import {RootState} from "../../redux/Redux-Store";
@@ -38,7 +37,6 @@ const Friends = () => {
                         <div className="user_section_box" key={item.id}>
                                 {/*NAVIGATING TO THE USER PROFILE BY CLICK ON IMAGE*/}
                                     <NavLink to={'/profile/' + item.id}>
-                                        {/*<span><img src={item.photos.small !== null ? item.photos.small : userPhoto} className={styles.usersPhoto}/></span>*/}
                                         <UserAvatarPhoto photos={item.photos.small}/>
                                     </NavLink>
                                 <div className="user_name">{item.name}</div>
@@ -47,7 +45,6 @@ const Friends = () => {
                                 <div className="followed_section">
                                     {item.followed &&
                                         <div>
-                                            {/*<div><img src={item.photos.small !== null ? item.photos.small : userPhoto} className={styles.usersPhoto}/></div>*/}
                                             <div className="followed_section">
                                                 <button disabled={followingInProgress.some((id: number) => id === item.id)} onClick={() => {
                                                     dispatch(unfollowFriendThunkCreator(item.id,currentPage))

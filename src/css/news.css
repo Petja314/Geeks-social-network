@@ -5,20 +5,16 @@
 }
 
 .news-section {
-    /*background-color : #555555;*/
-    /*color: white;*/
     font-weight: bold;
     grid-template-columns: repeat(6, 1fr);
-}
-
-.news-section {
     display: grid;
     gap: 2px;
     margin: 0px auto;
 }
 
 .news-section a {
-    color: white
+    color: white;
+    text-decoration: none;
 }
 
 *, ::before, ::after {
@@ -30,7 +26,8 @@ because we got :  className={`story-card_${index + 1}`} in JSX
 .*/
 [class^="story-card_"] {
     background-color: rgb(19, 21, 19);
-    border: 3px solid rgb(0, 255, 0);
+    /*border: 3px solid rgb(0, 255, 0);*/
+    border :3px solid rgb(79 94 80);
     display: flex;
     flex-direction: column;
     margin: 0;
@@ -38,6 +35,7 @@ because we got :  className={`story-card_${index + 1}`} in JSX
 }
 
 .title_wrapper {
+
     display: flex;
     position: relative;
     /*align-items: flex-end;*/
@@ -71,74 +69,47 @@ because we got :  className={`story-card_${index + 1}`} in JSX
     overflow: hidden;
     cursor: pointer;
     border-radius: 2px;
-    /*background-color: #333333;*/
 }
 
-.image-wrapper > a {
+.image-wrapper  {
     display: block;
     height: 200px;
     width: 100%;
 }
 
-/*.image-wrapper > a{*/
-/*    object-fit: cover;*/
-/*}*/
-.img_span {
-    box-sizing: border-box;
+.image-wrapper > a.span-3 {
+    object-fit: cover;
     display: block;
-    overflow: hidden;
-    width: initial;
-    height: initial;
-    background: none;
-    opacity: 1;
-    border: 0;
-    margin: 0;
-    padding: 0;
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
+    width: 100%;
+    height: 300px;
 }
 
-.img_element {
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    box-sizing: border-box;
-    padding: 0;
-    border: none;
-    margin: auto;
-    display: block;
-    width: 0;
-    height: 0;
+.img_span img {
     min-width: 100%;
     max-width: 100%;
     min-height: 100%;
     max-height: 100%;
+    margin: 0 auto;
+    display: block;
 }
-
 
 .tag {
     position: absolute;
-    margin: 0px;
     right: 10px;
     bottom: 10px;
     z-index: 0;
-    border: 1px solid;
+    border: 2px solid;
     padding: 5px;
     margin-right: 20px;
     margin-bottom: 5px;
-    background-color: #4caf50;
+    background-color: rgb(9 104 20);
 }
 
 
 .card_comments {
     font-size: 1.4rem;
     color: rgb(60, 60, 59);
-    margin: auto 0px;
+    margin: 0 auto;
 }
 
 .meta {
@@ -161,8 +132,25 @@ because we got :  className={`story-card_${index + 1}`} in JSX
     position: relative;
 }
 
+.news_pre_loader {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.robot_style {
+    box-shadow: rgb(194, 202, 214) 0px 0.2em, rgb(194, 202, 214) 0px -0.2em, rgb(194, 202, 214) 0.2em 0px, rgb(194, 202, 214) -0.2em 0px;
+    max-width: 50px;
+}
+
+.author {
+    background-color: rgb(9 104 20);
+    margin-top: 10px;
+}
+
 @media (max-width: 800px) {
-    .news-section{
+    .news-section {
         display: block;
     }
 }

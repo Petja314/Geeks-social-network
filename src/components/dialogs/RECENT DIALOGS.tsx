@@ -120,7 +120,7 @@ const RecentDialogs: React.FC<RecentDialogsPropsType> = ({dialogs, newMessageCou
                                 <div style={{paddingTop: "10px"}}>
 
                                     <div  className="dialogs_avatar"> <UserAvatarPhoto photos={item.photos.small}/></div>
-                                    <div>User name : {item.name}</div>
+                                    <div>Name: {item.name}</div>
                                     <NavLink to={'/dialogs/' + item.id}>
                                         <button onClick={() => dispatch(startChatThunk(item.id, item.name, item.photos.small))}>Start Chat</button>
                                     </NavLink>
@@ -129,7 +129,6 @@ const RecentDialogs: React.FC<RecentDialogsPropsType> = ({dialogs, newMessageCou
                             </div>
                         )}
                 </div>
-
             </div>
         </>
     );

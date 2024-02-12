@@ -5,7 +5,6 @@ import {useDispatch, useSelector} from "react-redux";
 import {MessagesResponseAiType, OpenAiAction, OpenAiTypes, postMessageToAiThunk} from "../../redux/OpenAiReducer";
 import {RootState} from "../../redux/Redux-Store";
 import {ThunkDispatch} from "redux-thunk";
-// import {TypingEffect} from "./typing-effect";
 import {compose} from "redux";
 import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
 import sendBtn from "../../assets/images/icons/send.png"

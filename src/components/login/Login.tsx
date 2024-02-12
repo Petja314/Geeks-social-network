@@ -10,16 +10,6 @@ import {RootState} from "../../redux/Redux-Store";
 import "../../css/login/login.css"
 import LoginReadMe from "./LoginReadMe";
 
-// type FormikTypes = {
-//     field: any, form: any
-// }
-// export const MyInput = ({field, form, ...props}: FormikTypes) => {
-//     return <input {...field}
-//                   {...props}
-//     />;
-// };
-
-
 const Login = () => {
     const dispatch: ThunkDispatch<RootState, void, any> = useDispatch()
     const isAuth = useSelector((state: RootState) => state.userAuthPage);
@@ -41,8 +31,6 @@ const Login = () => {
                     <Formik
                     enableReinitialize
                     initialValues={{
-                        // email: storedEmail,
-                        // password: storedPassword,
                         email: '',
                         password: '',
                         checkbox: false,
@@ -73,11 +61,8 @@ const Login = () => {
                                     <label htmlFor="checkbox">Remember Me</label>
                                     <div>
                                         <Field type="checkbox" name="checkbox" placeholder="remember me" component="input"/>
-
                                     </div>
                                 </div>
-
-
                                 <div className="login_error" >  {isAuth.loginError }  </div>
 
                                 <button type="submit">Login</button>
@@ -93,18 +78,11 @@ const Login = () => {
                                         </div>
                                     )}
                                 </div>
-
-
                         </Form>
                     )}
                 </Formik>
                 </div>
-
-
-
                 <LoginReadMe/>
-
-
             </div>
 
         </div>

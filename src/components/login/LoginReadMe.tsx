@@ -12,8 +12,8 @@ const LoginReadMe = () => {
 
             <div className="login_details">
                 <p>Login to your demo account with credentials : </p>
-                <p>email : email@demo.com</p>
-                <p>password : password_demo</p>
+                <p>email :  free@samuraijs.com</p>
+                <p>password : free</p>
             </div>
 
             <div className="network_brief">

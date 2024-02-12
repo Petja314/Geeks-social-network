@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {compose, Dispatch} from "redux";
+import {compose} from "redux";
 import {useDispatch, useSelector} from "react-redux";
 import {useParams} from "react-router-dom";
 import {getStatusThunkCreator, ProfileDataType, ProfileStateTypes, usersProfileAuthThunkCreator} from "../../../redux/ProfileReducer";
@@ -9,7 +9,6 @@ import MyPostsContainer from "../myposts/MyPostsContainer";
 import {RootState} from "../../../redux/Redux-Store";
 import {ThunkDispatch} from "redux-thunk";
 import UsersPostsUnverified from "../myposts/usersposts/UsersPostsUnverified";
-import Preloader from "../../../common/preloader/Preloader";
 
 type QuizParams = {
     id: string | undefined
@@ -20,8 +19,6 @@ const ProfileContainer = () => {
     const {id} = useParams<QuizParams>()
     const {profile, status}: ProfileStateTypes = useSelector((state: RootState) => state.profilePage)
     const authorizedUserId: number | null = useSelector((state: RootState) => state.userAuthPage.userId)
-    // console.log('id' , authorizedUserId)
-    // console.log('profile', profile.fullName)
 
     // Fetching user profile data and status based on the ID from the URL
     // If no ID provided, the default ID would be authorizedUserId (my ID)
@@ -35,8 +32,6 @@ const ProfileContainer = () => {
 
     }, [id, authorizedUserId])
 
-    // if (status === "") return <div>loading...</div>
-    // console.log('profile container status :' , status)
     return (
         <div>
 

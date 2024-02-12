@@ -26,12 +26,8 @@ function HeaderContainer() {
     const handleLinkClick = () => {
         setShowSidebar(false)
     }
-
-    // console.log('showSidebar' , showSidebar)
     return (
         <header className="header">
-
-
             {/*BURGER MENU*/}
             <div className="header_burger_menu" onClick={handleBurgerMenuClick}>
                 {!showSidebar ? <div>
@@ -43,7 +39,6 @@ function HeaderContainer() {
                 }
             </div>
 
-
             {showSidebar && (
                 <div className="sidebar_show">
                     <div className="header_burger_menu">
@@ -53,14 +48,11 @@ function HeaderContainer() {
                 </div>
             )}
 
-
-
             <NavLink to={"/profile"}>
                 <div className="header_logo_text">
                     GEEKS <img src={logo} alt="geeks_logo"/> NETWORK
                 </div>
             </NavLink>
-
 
             <div className="header_login">
                 {isAuth ? (
@@ -70,19 +62,15 @@ function HeaderContainer() {
                         </button>
                         <img src={userLogOut} alt="user_login"/>
                     </div>
-
                 ) : (
                     <div>
                         <button>
                             <NavLink to={"/login"}>Login</NavLink>
                         </button>
-                        {/*<img  src={userLogin} alt=""/>*/}
                     </div>
                 )}
             </div>
         </header>
-
-
     )
 }
 

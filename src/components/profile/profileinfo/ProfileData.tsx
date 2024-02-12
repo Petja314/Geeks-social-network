@@ -12,11 +12,9 @@ const ProfileData = (props: ProfileDataPropsType) => {
         <h3 className="contact_form_title">ABOUT ME </h3>
         <div className="profile_about_me_section">
 
-
             <div className="profile_user_info_section">
 
                 <div className="profile_list_section">
-                {/*<ul >*/}
                     <h3 className="user_info_title" >User Info #</h3>
                     <div><span>Full name: </span> {props.profile.fullName} </div>
                     <div><span>Am I looking for a job?</span> {props.profile.lookingForAJob ? "yes" : "no"} </div>
@@ -24,7 +22,6 @@ const ProfileData = (props: ProfileDataPropsType) => {
                         <div><span>My skills:</span> {props.profile.lookingForAJobDescription} </div>
                     }
                     <div><span>About me: </span> {props.profile.aboutMe}</div>
-                {/*</ul>*/}
                 </div>
             </div>
 

@@ -1,25 +1,24 @@
-import axios, {AxiosResponse} from "axios";
-import {NewsItems} from "../components/news/News";
+import axios from "axios";
+import {NewsArrayTypes} from "../components/news/News";
 
 const apikey = process.env.REACT_APP_API_KEY_NEWS
 
-
 const instanceNews = axios.create({
-    baseURL: "https://www.alphavantage.co/",
+    baseURL: "https://newsapi.org/v2",
     params: {
         apiKey: apikey,
     },
 });
 export const newsAPI = {
-    getAllNews(): Promise<AxiosResponse<{ feed: NewsItems[] }>> {
-        return instanceNews.get<newsApiResponseType>('/query?function=NEWS_SENTIMENT&topics=technology&limit=50');
+    getAllNews(pageSize : number , page : number) {
+        return instanceNews.get<newsApiResponseType>(`/everything?q=technology&pageSize=${pageSize}&page=${page}`);
     }
 }
 export default instanceNews;
 
 
 type newsApiResponseType = {
-    feed: NewsItems[],
-    items: string
-
+    articles : NewsArrayTypes[]
+    status : string
+    totalResults : number
 }

@@ -32,7 +32,6 @@ const ProfileStatus = (props: ProfileStatusPropsType) => {
         }
     }
 
-
     // When status has changed => send it to reducer to update state
     const deactivateEditMode = () => {
         setEditMode(false)
@@ -46,7 +45,6 @@ const ProfileStatus = (props: ProfileStatusPropsType) => {
         }
     };
 
-    // console.log('ProfileStatus' , props.status)
     return (
         <div className="status_container">
             {!editMode &&

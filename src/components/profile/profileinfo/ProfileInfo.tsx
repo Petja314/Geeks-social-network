@@ -98,7 +98,6 @@ const ProfileInfo = (props: ProfileInfoPropsType) => {
                                 }}
                             />}
                     </div>
-
                     {/*Show User Data Form depends on edit mode state*/}
                 </div>
 
