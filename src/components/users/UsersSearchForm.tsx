@@ -2,6 +2,7 @@ import React from "react";
 import {FilterType, FormType} from "../../redux/UsersReducer";
 import {Field, Form, Formik} from "formik";
 import "../../css/common css/formik.css"
+import {TypingEffects} from "../openAi/typing-effect";
 
 type UsersSearchFormPropsType = {
     filter?: boolean | null
@@ -26,7 +27,7 @@ const UsersSearchForm = React.memo((props: UsersSearchFormPropsType) => {
         >
             {({isSubmitting}) => (
                 <Form className="formik_container formik_dialogs_container" >
-                    <h3 className="formik_title formik_dialogs_title ">Find user</h3>
+                    <h3 className="formik_title formik_dialogs_title formik_users_title "> Find user </h3>
 
 
                         <Field type="text" name="term" placeholder="type user name..." />

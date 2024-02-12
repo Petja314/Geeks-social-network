@@ -3,7 +3,7 @@ import {ResultCodesEnum} from "../api/Api";
 import {ThunkAction} from "redux-thunk";
 import {InferActionsTypes, RootState} from "./Redux-Store";
 import {usersAPI} from "../api/UsersAPI";
-import {actionsFriends} from "./FriendsReducer";
+import {actionsFriends, setFriendListThunkCreator} from "./FriendsReducer";
 import {AxiosResponse} from "axios";
 import _ from "lodash";
 
@@ -165,7 +165,6 @@ export const unfollowUserThunkCreator = (id: number): ThunkResult<void> => {
         let response = await usersAPI.unFollowUser(id)
         if (response.data.resultCode === ResultCodesEnum.Success) {
             dispatch(actionsUsers.unfollow(id))
-            dispatch(actionsFriends.unfollowFriendAC(id)) // ACTION FROM FRIEND COMPONENT!DISPATCHING TO FRIEND REDUCER!
         }
         dispatch(actionsUsers.setFollowingProgress(false, id))
     }
@@ -181,26 +180,6 @@ export const followUserThunkCreator = (id: number): ThunkResult<void> => {
         dispatch(actionsUsers.setFollowingProgress(false, id))
     }
 }
-
-// FOLLOW UNFOLLOW CODE REFACTORING
-// const followUnfollowFlow = async  (dispatch : Dispatch<UsersComponentTypeArrays>,id : any,apiMethod : any,actionCreator : any) =>  {
-//     dispatch(setFollowingProgress(true,id))
-//     let response = await apiMethod(id)
-//     if (response.data.resultCode === 0) {
-//         dispatch(actionCreator(id))
-//     }
-//     dispatch(setFollowingProgress(false,id))
-// }
-//
-// export const unfollowUserThunkCreator = (id : any) => {
-//         return async (dispatch: any) => {
-//             await followUnfollowFlow(dispatch, id, usersAPI.unFollowUser.bind(usersAPI), unfollow)
-//     }}
-//
-// export const followUserThunkCreator = (id : any) => {
-//     return async (dispatch: any) => {
-//         await followUnfollowFlow(dispatch, id, usersAPI.followUser.bind(usersAPI), follow)
-//     }}
 
 export default UsersReducer
 

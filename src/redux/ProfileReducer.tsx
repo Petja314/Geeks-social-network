@@ -130,7 +130,6 @@ export const updateStatusThunkCreator = (status: string | null): ThunkType => as
 // Thunk to save user photo
 export const savePhotoThunk = (file: File): ThunkType => async (dispatch) => {
     let response = await profileAPI.savePhoto(file)
-    // debugger
     if (response.data.resultCode === ResultCodesEnum.Success) {
         dispatch(actionsProfile.savePhotoSuccess(response.data.data.photos))
     }
@@ -139,9 +138,10 @@ export const savePhotoThunk = (file: File): ThunkType => async (dispatch) => {
 // Thunk to save user profile
 type ThunkTypeForBothReducers = ThunkAction<Promise<void>, RootState, unknown, ActionsProfileTypes | any>;
 export const saveProfileThunk = (profile: ProfileDataType): ThunkTypeForBothReducers => async (dispatch, getState) => {
-    debugger
+    // debugger
     const userId = getState().userAuthPage.userId;
     try {
+        // debugger
         let response = await profileAPI.saveProfile(profile);
         if (response.data.resultCode === ResultCodesEnum.Success) {
             if (userId != null) {

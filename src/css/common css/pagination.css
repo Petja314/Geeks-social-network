@@ -1,4 +1,6 @@
 .pagination_container{
+    display: flex;
+    gap: 20px;
 }
 
 .pagination_container button{
@@ -13,6 +15,14 @@
 }
 
 .pages{
+    margin: 0 auto;
+    padding-right: 5px;
+    cursor: pointer;
     font-size: 18px;
     font-weight: bold;
+}
+
+
+.currentPageColor {
+    color: rgb(0, 255, 0);
 }

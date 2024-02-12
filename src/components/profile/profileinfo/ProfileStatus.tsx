@@ -52,7 +52,7 @@ const ProfileStatus = (props: ProfileStatusPropsType) => {
             {!editMode &&
                 <div>
                     <div>status :
-                        <span onDoubleClick={activateEditMode} style={{fontWeight: "bold"}}>{localStatus || "NO STATUS"}</span>
+                        <span onDoubleClick={activateEditMode} style={{fontWeight: "bold"}}> {localStatus || "NO STATUS"}</span>
                     </div>
                 </div>
             }

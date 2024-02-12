@@ -69,10 +69,10 @@ export const postMessageToAiThunk = (role : string, userInput: string) : ThunkTy
         const {messages} = getState().openAiPage
         const response = await openAiCall.AiPost(messages)
         if ( response.status === 200 ) {
+            console.log('response success!')
             let response_data = response.data.choices[0].message
             dispatch(OpenAiAction.messageReceivedAiAC(response_data.role, response_data.content))
         }
-        console.log('response failed!')
     }
     catch (error) {
         console.log(error , 'error')

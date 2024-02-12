@@ -21,7 +21,6 @@ export let openAiCall = {
     AiPost(messages: MessagesResponseAiType) {
         return instance.post<openAiResponseType>('', JSON.stringify({"model": "gpt-3.5-turbo", messages}))
     }
-
 }
 
 type ChatChoices = {

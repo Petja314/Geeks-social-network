@@ -28,7 +28,6 @@ const UserAvatarPhoto = (props: any) => {
         user_avatar_1, user_avatar_2, user_avatar_3, user_avatar_4, user_avatar_5, user_avatar_6, user_avatar_7, user_avatar_8, user_avatar_9, user_avatar_10, user_avatar_11, user_avatar_12, user_avatar_13, user_avatar_14, user_avatar_15, user_avatar_16, user_avatar_17, user_avatar_18, user_avatar_19, user_avatar_20
     ]
 
-    // console.log('props photos', props.photos)
 
     return (
         <div className="avatar_img">

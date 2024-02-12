@@ -34,10 +34,6 @@ const PaginationUsers = (props: PaginationUsersType) => {
     // console.log('pages', props.currentPage)
     return (
         <div className="pagination_container" >
-
-
-            <div style={{display: "flex", gap: "20px"}}>
-
                 <div>
                     {/*PREVIOUS PAGE BUTTON*/}
                     {props.currentPage > 1 &&
@@ -57,12 +53,12 @@ const PaginationUsers = (props: PaginationUsersType) => {
                         .filter(p => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
                         .map((p) => {
                             return <span
+                                className={props.currentPage === p ? "currentPageColor" : "none"}
                                 key={p}
                                 onClick={() => {
                                     onPageChange(p)
                                 }}>
-                            <span className="pages" style={{margin: "0 auto", paddingRight: "5px", cursor: "pointer"}}>
-                                {/*, color : p === props.currentPage ? "green" : "black ," ,*/}
+                            <span className="pages" >
                                 {p}
                             </span>
 
@@ -83,7 +79,6 @@ const PaginationUsers = (props: PaginationUsersType) => {
                         <button onClick={() => onPageChange(props.currentPage + 1)}><img src={arrow_right} alt="next page"/></button> //NEXT PAGE
                     }
                 </div>
-            </div>
 
 
         </div>

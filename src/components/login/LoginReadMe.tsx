@@ -1,5 +1,6 @@
 import React from 'react';
 import "../../css/login/login.css"
+import {TypingEffects} from "../openAi/typing-effect";
 
 // PLEASE MAKE SURE THAT YOU LOGIN WITH A RIGHT CREDENTIALS PROVIDED BELOW
 // email : .....
@@ -7,8 +8,7 @@ import "../../css/login/login.css"
 const LoginReadMe = () => {
     return (
         <div className="container_brief">
-
-            <h1 className="brief_title">Welcome back to Geeks Network! </h1>
+            <h1  className="brief_title" > <TypingEffects text={"Welcome back to Geeks Network!"} speed={60}/></h1>
 
             <div className="login_details">
                 <p>Login to your demo account with credentials : </p>

@@ -1,11 +1,10 @@
 /*USER CONTAINER SECTION*/
 .user_container{
-    /*border: 2px solid blue;*/
-    padding: 20px;
+    padding: 5px;
 }
 
 .find_section{
-    margin-left: 20px;
+    margin-left: 40px;
 }
 
 .users_section {
@@ -28,7 +27,7 @@
     align-items: center;
     flex-direction: column;
     border: 2px solid grey;
-    width: 240px;
+    width: 260px;
     /*height: 360px;*/
     margin: 10px 10px 30px 10px;
     box-shadow: rgb(194, 202, 214) 0px 0.2em, rgb(194, 202, 214) 0px -0.2em, rgb(194, 202, 214) 0.2em 0px, rgb(194, 202, 214) -0.2em 0px;
@@ -57,6 +56,9 @@
     display: flex;
     justify-content: center;
     margin-bottom: 30px;
+}
+.formik_users_title{
+    color: white;
 }
 
 @media (max-width: 450px) {

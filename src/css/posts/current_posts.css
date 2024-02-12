@@ -1,10 +1,9 @@
 /**Current posts section*!*/
 /*mapped posts items content - 1 block - 1 post */
 [class^="current_post_items_"] {
-    margin-top: 40px;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
     box-shadow: rgb(194, 202, 214) 0px 0.2em, rgb(194, 202, 214) 0px -0.2em, rgb(194, 202, 214) 0.2em 0px, rgb(194, 202, 214) -0.2em 0px, rgb(133, 149, 173) 0.2em 0.4em, rgb(133, 149, 173) 0.4em 0.2em, rgb(82, 98, 122) 0.4em 0.6em, rgb(82, 98, 122) 0.6em 0.4em;
-    padding: 10px calc(10px + 0.2rem);
+    /*padding: 10px calc(10px + 0.2rem);*/
     background-color: #fff;
 }
 

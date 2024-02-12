@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import {actionsProfile, ProfileDataType, saveProfileThunk} from "../../../redux/ProfileReducer";
-import {Field, Form, Formik, FormikHelpers} from "formik";
+import {actionsProfile, ContactsType, ProfileDataType, saveProfileThunk} from "../../../redux/ProfileReducer";
+import {Field, Form, Formik, FormikHelpers, useFormikContext} from "formik";
 import {useDispatch, useSelector} from "react-redux";
-import {MyInput} from "../../login/Login";
+// import {MyInput} from "../../login/Login";
 import "../../../css/profile/profile_edit.css"
 
 
@@ -15,9 +15,14 @@ type ProfileDataFormProps = {
 export const ProfileEditForm = (props: ProfileDataFormProps) => {
     const dispatch: any = useDispatch()
     const fieldsErrors = useSelector((state: any) => state.profilePage.error)
-
     const handleSubmit = async (values: ProfileDataType, {setFieldError, setSubmitting}: FormikHelpers<ProfileDataType>) => {
         try {
+            values.contacts = Object.fromEntries(
+                Object.entries(values.contacts ?? {}).map(([key, value]) => [
+                    key,
+                    value?.toLowerCase() || '',
+                ])
+            ) as ContactsType;
             await dispatch(saveProfileThunk(values));
             // If successful, you can perform additional actions if needed
             props.setEditMode(false);
@@ -41,7 +46,7 @@ export const ProfileEditForm = (props: ProfileDataFormProps) => {
                             <span>Full name : </span>
                             <Field
                                 name="fullName"
-                                component={MyInput}
+                                component="input"
                                 placeholder="Full name"
                             />
                         </li>
@@ -51,7 +56,7 @@ export const ProfileEditForm = (props: ProfileDataFormProps) => {
                             <Field
                                 name="lookingForAJob"
                                 type="checkbox"
-                                component={MyInput}
+                                component="input"
                                 placeholder="Am I looking for a job"
                             />
                         </li>
@@ -77,7 +82,7 @@ export const ProfileEditForm = (props: ProfileDataFormProps) => {
                                 <span>{key} : </span>
                                 <Field
                                     name={`contacts.${key}`}
-                                    component={MyInput}
+                                    component="input"
                                     placeholder={key}
                                 />
                                 {fieldsErrors &&

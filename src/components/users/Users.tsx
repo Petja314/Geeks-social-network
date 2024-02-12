@@ -22,6 +22,7 @@ import {RootState} from "../../redux/Redux-Store";
 import UserAvatarPhoto from "./UserAvatarPhoto";
 import {startChatThunk} from "../../redux/DialogsReducer";
 import "../../css/users/users-friends.css"
+import {TypingEffects} from "../openAi/typing-effect";
 
 
 export interface LocationParams {
@@ -85,21 +86,22 @@ const Users = () => {
         console.log('PAGE CHANGED')
         dispatch(getUsersThunkCreator(pageNumber, pageSize, filter));
     };
-    // console.log('usersPage.users' , usersPage.users)
     return (
         <div className="user_container">
 
+            <h2> <TypingEffects text={"USERS PAGE"} speed={60}/></h2>
             <div className="find_section">
-                <h2>USERS PAGE</h2>
                     <UsersSearchForm
                         filter={filter.friend}
                         onFilterChanged={onFilterChanged}
                     />
             </div>
 
+            <Preloader isFetching={isFetching}/>
 
 
                 <div className="users_section">
+
                     {
                         usersPage.users.map((item) =>
                             <div className="user_section_box" key={item.id}>
@@ -141,7 +143,6 @@ const Users = () => {
                 />
             </div>
 
-            <Preloader isFetching={isFetching}/>
 
 
         </div>

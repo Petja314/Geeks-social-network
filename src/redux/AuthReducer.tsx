@@ -10,6 +10,7 @@ export type AuthState = {
     login: string | null;
     isAuth: boolean;
     captchaUrl: string | null;
+    loginError : null
 }
 let initialState: AuthState = {
     userId: null,
@@ -17,6 +18,7 @@ let initialState: AuthState = {
     login: null,
     isAuth: false,
     captchaUrl: null,
+    loginError : null
 }
 
 export const AuthReducer = (state = initialState, action: ActionsTypes): AuthState => {
@@ -31,6 +33,11 @@ export const AuthReducer = (state = initialState, action: ActionsTypes): AuthSta
             return {
                 ...state,
                 ...action.payload,
+            }
+        case 'SET_LOGIN_ERROR' :
+            return  {
+                ...state,
+                loginError : action.error
             }
         default:
             return state;
@@ -50,6 +57,10 @@ export const actions = {
      captchaSuccessAC : (captchaUrl: any) => ({
             type: 'CAPTCHA_IS_SUCCESS',
             payload: {captchaUrl}
+    }as const),
+    setLoginErrorAC : (error : any) => ({
+        type : "SET_LOGIN_ERROR",
+        error : error
     }as const)
 }
 
@@ -71,6 +82,12 @@ export const loginThunk = (email: string, password: string, rememberMe: boolean,
            await dispatch(getAuthUserDataThunk())
         } else if (response.data.resultCode === ResultCodeForCaptcha.CaptchaIsRequired) {
            await dispatch(captchaThunk())
+        }
+        else {
+            // debugger
+            const loginError = response.data.messages[0]
+            dispatch(actions.setLoginErrorAC(loginError))
+            // console.log(loginError)
         }
     }
 }

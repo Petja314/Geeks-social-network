@@ -16,8 +16,8 @@
     /*border: 2px solid green;*/
     background-color: rgb(194, 202, 214);
     text-align: center;
-    padding-bottom: 10px;
-    padding-top: 10px;
+    padding-bottom: 1px;
+    padding-top: 1px;
     font-weight: bold;
 }
 
@@ -32,7 +32,7 @@
 .openai_inner_section {
     position: relative;
     background-color: rgb(200, 207, 218);
-    height: 100px;
+    height: 120px;
 }
 
 .openai_inner_section textarea {
@@ -51,7 +51,7 @@
 .openai_inner_section button {
     position: absolute;
     right: 5px;
-    bottom: 10px;
+    bottom: 30px;
     border: none;
     background-color: transparent;
 }
@@ -75,14 +75,14 @@
 
 @media (max-width: 550px) {
     .open_ai_container{
-        margin: 0;
+        /*margin: 0;*/
     }
     .openai_section{
-        width: 100%;
+        /*width: 100%;*/
         font-size: 15px;
     }
     .response_section{
-        height: 260px;
+        height: 265px;
         font-size: 14px;
     }
     .input-container{
@@ -94,7 +94,7 @@
 
     }
     .openai_inner_section button{
-        bottom: 15px;
+        bottom: 35px;
         right: 0;
     }
     .openai_inner_section textarea{

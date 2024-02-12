@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import UsersSearchForm from "../users/UsersSearchForm";
 import UserAvatarPhoto from "../users/UserAvatarPhoto";
 import {NavLink} from "react-router-dom";
@@ -10,6 +10,7 @@ import {ThunkDispatch} from "redux-thunk";
 import {RootState} from "../../redux/Redux-Store";
 import "../../css/dialogs messenger/dialogs.css"
 import "../../css/common css/formik.css"
+import DialogsChat from "./DialogsChat";
 
 type RecentDialogsPropsType = {
     dialogs: DialogsArrayType[],
@@ -31,7 +32,6 @@ const RecentDialogs: React.FC<RecentDialogsPropsType> = ({dialogs, newMessageCou
     const startIndex = (currentDialogsPage - 1) * pageSizeDialogs
     const endIndex = startIndex + pageSizeDialogs
     const displayedDialogs = dialogs.slice(startIndex, endIndex)
-
 
     const scrollDialogsHandler = (event: React.UIEvent<HTMLDivElement>) => {
         const elementDialogs = event.currentTarget as HTMLDivElement;
@@ -71,7 +71,6 @@ const RecentDialogs: React.FC<RecentDialogsPropsType> = ({dialogs, newMessageCou
         }
     };
 
-    console.log('displayedDialogs' , displayedDialogs)
 
     return (
         <>
@@ -83,7 +82,7 @@ const RecentDialogs: React.FC<RecentDialogsPropsType> = ({dialogs, newMessageCou
                 }}
             >
                 <div className="sticky">
-                    <div  >
+                    <div className="dialogs_formik" >
                         <UsersSearchForm onFilterChanged={onFilterChanged}/>
                     </div>
                 </div>
@@ -95,12 +94,14 @@ const RecentDialogs: React.FC<RecentDialogsPropsType> = ({dialogs, newMessageCou
                         .map((dialog: DialogsArrayType) => (
                             <div key={dialog.id}>
                                 <div style={{paddingTop: "10px"}}>
-                                    <div><UserAvatarPhoto photos={dialog.photos.small}/></div>
+                                    <div className="dialogs_avatar"><UserAvatarPhoto photos={dialog.photos.small}/></div>
                                     <div>{dialog.userName} </div>
 
                                     <div>
                                         < NavLink to={'/dialogs/' + dialog.id}>
-                                            <button onClick={() => dispatch(startChatThunk(dialog.id, dialog.userName, dialog.photos.small))}>Start Chat</button>
+                                            <button onClick={() => {
+                                                dispatch(startChatThunk(dialog.id, dialog.userName, dialog.photos.small))
+                                            }}>Start Chat</button>
                                         </NavLink>
                                     </div>
                                     <hr className="underline"  />
@@ -118,7 +119,7 @@ const RecentDialogs: React.FC<RecentDialogsPropsType> = ({dialogs, newMessageCou
                             <div key={item.id}>
                                 <div style={{paddingTop: "10px"}}>
 
-                                    <div><UserAvatarPhoto photos={item.photos.small}/></div>
+                                    <div  className="dialogs_avatar"> <UserAvatarPhoto photos={item.photos.small}/></div>
                                     <div>User name : {item.name}</div>
                                     <NavLink to={'/dialogs/' + item.id}>
                                         <button onClick={() => dispatch(startChatThunk(item.id, item.name, item.photos.small))}>Start Chat</button>

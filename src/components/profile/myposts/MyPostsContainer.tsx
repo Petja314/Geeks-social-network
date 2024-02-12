@@ -21,6 +21,10 @@ const MyPostsContainer = () => {
     const [editPost, setEditPost] = useState<ResponseTestAPIDataType | null>(null);//temporary storage for edit post section.
     // Run Fetch function to send posts data when the component mounts
 
+    // console.log('posts' , posts)
+    // console.log('userId' , userId)
+
+
     usePostFetchAdmin({userId})
     if (!posts) return <div>loading...</div> //Preloader
 

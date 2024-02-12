@@ -1,15 +1,15 @@
 import React from 'react';
 import circle from "../../assets/images/spinning-circles.svg";
+import "../../css/common css/preloader.css"
+
 
 export type PreloaderType = {
     isFetching : boolean
 }
 
 const Preloader = (props : PreloaderType) => {
-    // debugger
     return (
-        <div>
-            {/*<img src={circle}/>*/}
+        <div className="preloader" >
             {props.isFetching ?  <img src={circle}/> : null}
         </div>
     );

@@ -5,10 +5,11 @@ import {useDispatch, useSelector} from "react-redux";
 import {MessagesResponseAiType, OpenAiAction, OpenAiTypes, postMessageToAiThunk} from "../../redux/OpenAiReducer";
 import {RootState} from "../../redux/Redux-Store";
 import {ThunkDispatch} from "redux-thunk";
-import {TypingEffect} from "./typing-effect";
+// import {TypingEffect} from "./typing-effect";
 import {compose} from "redux";
 import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
 import sendBtn from "../../assets/images/icons/send.png"
+import {TypingEffects} from "./typing-effect";
 
 const AskOpenAi = () => {
     const dispatch: ThunkDispatch<RootState, void, any> = useDispatch()
@@ -68,12 +69,11 @@ const AskOpenAi = () => {
         </div>
     );
 };
+
 type OpenAiResponseProps = {
     isLoading: boolean
 }
 const OpenAiResponse = ({isLoading}: OpenAiResponseProps) => {
-    const welcomeTextAi: string = TypingEffect('Hey developer, I am your personal AI. I am here and ready for any questions you may have. Lets engage in a conversation!', 40)
-    // const aiResponseText: string = TypingEffect(props.chatBotResponse, 20)
     const {messages}: OpenAiTypes = useSelector((state: RootState) => state.openAiPage)
     const onScrollDownRef = useRef<HTMLInputElement>(null)
     useEffect(() => {
@@ -85,12 +85,16 @@ const OpenAiResponse = ({isLoading}: OpenAiResponseProps) => {
     const messagesJSX = messages.map((item: MessagesResponseAiType) => (
         <div style={{padding: "10px"}}>
             {item.role === "user" ? (
-                <div style={{color: "red"}}> {item.role} : {item.content} </div>
+                <div style={{color: "red"}}> {item.role} :  {item.content} </div>
             ) : (
-                <div> {item.role} : {item.content} </div>
+                <div> {item.role} :
+                    {/*{item.content}*/}
+                    <TypingEffects text={item.content} speed={40} />
+                </div>
             )}
         </div>
     ))
+    console.log('messages' ,messages)
     return (
         <div ref={onScrollDownRef} className="response_section" style={{overflowY: "auto"}}>
             {isLoading ? (
@@ -98,9 +102,8 @@ const OpenAiResponse = ({isLoading}: OpenAiResponseProps) => {
             ) : messages.length > 0 ? (
                 <div>{messagesJSX}</div>
             ) : (
-                <div>{welcomeTextAi}</div>
+                <TypingEffects text={'Hey developer, I am your personal AI. I am here and ready for any questions you may have. Lets engage in a conversation!'} speed={40} />
             )}
-
         </div>
     )
 }

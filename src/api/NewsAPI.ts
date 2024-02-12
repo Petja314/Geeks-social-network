@@ -3,10 +3,11 @@ import {NewsItems} from "../components/news/News";
 
 const apikey = process.env.REACT_APP_API_KEY_NEWS
 
+
 const instanceNews = axios.create({
     baseURL: "https://www.alphavantage.co/",
     params: {
-        apikey: apikey,
+        apiKey: apikey,
     },
 });
 export const newsAPI = {

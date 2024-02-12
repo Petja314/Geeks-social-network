@@ -1,89 +1,65 @@
-import React, {lazy} from 'react';
-import './css/app.css';
-import './index'
-// import Navbar from "./components/navbar/Navbar";
-import {Routes, Route, useParams} from "react-router-dom";
-// import { store} from "./components/redux/Store";
-import HeaderContainer from "./components/header/HeaderContainer";
-import {connect} from "react-redux";
-import {compose} from "redux";
-import {initializeApp} from "./redux/AppReducer"
-import Preloader from "./common/preloader/Preloader";
-import { useLocation, useNavigate} from 'react-router-dom';
+import React, {useEffect} from 'react';
+import { Route, Routes} from "react-router-dom";
 import Users from "./components/users/Users";
 import Login from "./components/login/Login";
-import {Button} from "antd";
+import HeaderContainer from "./components/header/HeaderContainer";
+import {useDispatch, useSelector} from "react-redux";
+import {initializeApp} from "./redux/AppReducer";
+import FloodChat from "./components/flood_chat/FloodChat";
+import Friends from "./components/friends/Friends";
+import ProfileContainer from "./components/profile/profileinfo/ProfileContainer";
+import DialogsContainer from "./components/dialogs/DialogsContainer";
+import News from "./components/news/News";
+import AskOpenAi from "./components/openAi/AskOpenAi";
+import PageNotFound from "./components/404/PageNotFound";
+import Preloader from "./common/preloader/Preloader";
+import SideBar from "./components/sidebar/SideBar";
+import "./css/app.css"
+import Footer from "./components/footer/Footer";
 
 
+const App = () => {
 
-//REACT LAZY LOADING + HOC
-// const ProfileContainer = lazy(() =>  import("./components/profile/ProfileContainer"))
-// let LazyProfileContainer = ReactLazyWrappedHOC(ProfileContainer)
-// const DialogsContainer = lazy(() =>  import("./components/dialogs/dialogitem/DialogsContainer"))
+    const initialized = useSelector((state: any) => state.app.initialized)
+    // console.log('initialized', initialized)
 
-export const withRouter = (Component: any) => {
-    function ComponentWithRouterProp(props: any) {
-        console.log('ComponentWithRouterProp' , props)
-        let location = useLocation();
-        let navigate = useNavigate();
-        let params = useParams();
-        return (
-            <Component
-                {...props}
-                router={{ location, navigate, params }}
-            />
-        );
-    }
-    return ComponentWithRouterProp;
-}
-type MapPropsType = ReturnType<typeof mapStateToProps>
-type DispatchPropsType = {
-    initializeApp : () => void
-}
-class App extends React.Component<MapPropsType & DispatchPropsType>{
-    componentDidMount() {
-        this.props.initializeApp()
+    const dispatch: any = useDispatch();
+    useEffect(() => {
+        dispatch(initializeApp());
+    }, [dispatch]);
+
+
+    if (!initialized) {
+        return <Preloader isFetching={true}/>
     }
 
-    render() {
-        if (!this.props.initialized) {
-            return <Preloader isFetching/>
-        }
-        // const state = store.getState()
-        return (
-            <div className="app-wrapper container">
-                <HeaderContainer/>
-                {/*<Navbar data={state.cat_profile} state={state.sideBar}/>*/}
-
-                <div className="app-wrapper-content">
-                    <Button type={"primary"} >404 NOT FOUND</Button>
+    return (
+        <div className="app_wrapper">
+            <HeaderContainer/>
+            <SideBar />
+                <div className="main">
+                    <div className="container_main">
                     <Routes>
-                        {/*<Route path="/profile/:id?"*/}
-                        {/*       element={*/}
-                        {/*           <LazyProfileContainer/>*/}
-                        {/*       }*/}
-                        {/*/>*/}
+                        <Route path="/profile/:id?" element={<ProfileContainer/>}/>
+                        <Route path="/ask_ai" element={<AskOpenAi/>}/>
                         <Route path="/users" element={<Users/>}/>
                         <Route path="/login" element={<Login/>}/>
+                        <Route path="/friends" element={<Friends/>}/>
+                        <Route path="/dialogs/:id?" element={<DialogsContainer/>}/>
+                        <Route path="/news" element={<News/>}/>
+                        <Route path="/flood_chat" element={<FloodChat/>}/>
+                        <Route path="*" element={<PageNotFound/>}/>
                     </Routes>
-
+                    </div>
                 </div>
-            </div>
-        );
-    }
-}
-type MapStateType = {
-    initialized : boolean
-}
-type MapDispatchType = {
-    initializeApp : () => void
-}
-let mapStateToProps = (state: any) => ({
-    initialized : state.app.initialized
-});
+            <Footer/>
 
-export default compose(
-    withRouter,
-    connect<MapStateType,MapDispatchType>(mapStateToProps, {initializeApp}))(App)
+        </div>
+
+
+    );
+};
+export default App
+
 
 

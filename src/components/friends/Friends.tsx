@@ -3,37 +3,35 @@ import {useDispatch, useSelector} from 'react-redux';
 import {getFollowingInProgressSelector, getIsFetchingSelector} from "../../redux/selectors/UsersSelectors";
 import {unfollowUserThunkCreator} from "../../redux/UsersReducer";
 import PaginationUsers from "../users/PaginationUsers";
-import {FriendsListStateType, setFriendListThunkCreator} from "../../redux/FriendsReducer";
+import {FriendsListStateType, setFriendListThunkCreator, unfollowFriendThunkCreator} from "../../redux/FriendsReducer";
 import {RootState} from "../../redux/Redux-Store";
 import {ThunkDispatch} from "redux-thunk";
 import {compose} from "redux";
 import {NavLink} from "react-router-dom";
 import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
-import Preloader from "../../common/preloader/Preloader";
 import UserAvatarPhoto from "../users/UserAvatarPhoto";
 import {startChatThunk} from "../../redux/DialogsReducer";
 import "../../css/users/users-friends.css"
+import {TypingEffects} from "../openAi/typing-effect";
 
 const Friends = () => {
     const dispatch: ThunkDispatch<RootState, void, any> = useDispatch();
     const followingInProgress = useSelector(getFollowingInProgressSelector)
-    const isFetching = useSelector(getIsFetchingSelector)
     const {friends, totalCount, pageSize, currentPage}: FriendsListStateType = useSelector((state: RootState) => state.friendPage);
 
     useEffect(() => {
         // getting the current users who are followed with an api request
         // debugger
         dispatch(setFriendListThunkCreator(currentPage, true));
-    }, [currentPage]); //dependency to track the current page
+    }, [currentPage]);
 
     const handlePageChangeUsers = (pageNumber: number) => {
         dispatch(setFriendListThunkCreator(pageNumber, true)); //dispatch current page
     };
+    // console.log('friends' , friends)
     return (
         <div className="user_container">
-            <div className="find_section">
-                <h2 >List of friends</h2>
-            </div>
+            <h2> <TypingEffects text={"List of friends"} speed={60}/></h2>
 
                 <div className="users_section">
                     {friends.map((item) => (
@@ -52,7 +50,7 @@ const Friends = () => {
                                             {/*<div><img src={item.photos.small !== null ? item.photos.small : userPhoto} className={styles.usersPhoto}/></div>*/}
                                             <div className="followed_section">
                                                 <button disabled={followingInProgress.some((id: number) => id === item.id)} onClick={() => {
-                                                    dispatch(unfollowUserThunkCreator(item.id))
+                                                    dispatch(unfollowFriendThunkCreator(item.id,currentPage))
                                                 }}>Unfollow
                                                 </button>
                                             </div>
@@ -62,8 +60,6 @@ const Friends = () => {
                                         </div>
                                     }
                                 </div>
-
-
                         </div>
                     ))}
                 </div>
@@ -78,7 +74,6 @@ const Friends = () => {
             </div>
 
 
-            <Preloader isFetching={isFetching}/>
 
 
         </div>

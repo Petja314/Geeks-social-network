@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {NavLink} from "react-router-dom";
+import {Navigate, NavLink} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {AuthState, logoutThunk} from "../../redux/AuthReducer";
 import {RootState} from "../../redux/Redux-Store";
@@ -34,43 +34,45 @@ function HeaderContainer() {
 
             {/*BURGER MENU*/}
             <div className="header_burger_menu" onClick={handleBurgerMenuClick}>
-                    {!showSidebar ? <div>
-                            <img src={burgerMenu} alt=""/>
-                        </div> :
-                        <div>
-                            <img className="close_mobile_menu" src={closeMenu} alt=""/>
-                        </div>
-                    }
-            </div>
-
-
-                {showSidebar && (
-                    <div className="sidebar_show">
-                        <div className="header_burger_menu">
-                            <img src={burgerMenu} alt="" onClick={handleBurgerMenuClick}/>
-                        </div>
-                        <SideBar show={showSidebar} handleLinkClick={handleLinkClick}/>
+                {!showSidebar ? <div>
+                        <img src={burgerMenu} alt=""/>
+                    </div> :
+                    <div>
+                        <img className="close_mobile_menu" src={closeMenu} alt=""/>
                     </div>
-                )}
-
-
-
-            <div className="header_logo_text">
-                GEEKS <img src={logo} alt="geeks_logo"/> NETWORK
+                }
             </div>
+
+
+            {showSidebar && (
+                <div className="sidebar_show">
+                    <div className="header_burger_menu">
+                        <img src={burgerMenu} alt="" onClick={handleBurgerMenuClick}/>
+                    </div>
+                    <SideBar show={showSidebar} handleLinkClick={handleLinkClick}/>
+                </div>
+            )}
+
+
+
+            <NavLink to={"/profile"}>
+                <div className="header_logo_text">
+                    GEEKS <img src={logo} alt="geeks_logo"/> NETWORK
+                </div>
+            </NavLink>
 
 
             <div className="header_login">
                 {isAuth ? (
                     <div className="user_logout" onClick={() => dispatch(logoutThunk())}>
-                        <button >
+                        <button>
                             {login} - Log out
                         </button>
-                        <img   src={userLogOut} alt="user_login"/>
+                        <img src={userLogOut} alt="user_login"/>
                     </div>
 
                 ) : (
-                    <div >
+                    <div>
                         <button>
                             <NavLink to={"/login"}>Login</NavLink>
                         </button>

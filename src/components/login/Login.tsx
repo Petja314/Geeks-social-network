@@ -10,22 +10,21 @@ import {RootState} from "../../redux/Redux-Store";
 import "../../css/login/login.css"
 import LoginReadMe from "./LoginReadMe";
 
-type FormikTypes = {
-    field: any, form: any
-}
-export const MyInput = ({field, form, ...props}: FormikTypes) => {
-    return <input {...field}
-                  {...props}
-    />;
-};
+// type FormikTypes = {
+//     field: any, form: any
+// }
+// export const MyInput = ({field, form, ...props}: FormikTypes) => {
+//     return <input {...field}
+//                   {...props}
+//     />;
+// };
 
 
 const Login = () => {
     const dispatch: ThunkDispatch<RootState, void, any> = useDispatch()
     const isAuth = useSelector((state: RootState) => state.userAuthPage);
-    // console.log(isAuth.captchaUrl)
     if (isAuth.isAuth) {
-        return <Navigate to={"/users"}/>
+        return <Navigate to={"/profile"}/>
     }
     const handleSubmit = async (values: any, submitProps: any) => {
         const {email, password, rememberMe, captcha} = values;
@@ -59,24 +58,27 @@ const Login = () => {
                                 <div>
                                     <label htmlFor="email">Email</label>
                                     <div>
-                                        <Field type="email" name="email" placeholder="Email" component={MyInput}/>
+                                        <Field type="email" name="email" placeholder="Email" component="input"/>
                                     </div>
                                 </div>
 
                                 <div>
                                     <label htmlFor="password">Password</label>
                                     <div>
-                                        <Field type="password" name="password" placeholder="Password" component={MyInput}/>
+                                        <Field type="password" name="password" placeholder="Password" component="input"/>
                                     </div>
                                 </div>
 
                                 <div>
                                     <label htmlFor="checkbox">Remember Me</label>
                                     <div>
-                                        <Field type="checkbox" name="checkbox" placeholder="remember me" component={MyInput}/>
+                                        <Field type="checkbox" name="checkbox" placeholder="remember me" component="input"/>
 
                                     </div>
                                 </div>
+
+
+                                <div className="login_error" >  {isAuth.loginError }  </div>
 
                                 <button type="submit">Login</button>
                                 {props.status && props.status.error && (
@@ -87,7 +89,7 @@ const Login = () => {
                                     {isAuth.captchaUrl && (
                                         <div>
                                             <img src={isAuth.captchaUrl} alt="captcha"/>
-                                            <Field type="text" name="captcha" placeholder="Type text from image" component={MyInput}/>
+                                            <Field type="text" name="captcha" placeholder="Type text from image" component="input"/>
                                         </div>
                                     )}
                                 </div>

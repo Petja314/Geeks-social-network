@@ -38,35 +38,48 @@ export const MyPostsReducer = (state = initialState, action: ActionsTypes): MyPo
                 idUserURL: action.idUserURL
             }
         case 'SET_POSTS_DATABASE' :
+            localStorage.setItem('posts', JSON.stringify(action.postData));
             return {
                 ...state,
                 posts: action.postData
             }
         case 'SET_NEW_POST' :
-            return {
+            const newStateLS = {
                 ...state,
                 posts: [...state.posts, action.newPost]
-            }
+            };
+            // Update local storage
+            localStorage.setItem('posts', JSON.stringify(newStateLS.posts));
+
+            return newStateLS;
         case 'DELETE_POST' :
-            return {
+            const deletePostLS = {
                 ...state,
                 posts: action.deletePost
             }
+            localStorage.setItem('posts', JSON.stringify(deletePostLS.posts));
+            return deletePostLS
         case 'ADD_LIKE' :
-            return {
+            const addLikeLS = {
                 ...state,
                 posts: action.addLike
             }
+            localStorage.setItem('posts', JSON.stringify(addLikeLS.posts));
+            return addLikeLS
         case 'DELETE_ALL_POSTS' :
-            return {
+            const deleteAllPostsLS =  {
                 ...state,
                 posts: []
             }
+            localStorage.setItem('posts', JSON.stringify(deleteAllPostsLS.posts));
+            return deleteAllPostsLS
         case 'SAVE_POST' :
-            return {
+            const savePostLS =  {
                 ...state,
                 posts: action.updateEditedPost
             }
+            localStorage.setItem('posts', JSON.stringify(savePostLS.posts));
+            return savePostLS
         case 'CHANGE_PAGE' :
             return {
                 ...state,
@@ -135,7 +148,6 @@ export const setUnverifiedUserIDThunk = (idUserURL: number | null): ThunkResult<
 }
 export const fetchPostsThunk = (postData: Array<ResponseTestAPIDataType>): ThunkResult<void> => {
     return (dispatch) => {
-
         dispatch(actionsMyPosts.setPostsDataBaseAC(postData))
     }
 }

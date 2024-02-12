@@ -62,7 +62,7 @@
 
 .profile_list_section{
     /*margin: 0;*/
-    /*padding: 0;*/
+    padding: 10px;
 }
 .profile_list_section ul{
     padding-left: 0;
@@ -74,6 +74,7 @@
 .profile_list_section span {
     margin-top: 10px;
     margin-bottom: 10px;
+    width: 93%;
     /*margin: 10px;*/
     display: inline-block;
     box-shadow: rgb(194, 202, 214) 0px 0.2em, rgb(194, 202, 214) 0px -0.2em, rgb(194, 202, 214) 0.2em 0px, rgb(194, 202, 214) -0.2em 0px;
@@ -92,7 +93,7 @@
 }
 
 .profile_avatar_img img{
-   width: 180px;
+  width: 180px;
 }
 
 
@@ -135,6 +136,7 @@
     text-align: center;
     padding-bottom: 20px;
     padding-top: 20px;
+    font-size: 24px;
     margin: 0;
 }
 
@@ -149,14 +151,19 @@
         padding: 0;
         /*align-items: center;*/
     }
-
     .profile_avatar_img img{
-        width: 200px;
+        width: 250px;
     }
     .photo_input_section{
-        width: 400px;
+        width: 30%;
         margin: 0 auto;
     }
+    .custom-file-input{
+        max-width: 35%;
+        margin: 0 auto;
+        display: flex;
+    }
+
     .profile_user_name{
         margin-bottom: 10px;
         color: black;
@@ -192,6 +199,9 @@
 }
 
 @media  (max-width: 700px) {
+    .profile_avatar_img img{
+        width: 250px;
+    }
     .profile_about_me_section{
         display: flex;
         flex-direction: column;
@@ -212,8 +222,12 @@
     .photo_input_section{
         width: 250px;
     }
-    .edit_form_btn_section{
-        margin-bottom: 30px;
+    .edit_form_btn_section button{
+        font-size: 16px ;
+        margin-bottom: 20px;
+    }
+    .custom-file-input{
+        max-width: 50%;
     }
 }
 
@@ -232,6 +246,13 @@
     .edit_form_btn_section{
         margin-top: 10px;
     }
+    .custom-file-input{
+        max-width: 80%;
+    }
+    .profile_avatar_img img{
+        width: 235px;
+    }
+
 }
 
 

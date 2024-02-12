@@ -2,14 +2,15 @@ import React, {ChangeEvent, useState} from "react";
 import Preloader from "../../../common/preloader/Preloader";
 import ProfileStatus from "./ProfileStatus"
 import 'filepond/dist/filepond.min.css';
-import {ActionsProfileTypes, ProfileDataType, ProfileStateTypes, savePhotoThunk} from "../../../redux/ProfileReducer";
-import {useDispatch, useSelector} from "react-redux";
+import { ProfileDataType, savePhotoThunk} from "../../../redux/ProfileReducer";
+import {useDispatch} from "react-redux";
 import {ProfileEditForm} from "./ProfileEditForm";
 import ProfileData from "./ProfileData";
 import UserAvatarPhoto from "../../users/UserAvatarPhoto";
 import "../../../css/profile/profile_edit.css"
 import DragPhoto from "../../drag_drop_img/DragPhoto";
 import {isDraggingAC} from "../../drag_drop_img/DragReducer";
+import {TypingEffects} from "../../openAi/typing-effect";
 
 
 export type ProfileInfoPropsType = {
@@ -32,6 +33,7 @@ const ProfileInfo = (props: ProfileInfoPropsType) => {
     const onMainPhotoSelected = (event: ChangeEvent<HTMLInputElement>) => {
         let files = event.target?.files
         if (files) {
+            // console.log("files[0]" , files[0])
             dispatch(savePhotoThunk(files[0]))
         }
     }
@@ -51,13 +53,14 @@ const ProfileInfo = (props: ProfileInfoPropsType) => {
             <h2>PROFILE</h2>
 
             <div className="profile_section">
-                <h3 className="about_me_title">DEVELOPER INFORMATION</h3>
+
+                <h3 className="about_me_title"> <TypingEffects text={"DEVELOPER INFORMATION"} speed={50}/> </h3>
 
                 <div className="profile_info_section">
                     <div className="profile_avatar_container">
-                        <span>  YOUR AVATAR  </span>
+                        <h3>  YOUR AVATAR  </h3>
                         <div className="profile_avatar_img" >
-                            <UserAvatarPhoto photos={props.profile.photos.small}/>
+                            <UserAvatarPhoto photos={props.profile.photos.large}/>
                         </div>
 
                             {props.isOwner &&
@@ -68,10 +71,9 @@ const ProfileInfo = (props: ProfileInfoPropsType) => {
                                     </div>
                                     <input className="custom-file-input" type={"file"} onChange={onMainPhotoSelected}/>
                                 </div>
-
                                 }
                         <span className="profile_user_name" >
-                         NAME:{props.profile.fullName}
+                         NAME : {props.profile.fullName}
                             <ProfileStatus
                                 userId={props.userId}
                                 status={props.status}
