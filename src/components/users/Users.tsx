@@ -78,7 +78,7 @@ const Users = () => {
                 break;
         } // after parsedFilter would look like that : parsedFilter = { term : "", friend : boolean | null }
         //dispatching data to get thunk to get correct response from API
-        dispatch(getUsersThunkCreator(parsedCurrentPage, pageSize, parsedFilter))
+        // dispatch(getUsersThunkCreator(parsedCurrentPage, pageSize, parsedFilter))
     }, [])
 
     // Connecting the data from api with navigate to get the right url
@@ -87,91 +87,91 @@ const Users = () => {
     }, [filter, currentPage])
 
     //Filtration by users followed/unfollowed/all
-    const onFilterChanged = (filter: FilterType) => {
-        dispatch(getUsersThunkCreator(1, pageSize, filter))
-    }
-    const handlePageChangeUsers = (pageNumber: number) => {
-        // console.log('PAGE CHANGED')
-        // console.log('pageNumber' , pageNumber)
-        dispatch(getUsersThunkCreator(pageNumber, pageSize, filter));
-    };
-
-
-        const scrollHandlerUsers = () => {
-            setIsLoading(true)
-            debugger
-            dispatch(getUsersThunkCreator(currentPage +1, pageSize, filter));
-            setIsLoading(false)
-        }
+    // const onFilterChanged = (filter: FilterType) => {
+    //     dispatch(getUsersThunkCreator(1, pageSize, filter))
+    // }
+    // const handlePageChangeUsers = (pageNumber: number) => {
+    //     // console.log('PAGE CHANGED')
+    //     // console.log('pageNumber' , pageNumber)
+    //     dispatch(getUsersThunkCreator(pageNumber, pageSize, filter));
+    // };
+    //
+    //
+    //     const scrollHandlerUsers = () => {
+    //         setIsLoading(true)
+    //         debugger
+    //         dispatch(getUsersThunkCreator(currentPage +1, pageSize, filter));
+    //         setIsLoading(false)
+    //     }
 
     // console.log('usersPage.users.length' , usersPage.users)
     return (
         <div className="user_container">
-            { !isMobile &&
-                <InfiniteScroll
-                style={{overflow: 'hidden'}}
-                dataLength={usersPage.users.length}
-                next={scrollHandlerUsers}
-                hasMore={true}
-                // hasMore={data.length === 100 ? false : true} // data.length 100-120 posts is the limit by api!
-                loader={<h4>Loading...</h4>}
-            >
+            {/*{ !isMobile &&*/}
+            {/*    <InfiniteScroll*/}
+            {/*    style={{overflow: 'hidden'}}*/}
+            {/*    dataLength={usersPage.users.length}*/}
+            {/*    // next={scrollHandlerUsers}*/}
+            {/*    hasMore={true}*/}
+            {/*    // hasMore={data.length === 100 ? false : true} // data.length 100-120 posts is the limit by api!*/}
+            {/*    loader={<h4>Loading...</h4>}*/}
+            {/*>*/}
 
 
-                <h2><TypingEffects text={"USERS PAGE"} speed={60}/></h2>
-                <div className="find_section">
-                    <UsersSearchForm
-                        filter={filter.friend}
-                        onFilterChanged={onFilterChanged}
-                    />
-                </div>
+            {/*    <h2><TypingEffects text={"USERS PAGE"} speed={60}/></h2>*/}
+            {/*    <div className="find_section">*/}
+            {/*        <UsersSearchForm*/}
+            {/*            filter={filter.friend}*/}
+            {/*            onFilterChanged={onFilterChanged}*/}
+            {/*        />*/}
+            {/*    </div>*/}
 
-                <Preloader isFetching={isFetching}/>
+            {/*    <Preloader isFetching={isFetching}/>*/}
 
-                <div className="users_section">
-                    {
-                        usersPage.users.map((item) =>
-                            <div className="user_section_box" key={item.id}>
-                                {/*NAVIGATING TO THE USER PROFILE BY CLICK ON IMAGE*/}
-                                <NavLink to={'/profile/' + item.id}>
-                                    <UserAvatarPhoto photos={item.photos.small}/>
-                                </NavLink>
-                                <div className="user_name">{item.name}</div>
-
-
-                                <div className="followed_section">
-                                    {item.followed
-                                        ? <button disabled={followingInProgress.some((id: number) => id === item.id)} onClick={() => {
-                                            dispatch(unfollowUserThunkCreator(item.id))
-                                        }}>Unfollow</button>
-
-                                        : <button disabled={followingInProgress.some((id: number) => id === item.id)} onClick={() => {
-                                            dispatch(followUserThunkCreator(item.id))
-                                        }}> Follow </button>}
-                                </div>
+            {/*    <div className="users_section">*/}
+            {/*        {*/}
+            {/*            usersPage.users.map((item) =>*/}
+            {/*                <div className="user_section_box" key={item.id}>*/}
+            {/*                    /!*NAVIGATING TO THE USER PROFILE BY CLICK ON IMAGE*!/*/}
+            {/*                    <NavLink to={'/profile/' + item.id}>*/}
+            {/*                        <UserAvatarPhoto photos={item.photos.small}/>*/}
+            {/*                    </NavLink>*/}
+            {/*                    <div className="user_name">{item.name}</div>*/}
 
 
-                                <div className="start_chat_section">
-                                    <NavLink to={'/dialogs/' + item.id}>
-                                        <button onClick={() => dispatch(startChatThunk(item.id, item.name, item.photos.small))}>Start Chat</button>
-                                    </NavLink>
-                                </div>
-                            </div>)}
+            {/*                    <div className="followed_section">*/}
+            {/*                        {item.followed*/}
+            {/*                            ? <button disabled={followingInProgress.some((id: number) => id === item.id)} onClick={() => {*/}
+            {/*                                dispatch(unfollowUserThunkCreator(item.id))*/}
+            {/*                            }}>Unfollow</button>*/}
 
-                </div>
+            {/*                            : <button disabled={followingInProgress.some((id: number) => id === item.id)} onClick={() => {*/}
+            {/*                                dispatch(followUserThunkCreator(item.id))*/}
+            {/*                            }}> Follow </button>}*/}
+            {/*                    </div>*/}
+
+
+            {/*                    <div className="start_chat_section">*/}
+            {/*                        <NavLink to={'/dialogs/' + item.id}>*/}
+            {/*                            <button onClick={() => dispatch(startChatThunk(item.id, item.name, item.photos.small))}>Start Chat</button>*/}
+            {/*                        </NavLink>*/}
+            {/*                    </div>*/}
+            {/*                </div>)}*/}
+
+            {/*    </div>*/}
 
 
 
-            </InfiniteScroll>
-            }
-            <div className="pagination_section">
-                <PaginationUsers
-                    totalUsersCount={totalUsersCount}
-                    pageSize={pageSize}
-                    currentPage={currentPage}
-                    onPageChange={handlePageChangeUsers}
-                />
-            </div>
+            {/*</InfiniteScroll>*/}
+            {/*}*/}
+            {/*<div className="pagination_section">*/}
+            {/*    <PaginationUsers*/}
+            {/*        totalUsersCount={totalUsersCount}*/}
+            {/*        pageSize={pageSize}*/}
+            {/*        currentPage={currentPage}*/}
+            {/*        onPageChange={handlePageChangeUsers}*/}
+            {/*    />*/}
+            {/*</div>*/}
         </div>
     );
 };

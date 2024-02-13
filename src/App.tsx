@@ -16,6 +16,7 @@ import Preloader from "./common/preloader/Preloader";
 import SideBar from "./components/sidebar/SideBar";
 import "./css/app.css"
 import Footer from "./components/footer/Footer";
+import UsersContainer from "./components/users/UsersContainer";
 
 const App = () => {
     const initialized = useSelector((state: any) => state.app.initialized)
@@ -37,7 +38,8 @@ const App = () => {
                     <Routes>
                         <Route path="/profile/:id?" element={<ProfileContainer/>}/>
                         <Route path="/ask_ai" element={<AskOpenAi/>}/>
-                        <Route path="/users" element={<Users/>}/>
+                        {/*<Route path="/users" element={<Users/>}/>*/}
+                        <Route path="/users" element={<UsersContainer/>}/>
                         <Route path="/login" element={<Login/>}/>
                         <Route path="/friends" element={<Friends/>}/>
                         <Route path="/dialogs/:id?" element={<DialogsContainer/>}/>

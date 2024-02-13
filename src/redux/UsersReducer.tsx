@@ -75,8 +75,24 @@ export const UsersReducer = (state = initialState, action: ActionsTypes): UsersC
                 })
             }
         case 'SET_USERS' :
-            // return {...state, users: action.users}
-            return {...state, users: [...state.users, ...action.users] }
+
+            return {
+                ...state,
+                users : action.users
+            }
+            // WORK AROUND WITH isMobile
+            // Set users depends on mobile or desktop version
+            // let newUsers
+            // if (action.isMobile) {
+            //     // const sortedUsers = action.users.filter(item => !state.users.some(prevUsers => prevUsers.id === item.id))
+            //     newUsers = [...state.users,...action.users]
+            // }
+            // else {
+            //     newUsers = action.users
+            // }
+            // return {...state , users : newUsers}
+
+
         case 'CURRENT_PAGE' :
             return {...state, currentPage: action.currentPage}
         case 'TOTAL_USERS_COUNTS' :
@@ -114,9 +130,10 @@ export const actionsUsers = {
         type: 'UNFOLLOW',
         userID: userID
     } as const),
-    setUsers: (users: UsersArrayType[]) => ({
+    setUsers: (users: UsersArrayType[], isMobile? : any) => ({
         type: 'SET_USERS',
-        users: users
+        users: users,
+        isMobile : isMobile
     } as const),
     setCurrentPage: (currentPage: number) => ({
         type: 'CURRENT_PAGE',
@@ -145,7 +162,7 @@ type ThunkResult<R> = ThunkAction<R, RootState, unknown, ActionsTypes>;
 
 //Throttle to 2 request per second to avoid error from the server (too many requests 429)
 let getUsersThrottled = _.throttle(usersAPI.getUsers,2000)
-export const getUsersThunkCreator = (currentPage: number, pageSize: number, filter: FilterType): ThunkResult<void> => {
+export const getUsersThunkCreator = (currentPage: number, pageSize: number, filter: FilterType , isMobile? : any): ThunkResult<void> => {
     return async (dispatch) => {
         dispatch(actionsUsers.setToggleFetching(true));
         dispatch(actionsUsers.setFilter(filter));
@@ -154,6 +171,8 @@ export const getUsersThunkCreator = (currentPage: number, pageSize: number, filt
             //checking is the response data for undefined - to prevent the type error!
             if (response?.data) {
                 // debugger
+                //work around with isMobile
+                // dispatch(actionsUsers.setUsers(response.data.items , isMobile));
                 dispatch(actionsUsers.setUsers(response.data.items));
                 dispatch(actionsUsers.setTotalUsersCount(response.data.totalCount));
             }
