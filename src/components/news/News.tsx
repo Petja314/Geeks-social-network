@@ -8,6 +8,7 @@ import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
 import Preloader from "../../common/preloader/Preloader";
 import {NavLink} from "react-router-dom";
 import RobotsAvatars from "../../assets/images/robots_images/RobotsAvatars";
+import {localhost_response} from "../../api/news_api/news";
 
 
 export type NewsArrayTypes = {
@@ -24,36 +25,39 @@ export type NewsArrayTypes = {
     "content": string
 }
 const News = () => {
+    const fake_data = localhost_response // FAKE DATA NOT FROM API (API CAN BE USED ONLY IN LOCAL HOST)
     const [data, setData] = useState<NewsArrayTypes[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
     const [page, setPage] = useState<number>(1)
     const pageSize: number = 10;
-    useEffect(() => {
-        // localStorage.removeItem('NewsDataApi')
-        const fetchDataApi = async () => {
-            try {
-                const storedResponse = localStorage.getItem('NewsDataApi');
-                if (storedResponse) {
-                    const parsedResponse = JSON.parse(storedResponse);
-                    setData(parsedResponse);
-                } else {
-                    // console.log('in')
-                    const response = await newsAPI.getAllNews(pageSize, page);
-                    localStorage.setItem('NewsDataApi', JSON.stringify(response.data.articles));
-                    // debugger
-                    setData(response.data.articles);
-                    if (response.data.articles) {
-                        setData(response.data.articles);
-                    } else {
-                        alert('API ERROR - FREE LIMIT IS OVER COME BACK TOMORROW! ')
-                    }
-                }
-            } catch (error) {
-                console.error('Error fetching news:', error);
-            }
-        };
-        fetchDataApi();
-    }, []);
+
+
+    // useEffect(() => {
+    //     // localStorage.removeItem('NewsDataApi')
+    //     const fetchDataApi = async () => {
+    //         try {
+    //             const storedResponse = localStorage.getItem('NewsDataApi');
+    //             if (storedResponse) {
+    //                 const parsedResponse = JSON.parse(storedResponse);
+    //                 setData(parsedResponse);
+    //             } else {
+    //                 // console.log('in')
+    //                 const response = await newsAPI.getAllNews(pageSize, page);
+    //                 localStorage.setItem('NewsDataApi', JSON.stringify(response.data.articles));
+    //                 // debugger
+    //                 setData(response.data.articles);
+    //                 if (response.data.articles) {
+    //                     setData(response.data.articles);
+    //                 } else {
+    //                     alert('API ERROR - FREE LIMIT IS OVER COME BACK TOMORROW! ')
+    //                 }
+    //             }
+    //         } catch (error) {
+    //             console.error('Error fetching news:', error);
+    //         }
+    //     };
+    //     fetchDataApi();
+    // }, []);
     const scrollHandler = async () => {
         setLoading(true);
         setPage((prevPage) => prevPage + 1)
@@ -74,13 +78,14 @@ const News = () => {
                 style={{overflow: 'hidden'}}
                 dataLength={data.length}
                 next={scrollHandler}
-                hasMore={data.length === 100 ? false : true} // data.length 100-120 posts is the limit by api!
+                // hasMore={data.length === 100 ? false : true} // data.length 100-120 posts is the limit by api!
+                hasMore={fake_data.length === fake_data.length ? false : true} // FAKE DATA STOP
                 loader={<h4>{loading}</h4>}
             >
 
                 <h2>NEWS API</h2>
                 <section className="news-section">
-                    {data.map((item: any, index: number) => (
+                    {fake_data.map((item: any, index: number) => (
                         // <article className={storyCard(index)} key={index}>
                         <article style={{gridColumn: determineGridSpan(index)}} className={`story-card_${index + 1}`} key={index}>
                             <a href={item.url}>

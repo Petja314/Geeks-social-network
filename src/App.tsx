@@ -17,7 +17,6 @@ import SideBar from "./components/sidebar/SideBar";
 import "./css/app.css"
 import Footer from "./components/footer/Footer";
 
-
 const App = () => {
     const initialized = useSelector((state: any) => state.app.initialized)
     const dispatch: any = useDispatch();

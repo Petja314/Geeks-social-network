@@ -57,6 +57,10 @@
     justify-content: center;
     margin-bottom: 30px;
 }
+
+
+
+
 .formik_users_title{
     color: white;
 }
@@ -69,4 +73,5 @@
     .followed_section{
         margin-top: 0;
     }
+
 }

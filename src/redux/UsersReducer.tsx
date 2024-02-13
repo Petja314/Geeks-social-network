@@ -75,7 +75,8 @@ export const UsersReducer = (state = initialState, action: ActionsTypes): UsersC
                 })
             }
         case 'SET_USERS' :
-            return {...state, users: action.users}
+            // return {...state, users: action.users}
+            return {...state, users: [...state.users, ...action.users] }
         case 'CURRENT_PAGE' :
             return {...state, currentPage: action.currentPage}
         case 'TOTAL_USERS_COUNTS' :
@@ -152,12 +153,15 @@ export const getUsersThunkCreator = (currentPage: number, pageSize: number, filt
             dispatch(actionsUsers.setToggleFetching(false));
             //checking is the response data for undefined - to prevent the type error!
             if (response?.data) {
+                // debugger
                 dispatch(actionsUsers.setUsers(response.data.items));
                 dispatch(actionsUsers.setTotalUsersCount(response.data.totalCount));
             }
             dispatch(actionsUsers.setCurrentPage(currentPage));
     };
 };
+
+
 
 export const unfollowUserThunkCreator = (id: number): ThunkResult<void> => {
     return async (dispatch) => {

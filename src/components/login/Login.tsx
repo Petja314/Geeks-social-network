@@ -18,11 +18,11 @@ const Login = () => {
     }
     const handleSubmit = async (values: any, submitProps: any) => {
         const {email, password, rememberMe, captcha} = values;
-        dispatch(loginThunk(email, password, rememberMe, captcha));
+        dispatch(loginThunk(email.trim(), password.trim(), rememberMe, captcha));
         submitProps.resetForm();
 
-        Cookie.set('email', email);
-        Cookie.set('password', rememberMe ? password : '');
+        Cookie.set('email', email.trim());
+        Cookie.set('password', rememberMe ? password.trim() : '');
     };
     return (
         <div className="login_container">

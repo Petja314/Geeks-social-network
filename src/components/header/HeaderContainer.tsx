@@ -48,11 +48,11 @@ function HeaderContainer() {
                 </div>
             )}
 
-            <NavLink to={"/profile"}>
+            <a className="active" href="#/profile" aria-current="page">
                 <div className="header_logo_text">
                     GEEKS <img src={logo} alt="geeks_logo"/> NETWORK
                 </div>
-            </NavLink>
+            </a>
 
             <div className="header_login">
                 {isAuth ? (

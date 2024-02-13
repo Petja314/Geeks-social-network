@@ -7,7 +7,7 @@ import {RootState} from "../../redux/Redux-Store";
 import recylceBin from "../../assets/images/icons/bin.jpeg"
 import "../../css/dialogs messenger/dialogs.css"
 import sendBtn from "../../assets/images/icons/send.png";
-
+import scrollDown from "../../assets/images/icons/scroll_down.png"
 
 export type DialogsChatPropsType = {
     friendIdLocal: null | any; // Adjust the type accordingly
@@ -33,16 +33,9 @@ const DialogsChat: React.FC<DialogsChatPropsType> = ({friendIdLocal, currentPage
 
 
 
-    //SCROLL AT THE BOTTOM BY DEFAULT
-    useEffect(() => {
-        if (scrollContainerRef.current) {
-            // scrollContainerRef.current.scrollTop = scrollContainerRef.current.scrollHeight;
-        }
-    }, [messages])
-
     console.log('currentPageChat', currentPageChat)
     // console.log('messages', messages)
-    console.log('friendIdLocal' , friendIdLocal)
+    console.log('friendIdLocal', friendIdLocal)
     const scrollHandlerMessages = (event: React.UIEvent<HTMLDivElement>) => {
         const element = event.currentTarget as HTMLDivElement;
         // console.log('element.scrollTop', element.scrollTop)
@@ -50,13 +43,13 @@ const DialogsChat: React.FC<DialogsChatPropsType> = ({friendIdLocal, currentPage
         if (element.scrollTop === 0 && currentPageChat && currentPageChat !== lastPageChat) { // top of the page
             element.scrollTop = 20
             dispatch(actionsDialogs.setCurrentPageAction(currentPageChat + 1))
-            dispatch(refreshMessagesThunk(friendIdLocal,currentPageChat +1,pageSize))
+            dispatch(refreshMessagesThunk(friendIdLocal, currentPageChat + 1, pageSize))
         }
         //DOWN --
         if (element.scrollHeight - (element.scrollTop + element.clientHeight) < 1 && currentPageChat !== 1) { //bottom of the page
             element.scrollTop = 80
             dispatch(actionsDialogs.setCurrentPageAction(currentPageChat - 1))
-            dispatch(refreshMessagesThunk(friendIdLocal,currentPageChat -1,pageSize))
+            dispatch(refreshMessagesThunk(friendIdLocal, currentPageChat - 1, pageSize))
 
         }
     }
@@ -78,48 +71,60 @@ const DialogsChat: React.FC<DialogsChatPropsType> = ({friendIdLocal, currentPage
         }
     }
 
+    //SCROLL AT THE BOTTOM BY DEFAULT
+    const bottomChatHandler = () => {
+        dispatch(actionsDialogs.setCurrentPageAction(1))
+        dispatch(refreshMessagesThunk(friendIdLocal, 1, pageSize))
+        if (scrollContainerRef.current) {
+            scrollContainerRef.current.scrollTop = scrollContainerRef.current.scrollHeight;
+        }
+    }
+
     return (
         <div className="chat_container">
-                 {/*CHAT SECTION*/}
-                {/*<div>current page flood_chat : {currentPageChat}</div>*/}
-                <div
-                    className="chat_section"
-                    ref={scrollContainerRef}
-                    onScroll={scrollHandlerMessages}
-                    style={{overflowY: "auto"}}>
+            {/*CHAT SECTION*/}
+            {/*<div>current page flood_chat : {currentPageChat}</div>*/}
+            <div
+                className="chat_section"
+                ref={scrollContainerRef}
+                onScroll={scrollHandlerMessages}
+                style={{overflowY: "auto"}}>
 
-                    <div className="sticky">
-                        <div className="selected_user_title" >{selectedUser.selectedUserName}</div>
-                        <div className="dialogs_avatar" ><UserAvatarPhoto photos={selectedUser.photo}/></div>
-                    </div>
-                    <div>
-
-                        {messages.map((message: DialogsMessagesArrayType) => (
-                            <div key={message.id} className={authorizedUserId === message.senderId ? "dialogs_right" : "dialogs_left"}>
-                                User: {message.senderName}
-                                <div className="message_section">Message : {message.body}
-                                    <button onClick={() => {
-                                        dispatch(deleteMessageThunk(message.id))
-                                    }}>
-                                        <img src={recylceBin} alt=""/>
-                                        {/*delete*/}
-                                    </button>
-                                </div>
-                                <hr className="underline"/>
-                            </div>
-
-                        ))}
-                        <div  >
-                            {!friendIdLocal && <div className="select_user_to_chat">Select user to chat!</div>}
-                        </div>
-                    </div>
-
+                <div className="sticky">
+                    <div className="selected_user_title">{selectedUser.selectedUserName}</div>
+                    <div className="dialogs_avatar"><UserAvatarPhoto photos={selectedUser.photo}/></div>
                 </div>
 
-                {/*CHAT INNER SECTION*/}
-                <div className="chat_inner_section">
+                {messages.map((message: DialogsMessagesArrayType) => (
+                    <div key={message.id} className={authorizedUserId === message.senderId ? "dialogs_right" : "dialogs_left"}>
+                        User: {message.senderName}
+                        <div className="message_section">Message : {message.body}
+                            <button onClick={() => {
+                                dispatch(deleteMessageThunk(message.id))
+                            }}>
+                                <img src={recylceBin} alt=""/>
+                                {/*delete*/}
+                            </button>
+                        </div>
+                        <hr className="underline"/>
+                    </div>
 
-                    <div className="input-container">
+                ))}
+                <div>
+                    {!friendIdLocal && <div className="select_user_to_chat">Select user to chat!</div>}
+                </div>
+
+                <div className="scroll_down_btn">
+                    <button onClick={bottomChatHandler}>
+                        <img src={scrollDown} alt=""/>
+                    </button>
+                </div>
+            </div>
+
+            {/*CHAT INNER SECTION*/}
+            <div className="chat_inner_section">
+
+                <div className="input-container">
 
                         <textarea
                             onKeyDown={handleKeyDown}
@@ -128,22 +133,24 @@ const DialogsChat: React.FC<DialogsChatPropsType> = ({friendIdLocal, currentPage
                             ref={messageRef}
                         />
 
-                        {/*DISABLE BUTTON IF FRIEND IS NOT SELECTED*/}
-                        <div className="send_message_btn">
-                            <button disabled={!friendIdLocal || !activeBtn} onClick={sendMessage}>
-                                {/*Send Message*/}
-                                <img src={sendBtn} alt=""/>
-                            </button>
-                        </div>
-
-                        <div className="restore_message_btn">
-                            <button onClick={() => {
-                                dispatch(restoreMessageThunk(messageId))
-                            }}> undo
-                            </button>
-                        </div>
+                    {/*DISABLE BUTTON IF FRIEND IS NOT SELECTED*/}
+                    <div className="send_message_btn">
+                        <button disabled={!friendIdLocal || !activeBtn} onClick={sendMessage}>
+                            {/*Send Message*/}
+                            <img src={sendBtn} alt=""/>
+                        </button>
                     </div>
+
+                    <div className="restore_message_btn">
+                        <button onClick={() => {
+                            dispatch(restoreMessageThunk(messageId))
+                        }}> undo
+                        </button>
+
+                    </div>
+
                 </div>
+            </div>
 
 
         </div>

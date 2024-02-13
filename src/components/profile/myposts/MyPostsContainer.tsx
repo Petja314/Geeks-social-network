@@ -23,8 +23,6 @@ const MyPostsContainer = () => {
 
     // console.log('posts' , posts)
     // console.log('userId' , userId)
-
-
     usePostFetchAdmin({userId})
     if (!posts) return <div>loading...</div> //Preloader
 
