@@ -6,7 +6,7 @@ import { ProfileDataType, savePhotoThunk} from "../../../redux/ProfileReducer";
 import {useDispatch} from "react-redux";
 import {ProfileEditForm} from "./ProfileEditForm";
 import ProfileData from "./ProfileData";
-import UserAvatarPhoto from "../../users/UserAvatarPhoto";
+import UserAvatarPhoto from "../../users/users_avatars/UserAvatarPhoto";
 import "../../../css/profile/profile_edit.css"
 import DragPhoto from "../../drag_drop_img/DragPhoto";
 import {isDraggingAC} from "../../drag_drop_img/DragReducer";
@@ -89,6 +89,9 @@ const ProfileInfo = (props: ProfileInfoPropsType) => {
                                 initialValues={props.profile}
                                 isOwner={props.isOwner}
                                 setEditMode={setEditMode}
+                                activateEditMode={() => {
+                                    setEditMode(false)
+                                }}
                             />
                             : <ProfileData
                                 profile={props.profile}

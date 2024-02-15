@@ -75,23 +75,17 @@ export const UsersReducer = (state = initialState, action: ActionsTypes): UsersC
                 })
             }
         case 'SET_USERS' :
-
-            return {
+            return  {
                 ...state,
                 users : action.users
             }
-            // WORK AROUND WITH isMobile
-            // Set users depends on mobile or desktop version
-            // let newUsers
-            // if (action.isMobile) {
-            //     // const sortedUsers = action.users.filter(item => !state.users.some(prevUsers => prevUsers.id === item.id))
-            //     newUsers = [...state.users,...action.users]
-            // }
-            // else {
-            //     newUsers = action.users
-            // }
-            // return {...state , users : newUsers}
-
+        case 'SET_USERS_MOBILE' :
+            let newUsers = [...state.users, ...action.mobileUsers];
+            return {
+                ...state,
+                users: newUsers,
+                // currentPage : state.currentPage+1
+            };
 
         case 'CURRENT_PAGE' :
             return {...state, currentPage: action.currentPage}
@@ -130,10 +124,13 @@ export const actionsUsers = {
         type: 'UNFOLLOW',
         userID: userID
     } as const),
-    setUsers: (users: UsersArrayType[], isMobile? : any) => ({
+    setUsers: (users: UsersArrayType[]) => ({
         type: 'SET_USERS',
-        users: users,
-        isMobile : isMobile
+        users: users
+    } as const),
+    setMobileUsers: (mobileUsers: UsersArrayType[]) => ({
+        type: 'SET_USERS_MOBILE',
+        mobileUsers: mobileUsers,
     } as const),
     setCurrentPage: (currentPage: number) => ({
         type: 'CURRENT_PAGE',
@@ -161,26 +158,28 @@ export const actionsUsers = {
 type ThunkResult<R> = ThunkAction<R, RootState, unknown, ActionsTypes>;
 
 //Throttle to 2 request per second to avoid error from the server (too many requests 429)
-let getUsersThrottled = _.throttle(usersAPI.getUsers,2000)
-export const getUsersThunkCreator = (currentPage: number, pageSize: number, filter: FilterType , isMobile? : any): ThunkResult<void> => {
+let getUsersThrottled = _.throttle(usersAPI.getUsers,1000)
+export const getUsersThunkCreator = (currentPage: number, pageSize: number, filter: FilterType ): ThunkResult<void> => {
     return async (dispatch) => {
+        console.log('render')
         dispatch(actionsUsers.setToggleFetching(true));
         dispatch(actionsUsers.setFilter(filter));
-            const response = await getUsersThrottled(currentPage, pageSize, filter.term, filter.friend);
+            const response : any = await getUsersThrottled(currentPage, pageSize, filter.term, filter.friend);
             dispatch(actionsUsers.setToggleFetching(false));
             //checking is the response data for undefined - to prevent the type error!
-            if (response?.data) {
-                // debugger
-                //work around with isMobile
-                // dispatch(actionsUsers.setUsers(response.data.items , isMobile));
-                dispatch(actionsUsers.setUsers(response.data.items));
-                dispatch(actionsUsers.setTotalUsersCount(response.data.totalCount));
-            }
-            dispatch(actionsUsers.setCurrentPage(currentPage));
+
+         dispatch(actionsUsers.setUsers(response.data.items ));
+        dispatch(actionsUsers.setTotalUsersCount(response.data.totalCount));
+        dispatch(actionsUsers.setCurrentPage(currentPage));
     };
 };
 
-
+export const getMobileUsersThunkCreator = (currentPage: number, pageSize: number, filter: FilterType )  => {
+    return async (dispatch : any) => {
+        // console.log('render')
+        const response = await usersAPI.getUsers(currentPage, pageSize, filter.term, filter.friend);
+            dispatch(actionsUsers.setMobileUsers(response.data.items))
+    }}
 
 export const unfollowUserThunkCreator = (id: number): ThunkResult<void> => {
     return async (dispatch) => {

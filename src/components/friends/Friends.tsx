@@ -1,14 +1,14 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {getFollowingInProgressSelector} from "../../redux/selectors/UsersSelectors";
-import PaginationUsers from "../users/PaginationUsers";
+import PaginationUsers from "../users/users_pagination/PaginationUsers";
 import {FriendsListStateType, setFriendListThunkCreator, unfollowFriendThunkCreator} from "../../redux/FriendsReducer";
 import {RootState} from "../../redux/Redux-Store";
 import {ThunkDispatch} from "redux-thunk";
 import {compose} from "redux";
 import {NavLink} from "react-router-dom";
 import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
-import UserAvatarPhoto from "../users/UserAvatarPhoto";
+import UserAvatarPhoto from "../users/users_avatars/UserAvatarPhoto";
 import {startChatThunk} from "../../redux/DialogsReducer";
 import "../../css/users/users-friends.css"
 import {TypingEffects} from "../openAi/typing-effect";

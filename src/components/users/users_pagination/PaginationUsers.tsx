@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import arrow_right from "../../assets/images/icons/Arrow Right.png"
-import arrow_left from "../../assets/images/icons/Arrow Left.png"
-import "../../css/common css/pagination.css"
+import arrow_right from "../../../assets/images/icons/Arrow Right.png"
+import arrow_left from "../../../assets/images/icons/Arrow Left.png"
+import "../../../css/common css/pagination.css"
 
 
 type PaginationUsersType = {
@@ -12,9 +12,11 @@ type PaginationUsersType = {
 }
 const PaginationUsers = (props: PaginationUsersType) => {
     const onPageChange = (pageNumber: number) => {
+        setTimeout(() => {
         if (props.onPageChange) {
-            props.onPageChange(pageNumber); // Call the callback function passed from the parent to not call the thunks here (to prevent render both thunks)
+                props.onPageChange(pageNumber); // Call the callback function passed from the parent to not call the thunks here (to prevent render both thunks)
         }
+        },300)
     }
 
 

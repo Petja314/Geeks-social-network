@@ -97,6 +97,7 @@
 }
 
 
+
 /*CHECKBOX*/
 
 /*CONTACTS LIST */
@@ -119,6 +120,11 @@
 }
 
 /*BUTTON TO EDIT FORM*/
+.edit_form_btn{
+    display: flex;
+    justify-content: space-evenly;
+}
+
 .edit_form_btn_section {
     margin-top: 30px;
     margin-bottom: 20px;

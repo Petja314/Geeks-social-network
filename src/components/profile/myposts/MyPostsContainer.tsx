@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import PaginationUsers from "../../users/PaginationUsers";
+import PaginationUsers from "../../users/users_pagination/PaginationUsers";
 import {useDispatch, useSelector} from "react-redux";
 import {MyPostsInitialState, onPageChangeThunk, ResponseTestAPIDataType} from "../../../redux/MyPostsReducer";
 import {ThunkDispatch} from "redux-thunk";

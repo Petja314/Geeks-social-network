@@ -4,12 +4,15 @@ import {Field, Form, Formik, FormikHelpers, useFormikContext} from "formik";
 import {useDispatch, useSelector} from "react-redux";
 // import {MyInput} from "../../login/Login";
 import "../../../css/profile/profile_edit.css"
+import ProfileInfo from "./ProfileInfo";
+import {NavLink} from "react-router-dom";
 
 
 type ProfileDataFormProps = {
     initialValues: ProfileDataType;
     isOwner: boolean;
     setEditMode: (value: boolean) => void
+    activateEditMode : () => void
 };
 
 export const ProfileEditForm = (props: ProfileDataFormProps) => {
@@ -101,6 +104,12 @@ export const ProfileEditForm = (props: ProfileDataFormProps) => {
                             <button type="submit">Save</button>
                         </div>
                     )}
+
+                    <div>
+                        <button onClick={props.activateEditMode} >
+                            Close
+                        </button>
+                    </div>
                 </div>
             </Form>
         </Formik>

@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 import UsersSearchForm from "../users/UsersSearchForm";
-import UserAvatarPhoto from "../users/UserAvatarPhoto";
+import UserAvatarPhoto from "../users/users_avatars/UserAvatarPhoto";
 import {NavLink} from "react-router-dom";
 import {actionsDialogs, DialogsArrayType, fetchDialogsThunk, startChatThunk} from "../../redux/DialogsReducer";
 import {useDispatch, useSelector} from "react-redux";

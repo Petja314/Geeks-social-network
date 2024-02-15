@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../../../redux/Redux-Store";
 import {ThunkDispatch} from "redux-thunk";
 import CurrentPostComponent from "../CurrentPostComponent";
-import PaginationUsers from "../../../users/PaginationUsers";
+import PaginationUsers from "../../../users/users_pagination/PaginationUsers";
 import usePostFetchUsers from "./usePostFetchUsers";
 
 // THAT IS POST COMPONENT FOR UNVERIFIED USER (NOT THE ADMIN)

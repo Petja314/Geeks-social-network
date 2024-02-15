@@ -1,6 +1,5 @@
 import React, {useEffect} from 'react';
 import { Route, Routes} from "react-router-dom";
-import Users from "./components/users/Users";
 import Login from "./components/login/Login";
 import HeaderContainer from "./components/header/HeaderContainer";
 import {useDispatch, useSelector} from "react-redux";
@@ -16,6 +15,7 @@ import Preloader from "./common/preloader/Preloader";
 import SideBar from "./components/sidebar/SideBar";
 import "./css/app.css"
 import Footer from "./components/footer/Footer";
+import UsersMobile from "./components/users/UsersMobile";
 import UsersContainer from "./components/users/UsersContainer";
 
 const App = () => {
@@ -38,7 +38,6 @@ const App = () => {
                     <Routes>
                         <Route path="/profile/:id?" element={<ProfileContainer/>}/>
                         <Route path="/ask_ai" element={<AskOpenAi/>}/>
-                        {/*<Route path="/users" element={<Users/>}/>*/}
                         <Route path="/users" element={<UsersContainer/>}/>
                         <Route path="/login" element={<Login/>}/>
                         <Route path="/friends" element={<Friends/>}/>
@@ -46,6 +45,7 @@ const App = () => {
                         <Route path="/news" element={<News/>}/>
                         <Route path="/flood_chat" element={<FloodChat/>}/>
                         <Route path="*" element={<PageNotFound/>}/>
+                        <Route path="/blank" element={<UsersMobile/>}/>
                     </Routes>
                     </div>
                 </div>

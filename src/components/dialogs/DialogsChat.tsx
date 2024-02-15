@@ -1,5 +1,5 @@
 import React, {KeyboardEvent, UIEventHandler, useEffect, useRef, useState} from 'react';
-import UserAvatarPhoto from "../users/UserAvatarPhoto";
+import UserAvatarPhoto from "../users/users_avatars/UserAvatarPhoto";
 import {actionsDialogs, deleteMessageThunk, DialogsMessagesArrayType, DialogsStateTypes, refreshMessagesThunk, restoreMessageThunk, sendMessageThunk} from "../../redux/DialogsReducer";
 import {useDispatch, useSelector} from "react-redux";
 import {ThunkDispatch} from "redux-thunk";
