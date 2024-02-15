@@ -5,7 +5,7 @@ import HeaderContainer from "./components/header/HeaderContainer";
 import {useDispatch, useSelector} from "react-redux";
 import {initializeApp} from "./redux/AppReducer";
 import FloodChat from "./components/flood_chat/FloodChat";
-import Friends from "./components/friends/Friends";
+import Friends from "./components/friends/FriendsContainer";
 import ProfileContainer from "./components/profile/profileinfo/ProfileContainer";
 import DialogsContainer from "./components/dialogs/DialogsContainer";
 import News from "./components/news/News";
@@ -45,7 +45,6 @@ const App = () => {
                         <Route path="/news" element={<News/>}/>
                         <Route path="/flood_chat" element={<FloodChat/>}/>
                         <Route path="*" element={<PageNotFound/>}/>
-                        <Route path="/blank" element={<UsersMobile/>}/>
                     </Routes>
                     </div>
                 </div>

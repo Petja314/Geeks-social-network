@@ -80,11 +80,9 @@ export const UsersReducer = (state = initialState, action: ActionsTypes): UsersC
                 users : action.users
             }
         case 'SET_USERS_MOBILE' :
-            let newUsers = [...state.users, ...action.mobileUsers];
             return {
                 ...state,
-                users: newUsers,
-                // currentPage : state.currentPage+1
+                users: [...state.users, ...action.mobileUsers]
             };
 
         case 'CURRENT_PAGE' :
@@ -161,7 +159,6 @@ type ThunkResult<R> = ThunkAction<R, RootState, unknown, ActionsTypes>;
 let getUsersThrottled = _.throttle(usersAPI.getUsers,1000)
 export const getUsersThunkCreator = (currentPage: number, pageSize: number, filter: FilterType ): ThunkResult<void> => {
     return async (dispatch) => {
-        console.log('render')
         dispatch(actionsUsers.setToggleFetching(true));
         dispatch(actionsUsers.setFilter(filter));
             const response : any = await getUsersThrottled(currentPage, pageSize, filter.term, filter.friend);
@@ -174,11 +171,11 @@ export const getUsersThunkCreator = (currentPage: number, pageSize: number, filt
     };
 };
 
-export const getMobileUsersThunkCreator = (currentPage: number, pageSize: number, filter: FilterType )  => {
-    return async (dispatch : any) => {
-        // console.log('render')
+export const getMobileUsersThunkCreator = (currentPage: number, pageSize: number, filter: FilterType ): ThunkResult<void> => {
+    return async (dispatch) => {
         const response = await usersAPI.getUsers(currentPage, pageSize, filter.term, filter.friend);
             dispatch(actionsUsers.setMobileUsers(response.data.items))
+             dispatch(actionsUsers.setCurrentPage(currentPage))
     }}
 
 export const unfollowUserThunkCreator = (id: number): ThunkResult<void> => {

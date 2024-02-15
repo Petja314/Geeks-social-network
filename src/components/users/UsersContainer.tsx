@@ -18,19 +18,19 @@ import {TypingEffects} from "../openAi/typing-effect";
 import UsersSearchForm from "./UsersSearchForm";
 import UsersMobile from "./UsersMobile";
 import UsersDesktop from "./UsersDesktop";
+import {compose} from "redux";
+import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
 
 const UsersContainer = () => {
     const dispatch: ThunkDispatch<RootState, void, any> = useDispatch()
     const navigate: NavigateFunction = useNavigate();
     // Selectors
-    const usersPage: UsersComponentTypeArrays = useSelector(getUsersPageSelector)
     const totalUsersCount: number = useSelector(getTotalUsersCountSelector)
     const currentPage: number = useSelector(getCurrentPageSelector)
     const pageSize: number = useSelector(getPageSizeSelector)
-    const followingInProgress: [] = useSelector(getFollowingInProgressSelector)
     const filter: FilterType = useSelector(getUsersFilterSelector)
     const {width} = UseWindowSize()
-    const isMobile = width <= 450
+    const isMobile: boolean = width <= 1280
 
     useEffect(() => {
         navigate(`?term=${filter.term}&friend=${filter.friend}&page=${currentPage}`)
@@ -39,7 +39,6 @@ const UsersContainer = () => {
     const onFilterChanged = (filter: FilterType) => {
         dispatch(getUsersThunkCreator(1, pageSize, filter))
     }
-
     // console.log('isMobile', isMobile)
     return (
         <div>
@@ -55,14 +54,10 @@ const UsersContainer = () => {
 
             {isMobile ? (
                 <UsersMobile
-                    currentPage={currentPage}
                     pageSize={pageSize}
                     filter={filter}
-                    usersPage={usersPage}
                 /> ) : (
                     <UsersDesktop
-                    usersPage={usersPage}
-                    followingInProgress={followingInProgress}
                     pageSize={pageSize}
                     filter={filter}
                     totalUsersCount={totalUsersCount}
@@ -73,8 +68,6 @@ const UsersContainer = () => {
         </div>
     );
 };
-
-export default UsersContainer;
 
 export const UsersSection = () => {
     const usersPage: UsersComponentTypeArrays = useSelector(getUsersPageSelector)
@@ -112,3 +105,9 @@ export const UsersSection = () => {
         </div>
     )
 }
+
+const UsersContainerMemoComponent = React.memo(UsersContainer)
+export default compose(
+    WithAuthRedirect
+)(UsersContainerMemoComponent)
+

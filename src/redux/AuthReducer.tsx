@@ -5,6 +5,7 @@ import {InferActionsTypes} from "./Redux-Store";
 import {authAPI} from "../api/AuthAPI";
 
 export type AuthState = {
+    userIdTemp : number | null;
     userId: number | null;
     email: string | null;
     login: string | null;
@@ -13,6 +14,7 @@ export type AuthState = {
     loginError : null
 }
 let initialState: AuthState = {
+    userIdTemp : null,
     userId: null,
     email: null,
     login: null,
@@ -39,6 +41,11 @@ export const AuthReducer = (state = initialState, action: ActionsTypes): AuthSta
                 ...state,
                 loginError : action.error
             }
+        case "SET_USER_ID" :
+            return {
+                ...state,
+                userIdTemp : action.userId
+            }
         default:
             return state;
     }
@@ -61,6 +68,10 @@ export const actions = {
     setLoginErrorAC : (error : any) => ({
         type : "SET_LOGIN_ERROR",
         error : error
+    }as const),
+    setCurrentUserIdAC  : (userId : any) => ({
+        type : "SET_USER_ID",
+        userId
     }as const)
 }
 

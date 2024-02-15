@@ -5,7 +5,7 @@ import {AxiosPromise} from "axios";
 
 export const usersAPI = {
     getUsers(currentPage: number, pagesize: number, term : string,friend : null | boolean = null) {
-        return instance.get<GetUsersApiType>(`users?page=${currentPage}&count=${pagesize}`)
+        return instance.get<GetUsersApiType>(`users?page=${currentPage}&count=${pagesize}&term=${term}` + (friend === null? '' : `&friend=${friend}`))
     },
     unFollowUser(id: number) {
         return instance.delete(`follow/${id}`) as AxiosPromise<ResponseType>

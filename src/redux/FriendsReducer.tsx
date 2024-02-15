@@ -35,6 +35,12 @@ export const FriendsReducer = (state = initialState, action: ActionsTypes): Frie
                 ...state,
                 friends: action.friend
             }
+        case "FRIENDS_MOBILE_LIST" :
+            return  {
+                ...state,
+                friends : [...state.friends, ...action.friendsList]
+            }
+
         case  "SET_TOTAL_COUNT_FRIENDS" :
             return {
                 ...state,
@@ -68,6 +74,10 @@ export const actionsFriends = {
         type: 'FRIEND_LIST',
         friend
     } as const),
+    setFriendsMobileListAC :  ( friendsList : FriendsType[]) => ({
+        type : "FRIENDS_MOBILE_LIST",
+        friendsList
+    }as const),
     setFriendsTotalCount: (totalCount: number) => ({
         type: 'SET_TOTAL_COUNT_FRIENDS',
         totalCount
@@ -91,6 +101,15 @@ export const setFriendListThunkCreator = (currentPage: number, friend: boolean):
         console.log('response' ,response.data.items  )
         dispatch(actionsFriends.setFriendListAC(response.data.items))
         dispatch(actionsFriends.setFriendsTotalCount(response.data.totalCount))
+        dispatch(actionsFriends.changePageAC(currentPage))
+    }
+}
+// setFriendsMobileListAC
+export const setFriendsMobileListThunkCreator = (currentPage: number, friend: boolean): ThunkResult<void> => {
+    return async (dispatch) => {
+        const response = await usersAPI.getFriends(currentPage,friend)
+        dispatch(actionsFriends.setFriendsTotalCount(response.data.totalCount))
+        dispatch(actionsFriends.setFriendsMobileListAC(response.data.items))
         dispatch(actionsFriends.changePageAC(currentPage))
     }
 }

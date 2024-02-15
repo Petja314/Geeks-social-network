@@ -13,7 +13,9 @@ import usePostFetchAdmin from "./usePostFetchAdmin";
 import {isDraggingAC} from "../../drag_drop_img/DragReducer";
 import "../../../css/posts/posts_main_container.css"
 
+
 const MyPostsContainer = () => {
+    const userIdTemp: number | null = useSelector((state: RootState) => state.userAuthPage.userIdTemp)
     const userId: number | null = useSelector((state: RootState) => state.userAuthPage.userId) // Getting authorized userID (admin)
     const dispatch: ThunkDispatch<RootState, void, any> = useDispatch()
     const {posts, currentPage, pageSize}: MyPostsInitialState = useSelector((state: RootState) => state.myposts)
@@ -23,9 +25,10 @@ const MyPostsContainer = () => {
 
     // console.log('posts' , posts)
     // console.log('userId' , userId)
+
     usePostFetchAdmin({userId})
     if (!posts) return <div>loading...</div> //Preloader
-
+    console.log('userId : '  , userId)
 
     const handleChangesPhoto = async (files: FileList | null) => {
         if (files && files.length > 0) {
