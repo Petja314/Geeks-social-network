@@ -9,13 +9,12 @@ import EditPostComponent from "./EditPostComponent";
 import CreateNewPost from "./CreateNewPost";
 import {compose} from "redux";
 import {WithAuthRedirect} from "../../../hoc/WithAuthRedirect";
-import usePostFetchAdmin from "./usePostFetchAdmin";
+import usePostFetchAdmin from "./api_posts/usePostFetchAdmin";
 import {isDraggingAC} from "../../drag_drop_img/DragReducer";
 import "../../../css/posts/posts_main_container.css"
 
 
 const MyPostsContainer = () => {
-    const userIdTemp: number | null = useSelector((state: RootState) => state.userAuthPage.userIdTemp)
     const userId: number | null = useSelector((state: RootState) => state.userAuthPage.userId) // Getting authorized userID (admin)
     const dispatch: ThunkDispatch<RootState, void, any> = useDispatch()
     const {posts, currentPage, pageSize}: MyPostsInitialState = useSelector((state: RootState) => state.myposts)

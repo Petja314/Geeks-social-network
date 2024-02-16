@@ -5,10 +5,11 @@ import {RootState} from "../../../../redux/Redux-Store";
 import {ThunkDispatch} from "redux-thunk";
 import CurrentPostComponent from "../CurrentPostComponent";
 import PaginationUsers from "../../../users/users_pagination/PaginationUsers";
-import usePostFetchUsers from "./usePostFetchUsers";
+import usePostFetchUsers from "../api_posts/usePostFetchUsers";
 
 // THAT IS POST COMPONENT FOR UNVERIFIED USER (NOT THE ADMIN)
 const UsersPostsUnverified: React.FC<{ idUserURL: number }> = ({idUserURL}) => {
+    console.log('idUserURL' , idUserURL)
     const {posts, currentPage, pageSize}: MyPostsInitialState = useSelector((state: RootState) => state.myposts)
     const dispatch: ThunkDispatch<RootState, void, any> = useDispatch()
 

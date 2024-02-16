@@ -56,6 +56,8 @@ const CurrentPostComponent: React.FC<CurrentPostPropsType> = ({posts, pageSize, 
                                 <div className="post_detail">
                                     <span>POST NUMBER:</span> {item.id}
                                 </div>
+                                {/*<span>User id :{idUserURL}</span>*/}
+
                                 <div className="current_post_detail">
                                     <span>Title:</span> {item.title}
                                 </div>

@@ -38,7 +38,6 @@ export const MyPostsReducer = (state = initialState, action: ActionsTypes): MyPo
                 idUserURL: action.idUserURL
             }
         case 'SET_POSTS_DATABASE' :
-            localStorage.setItem('posts', JSON.stringify(action.postData));
             return {
                 ...state,
                 posts: action.postData
@@ -49,7 +48,7 @@ export const MyPostsReducer = (state = initialState, action: ActionsTypes): MyPo
                 posts: [...state.posts, action.newPost]
             };
             // Update local storage
-            localStorage.setItem('posts', JSON.stringify(newStateLS.posts));
+            localStorage.setItem('adminPosts', JSON.stringify(newStateLS.posts));
 
             return newStateLS;
         case 'DELETE_POST' :
@@ -57,28 +56,28 @@ export const MyPostsReducer = (state = initialState, action: ActionsTypes): MyPo
                 ...state,
                 posts: action.deletePost
             }
-            localStorage.setItem('posts', JSON.stringify(deletePostLS.posts));
+            localStorage.setItem('adminPosts', JSON.stringify(deletePostLS.posts));
             return deletePostLS
         case 'ADD_LIKE' :
             const addLikeLS = {
                 ...state,
                 posts: action.addLike
             }
-            localStorage.setItem('posts', JSON.stringify(addLikeLS.posts));
+            localStorage.setItem('adminPosts', JSON.stringify(addLikeLS.posts));
             return addLikeLS
         case 'DELETE_ALL_POSTS' :
             const deleteAllPostsLS =  {
                 ...state,
                 posts: []
             }
-            localStorage.setItem('posts', JSON.stringify(deleteAllPostsLS.posts));
+            localStorage.setItem('adminPosts', JSON.stringify(deleteAllPostsLS.posts));
             return deleteAllPostsLS
         case 'SAVE_POST' :
             const savePostLS =  {
                 ...state,
                 posts: action.updateEditedPost
             }
-            localStorage.setItem('posts', JSON.stringify(savePostLS.posts));
+            localStorage.setItem('adminPosts', JSON.stringify(savePostLS.posts));
             return savePostLS
         case 'CHANGE_PAGE' :
             return {
@@ -149,6 +148,12 @@ export const setUnverifiedUserIDThunk = (idUserURL: number | null): ThunkResult<
 export const fetchPostsThunk = (postData: Array<ResponseTestAPIDataType>): ThunkResult<void> => {
     return (dispatch) => {
         dispatch(actionsMyPosts.setPostsDataBaseAC(postData))
+        if( postData[0].userId !== 29260 ) {
+            localStorage.setItem('usersPosts', JSON.stringify(postData));
+        }
+        else {
+            localStorage.setItem('adminPosts', JSON.stringify(postData));
+        }
     }
 }
 export const createNewPostThunk = (newPost: ResponseTestAPIDataType): ThunkResult<void> => {
