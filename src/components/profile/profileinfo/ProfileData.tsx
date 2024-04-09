@@ -46,7 +46,6 @@ const ProfileData = (props: ProfileDataPropsType) => {
             {props.isOwner && <div>
                 <button onClick={props.activateEditMode}>Edit Contact Information</button>
             </div>}
-
         </div>
 
 

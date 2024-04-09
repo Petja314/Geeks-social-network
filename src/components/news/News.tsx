@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import '../../css/news.css';
 import {newsAPI} from '../../api/NewsAPI';
 import img_is_coming from '../../assets/images/img_in_progress/img_is_coming.jpg';
@@ -32,32 +32,6 @@ const News = () => {
     const pageSize: number = 10;
 
 
-    // useEffect(() => {
-    //     // localStorage.removeItem('NewsDataApi')
-    //     const fetchDataApi = async () => {
-    //         try {
-    //             const storedResponse = localStorage.getItem('NewsDataApi');
-    //             if (storedResponse) {
-    //                 const parsedResponse = JSON.parse(storedResponse);
-    //                 setData(parsedResponse);
-    //             } else {
-    //                 // console.log('in')
-    //                 const response = await newsAPI.getAllNews(pageSize, page);
-    //                 localStorage.setItem('NewsDataApi', JSON.stringify(response.data.articles));
-    //                 // debugger
-    //                 setData(response.data.articles);
-    //                 if (response.data.articles) {
-    //                     setData(response.data.articles);
-    //                 } else {
-    //                     alert('API ERROR - FREE LIMIT IS OVER COME BACK TOMORROW! ')
-    //                 }
-    //             }
-    //         } catch (error) {
-    //             console.error('Error fetching news:', error);
-    //         }
-    //     };
-    //     fetchDataApi();
-    // }, []);
     const scrollHandler = async () => {
         setLoading(true);
         setPage((prevPage) => prevPage + 1)

@@ -10,7 +10,7 @@ const SideBar = (props : any) => {
         }
     }
     return (
-        <div className={ props.show  ? "sidebar_show" : "sidebar"}  >
+        <div className={ props.show  ? "sidebar_show sidebar_show-active" : "sidebar"}  >
                 <ul className="sidebar_list"  onClick={handleLinkClick}>
                     <li><NavLink to={"/profile"}>Profile</NavLink></li>
                     <li><NavLink to={"/users"}>Users</NavLink></li>

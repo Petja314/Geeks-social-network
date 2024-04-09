@@ -52,6 +52,7 @@
 }
 /*Wrapper to sepparate User Info and Contacts - FLEX - SPACE-BETWEEN */
 .profile_about_me_section {
+    flex-direction: column;
     display: flex;
     gap: 30px;
 }
@@ -161,11 +162,9 @@
         width: 250px;
     }
     .photo_input_section{
-        width: 30%;
         margin: 0 auto;
     }
     .custom-file-input{
-        max-width: 35%;
         margin: 0 auto;
         display: flex;
     }
@@ -208,6 +207,13 @@
     .profile_avatar_img img{
         width: 250px;
     }
+
+    .contacts_list_section {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
     .profile_about_me_section{
         display: flex;
         flex-direction: column;
@@ -233,7 +239,8 @@
         margin-bottom: 20px;
     }
     .custom-file-input{
-        max-width: 50%;
+        max-width: 140px;
+        width: 100%!important;
     }
 }
 
@@ -257,6 +264,16 @@
     }
     .profile_avatar_img img{
         width: 235px;
+    }
+
+    .post_image_edit_section {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .photo_uploader_section {
+        margin-top: 20px!important;
     }
 
 }

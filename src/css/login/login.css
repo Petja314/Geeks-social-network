@@ -1,17 +1,14 @@
 .login_container {
     padding: 20px;
-    /*border: 2px solid blue;*/
-    /*margin-top: 10px;*/
-    /*margin-bottom: 10px;*/
 }
-.login_section{
-    /*border: 2px solid red;*/
+
+.login_section {
     display: flex;
     justify-content: space-between;
 }
-.login_form_fields{
-    /*border: 2px solid red;*/
-    font-size: 18px ;
+
+.login_form_fields {
+    font-size: 18px;
     border: 3px solid rgb(110, 109, 95);
     background: rgb(242, 241, 229);
     max-width: 940px;
@@ -21,30 +18,32 @@
     text-align: center;
     font-weight: bold;
 }
-.login_form_fields  input{
+
+.login_form_fields input {
     margin-top: 30px;
     margin-bottom: 30px;
     border: 2px solid transparent;
     border-radius: 2px;
-    color : white;
+    color: white;
     background-color: rgb(17, 17, 17);
     font-weight: bold;
     padding: 10px;
 }
 
-.login_form_fields  button{
+.login_form_fields button {
     padding: 20px;
     width: 60px;
     margin: 0 auto;
 }
-.login_title{
+
+.login_title {
     margin-top: 80px;
     padding-bottom: 20px;
 }
 
 /*BRIEF DESCRIPTION*/
 
-.container_brief{
+.container_brief {
     max-width: 940px;
     width: 100%;
     padding: 20px;
@@ -53,23 +52,23 @@
     color: rgb(0, 255, 0);
 }
 
-.brief_title{
+.brief_title {
     text-align: center;
     margin-bottom: 50px;
 }
 
-.login_details{
+.login_details {
     padding-left: 50px;
 }
+
 .login_details p {
     font-weight: bold;
     font-size: 18px;
 }
 
-.network_brief{
-}
+.network_brief {}
 
-.network_brief_title{
+.network_brief_title {
     margin-top: 30px;
     text-align: center;
 }
@@ -77,40 +76,162 @@
 .components_list li {
     margin-top: 10px;
 }
+
 .components_list span {
     font-weight: bold;
     font-size: 20px;
 }
-.login_error{
+
+.login_error {
     margin-bottom: 15px;
     color: red;
 }
 
+.demo_account_wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+.demo_account_wrapper span {
+    background-color : rgb(0, 255, 0);
+}
+
+
+
 /*MOBILE*/
 
 @media(max-width: 900px) {
-    .container_brief{
-    display: none;
-}
+    .container_brief {
+        display: none;
+    }
+
     .login_section button {
         margin-bottom: 50px;
     }
 }
-@media(max-width: 580px) {
-    .login_container{
-        /*padding: 0px;*/
+
+
+@media(max-width: 900px) {
+    .login_container {
+
+        padding: 0px;
+
+        height: calc(100vh - 90px);
+
     }
-    .login_form_fields{
-        font-size: 14px;
+
+    .login_section {
+        height: 100%;
+        width: 100%;
+
+
+    }
+
+    .login_form_fields {
+        height: 100%;
+        border: none;
+
+        display: flex;
+        justify-content: center;
+    }
+
+    .login_section input {
+        margin: 10px 0;
+        width: 50%;
+    }
+
+    .login_section .login_title {
+        margin-bottom: 0px;
+    }
+
+    .login_checkbox {
+        margin-top: 20px;
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: center;
+        align-content: inherit;
+        gap: 20px;
+    }
+
+    .login_checkbox input {
+        width: 15px;
+        height: 15px;
+    }
+
+    .login_section label[for="email"] {
+        display: none;
+    }
+
+    .login_section label[for="password"] {
+        display: none;
+    }
+
+    .login_section input[name="checkbox"] {
+        translate: 0 -6px;
+    }
+
+    .login_section button[type="submit"] {
+        width: 47%;
     }
 }
+
+
+
+@media(max-width: 580px) {
+    .login_container {
+        height: calc(100vh - 70px);
+    }
+
+    .login_checkbox {
+        gap: 10px;
+    }
+
+    .login_section input:not([name="checkbox"]) {
+        width: 85%;
+    }
+
+    .login_section button[type="submit"] {
+        width: 81%;
+    }
+
+}
+
+@media (max-width: 425px) {
+    .login_section input {
+        height: 10px;
+    }
+    .login_checkbox {
+        margin-top: 5px;
+    }
+    .login_error {
+        margin-bottom: 5px;
+    }
+    .login_section button[type="submit"] {
+        padding: 12px 15px;
+    }
+}
+
 
 
 @media(max-width: 400px) {
-.login_title{
-    font-size: 20px ;
-}
-    .login_form_fields button{
+    .login_container {
+        height: calc(100vh - 67px);
+    }
+
+
+    .login_form_fields {
+        font-size: 14px;
+    }
+
+    .login_checkbox input[name="checkbox"] {
+        translate: 0 -10px;
+    }
+
+
+
+    .login_form_fields button {
         padding: 15px;
     }
 }

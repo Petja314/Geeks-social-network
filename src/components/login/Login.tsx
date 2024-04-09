@@ -43,6 +43,12 @@ const Login = () => {
 
                                 <h1 className="login_title">Login Form</h1>
 
+                                <div className="demo_account_wrapper">
+                                    <div>DEMO ACCOUNT CREDENTIALS</div>
+                                    <div>Email : <span>free@samuraijs.com</span> </div>
+                                    <div>Password  :  <span>free</span></div>
+                                </div>
+
                                 <div>
                                     <label htmlFor="email">Email</label>
                                     <div>
@@ -57,7 +63,7 @@ const Login = () => {
                                     </div>
                                 </div>
 
-                                <div>
+                                <div className='login_checkbox'>
                                     <label htmlFor="checkbox">Remember Me</label>
                                     <div>
                                         <Field type="checkbox" name="checkbox" placeholder="remember me" component="input"/>

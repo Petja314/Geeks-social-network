@@ -17,7 +17,8 @@
     font-size: 24px;
     list-style-type: none;
     text-decoration: none;
-    padding: 10px; /* Added padding for better touch target */
+    padding: 10px;
+    /* Added padding for better touch target */
 }
 
 .sidebar_list a:hover {
@@ -25,6 +26,10 @@
 }
 
 /* MOBILE */
+.burgerMenuEnabled {
+    overflow-y: hidden;
+}
+
 @media (min-width: 1025px) {
     .header_burger_menu {
         display: none;
@@ -48,22 +53,38 @@
     }
 
     .sidebar_show {
+        transform: translateX(-100%);
+        transition: transform .2s ease-in-out;
+
+        width: 100%;
+        height: 100%;
+
+        pointer-events: none;
+
         position: fixed;
         top: 0px;
         left: 0;
         display: flex;
-        flex-direction: column; /* Stack items vertically */
-        align-items: flex-start; /* Align items to the start of the container */
+        flex-direction: column;
+        /* Stack items vertically */
+        align-items: flex-start;
+        /* Align items to the start of the container */
         z-index: 1000;
         background: rgb(33, 36, 40);
-        padding: 2rem;
-        border-radius: 1rem;
+
+
+    }
+
+    .sidebar_show-active {
+        transform: translateX(0%);
+        pointer-events: auto;
+        overflow-y: hidden;
     }
 
     .sidebar_show ul {
         list-style-type: none;
-        margin: 20px; /* Remove default margin */
-        padding: 0; /* Remove default padding */
+        margin: 20px;
+        padding: 0;
     }
 
     .sidebar_show li {
@@ -76,12 +97,12 @@
     }
 
     .header_burger_menu img {
-        width: 50px;
+        width: 30px;
         position: absolute;
-        top: 20px;
+        top: 30px;
         left: 20px;
         z-index: 1001;
-        cursor: pointer; /* Add cursor style for better UX */
+        cursor: pointer;
     }
 
     .close_mobile_menu {
@@ -94,10 +115,6 @@
 /* LOGIN */
 
 @media (min-width: 840px) {
-    .user_logout img {
-        width: 40px;
-        top: -20px;
-    }
 
     .user_logout img {
         display: none;
@@ -113,9 +130,9 @@
 
     .user_logout img {
         position: absolute;
-        width: 50px;
+        width: 30px;
         right: 10px;
-        top: -25px;
+        top: -15px;
     }
 }
 
@@ -142,6 +159,10 @@
     .user_logout img {
         width: 30px;
         top: -15px;
+    }
+
+    .sidebar_show ul {
+        margin: 20px;
     }
 }
 
@@ -178,5 +199,37 @@
     .user_logout img {
         width: 25px;
         top: -13px;
+    }
+}
+
+.sidebar_show ul {
+    width: 100%;
+    margin: 0;
+    margin-top: 50px;
+}
+
+.sidebar_show li {
+    background-color: rgb(60, 60, 59);
+    border-radius: 5px;
+    border: 2px solid rgba(0, 255, 0, .1);
+}
+
+.sidebar_show li:active {
+    border: 2px solid rgb(0, 255, 0);;
+}
+
+.sidebar_show {
+    box-sizing: border-box;
+    padding: 20px;;
+}
+
+@media (max-width: 580px) {
+    .sidebar_show ul {
+        margin-top: 40px;
+    }
+}
+@media (max-width: 390px) {
+    .sidebar_show {
+        padding: 10px;
     }
 }

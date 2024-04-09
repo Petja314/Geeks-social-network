@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {compose} from "redux";
 import {useDispatch, useSelector} from "react-redux";
 import {useParams} from "react-router-dom";
-import {getStatusThunkCreator, ProfileDataType, ProfileStateTypes, usersProfileAuthThunkCreator} from "../../../redux/ProfileReducer";
+import {getStatusThunkCreator, ProfileStateTypes, usersProfileAuthThunkCreator} from "../../../redux/ProfileReducer";
 import ProfileInfo from "./ProfileInfo";
 import {WithAuthRedirect} from "../../../hoc/WithAuthRedirect";
 import MyPostsContainer from "../myposts/MyPostsContainer";
@@ -48,7 +48,8 @@ const ProfileContainer = () => {
             />
 
             {/*SHOWING THE POSTS WITH FULL FUNCTIONAL IF USER AUTHORIZED , IF NOT THEN ONLY POSTS FOR VISABILITY!*/}
-            {!id ? <MyPostsContainer /> : <UsersPostsUnverified idUserURL={Number(id)}/>
+            {!id ?
+                <MyPostsContainer /> : <UsersPostsUnverified idUserURL={Number(id)}/>
             }
 
         </div>

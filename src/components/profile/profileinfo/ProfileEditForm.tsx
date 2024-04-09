@@ -1,11 +1,8 @@
-import React, {useEffect, useState} from 'react';
-import {actionsProfile, ContactsType, ProfileDataType, saveProfileThunk} from "../../../redux/ProfileReducer";
-import {Field, Form, Formik, FormikHelpers, useFormikContext} from "formik";
+import React from 'react';
+import {ContactsType, ProfileDataType, saveProfileThunk} from "../../../redux/ProfileReducer";
+import {Field, Form, Formik, FormikHelpers} from "formik";
 import {useDispatch, useSelector} from "react-redux";
-// import {MyInput} from "../../login/Login";
 import "../../../css/profile/profile_edit.css"
-import ProfileInfo from "./ProfileInfo";
-import {NavLink} from "react-router-dom";
 
 
 type ProfileDataFormProps = {

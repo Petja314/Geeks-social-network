@@ -2,7 +2,7 @@ import axios from "axios";
 import {OpenAI} from "openai";
 import {MessagesResponseAiType} from "../redux/OpenAiReducer";
 
-const apikey = process.env.REACT_APP_API_KEY_OPEN_AI
+const apikey = process.env.REACT_APP_API_KEY_OPEN_AI;
 const BASE_URL = "https://api.openai.com/v1/chat/completions"
 
 const openai = new OpenAI({

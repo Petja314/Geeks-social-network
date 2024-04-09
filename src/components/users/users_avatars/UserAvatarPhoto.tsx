@@ -36,7 +36,7 @@ const UserAvatarPhoto = (props: any) => {
             ) : (
                 <span>
             {/*<div> photo doesn't exist.</div> looking for an avatar :*/}
-           <div>
+           <div className='imgHolder'>
                <img className="users_photo user_profile_photo" src={user_images[Math.floor(Math.random() * user_images.length)]} alt=""/>
            </div>
             </span>

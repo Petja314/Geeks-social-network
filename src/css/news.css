@@ -1,7 +1,5 @@
 .news_container {
     padding: 10px;
-    /*margin-top: 30px;*/
-    /*margin-bottom: 50px;*/
 }
 
 .news-section {
@@ -38,7 +36,6 @@ because we got :  className={`story-card_${index + 1}`} in JSX
 
     display: flex;
     position: relative;
-    /*align-items: flex-end;*/
     align-self: flex-start;
     overflow: hidden;
     cursor: pointer;

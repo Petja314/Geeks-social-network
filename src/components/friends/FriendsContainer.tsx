@@ -63,7 +63,7 @@ export const FriendsSection = () => {
                             {item.followed &&
                                 <div>
                                     <div className="followed_section">
-                                        <button disabled={followingInProgress.some((id: number) => id === item.id)} onClick={() => {
+                                        <button  disabled={followingInProgress.some((id: number) => id === item.id)} onClick={() => {
                                             dispatch(unfollowFriendThunkCreator(item.id, currentPage))
                                         }}>Unfollow
                                         </button>

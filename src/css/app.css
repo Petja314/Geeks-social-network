@@ -28,6 +28,12 @@ body {
     grid-template-columns: 1fr 4fr 1fr;
 }
 
+@media (max-width: 1025px) {
+    .app_wrapper {
+        display: block;
+    }
+}
+
 /*HEADER*/
 .header {
     background-color: rgb(0, 255, 0);
@@ -42,7 +48,6 @@ body {
 
 /*MAIN BODY */
 .main{
-    /*border: 2px solid red;*/
     grid-area: main;
     display: flex;
     justify-content: space-around;
@@ -50,7 +55,6 @@ body {
 }
 /*MAIN BODY CONTAINER*/
 .container_main{
-    /*border: 2px solid red;*/
     width: 1200px;
     max-width: 100%;
     font-size: 18px;

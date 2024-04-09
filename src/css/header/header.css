@@ -38,3 +38,36 @@
     box-sizing: inherit;
     text-decoration: none !important;
 }
+
+
+#loginBtn img {
+    width: 35px;
+    height: 35px;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+}
+
+@media (max-width: 1025px) {
+
+
+    #loginBtn {
+        border: none;
+        padding: 0;
+    }
+}
+@media (max-width: 580px) {
+    #loginBtn img {
+        translate: -5px 2px;
+        width: 30px;
+        height: 30px;
+    }
+}
+@media (max-width: 400px) {
+    #loginBtn img {
+        width: 25px;
+        height: 25px;
+    }
+}

@@ -82,11 +82,11 @@ const OpenAiResponse = ({isLoading}: OpenAiResponseProps) => {
     }, [messages])
 
     const messagesJSX = messages.map((item: MessagesResponseAiType) => (
-        <div style={{padding: "10px"}}>
+        <div className='message_wrapper' style={{padding: "10px"}}>
             {item.role === "user" ? (
-                <div style={{color: "red"}}> {item.role} :  {item.content} </div>
+                <div className='message_box openai-userMsg'> {item.role} :  {item.content} </div>
             ) : (
-                <div> {item.role} :
+                <div className='message_box openai-assistantMsg'> {item.role} :
                     {/*{item.content}*/}
                     <TypingEffects text={item.content} speed={40} />
                 </div>

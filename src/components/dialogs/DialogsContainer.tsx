@@ -1,15 +1,17 @@
-import React, {useEffect,  useState} from 'react';
-import {useDispatch, useSelector} from "react-redux";
-import {actionsDialogs, DialogsStateTypes, fetchDialogsThunk, newMessageReceivedThunk, refreshMessagesThunk} from "../../redux/DialogsReducer";
-import {FilterType,  getUsersThunkCreator} from "../../redux/UsersReducer";
-import {getCurrentPageSelector, getUsersFilterSelector} from "../../redux/selectors/UsersSelectors";
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from "react-redux";
+import { actionsDialogs, DialogsStateTypes, fetchDialogsThunk, newMessageReceivedThunk, refreshMessagesThunk } from "../../redux/DialogsReducer";
+import { FilterType, getUsersThunkCreator } from "../../redux/UsersReducer";
+import { getCurrentPageSelector, getUsersFilterSelector } from "../../redux/selectors/UsersSelectors";
 import '../../css/dialogs messenger/dialogs.css'
-import {compose} from "redux";
-import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
+import { compose } from "redux";
+import { WithAuthRedirect } from "../../hoc/WithAuthRedirect";
 import DialogsChat from "./DialogsChat";
 import RecentDialogs from "./RECENT DIALOGS";
-import {RootState} from "../../redux/Redux-Store";
-import {ThunkDispatch} from "redux-thunk";
+import { RootState } from "../../redux/Redux-Store";
+import { ThunkDispatch } from "redux-thunk";
+
+import checkInnerWidth from '../../common/helpers/checkInnerWidth';
 
 const DialogsContainer = () => {
     const dispatch: ThunkDispatch<RootState, void, any> = useDispatch()
@@ -24,11 +26,13 @@ const DialogsContainer = () => {
         pagesTotalCount,
         selectedUser,
         messages
-    } : DialogsStateTypes = useSelector((state: RootState) => state.messagesPage)
+    }: DialogsStateTypes = useSelector((state: RootState) => state.messagesPage)
 
-    const [prevNewMessageValue]  = useState<number>(0);
+    const [prevNewMessageValue] = useState<number>(0);
     const filter: FilterType = useSelector(getUsersFilterSelector)
     const currentPage: number = useSelector(getCurrentPageSelector)
+
+    const [showRecentDialogs, setShowRecentDialogs] = useState<boolean>(true);
 
 
     // FETCH ALL DIALOGS
@@ -60,6 +64,11 @@ const DialogsContainer = () => {
         }
     }, [newMessageCount])
 
+    const mob_toggleChat = () => {
+        if (checkInnerWidth(850)) {
+            setShowRecentDialogs(!showRecentDialogs);
+        }
+    }
 
     return (
         <div className="dialogs_container" >
@@ -73,6 +82,8 @@ const DialogsContainer = () => {
                     pageSize={pageSize}
                     currentDialogsPage={currentDialogsPage}
                     filter={filter}
+                    mob_toggleChat={mob_toggleChat}
+                    show={showRecentDialogs}
                 />
                 <DialogsChat
                     friendIdLocal={friendIdLocal}
@@ -81,6 +92,7 @@ const DialogsContainer = () => {
                     pagesTotalCount={pagesTotalCount}
                     selectedUser={selectedUser}
                     messages={messages}
+                    mob_toggleChat={mob_toggleChat}
                 />
 
             </div>

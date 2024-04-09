@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React from 'react';
 import UsersSearchForm from "../users/UsersSearchForm";
 import UserAvatarPhoto from "../users/users_avatars/UserAvatarPhoto";
 import {NavLink} from "react-router-dom";
@@ -10,7 +10,6 @@ import {ThunkDispatch} from "redux-thunk";
 import {RootState} from "../../redux/Redux-Store";
 import "../../css/dialogs messenger/dialogs.css"
 import "../../css/common css/formik.css"
-import DialogsChat from "./DialogsChat";
 
 type RecentDialogsPropsType = {
     dialogs: DialogsArrayType[],
@@ -21,17 +20,19 @@ type RecentDialogsPropsType = {
         term: string,
         friend: null | boolean
     },
-    pageSizeDialogs: number
+    pageSizeDialogs: number,
+    mob_toggleChat: Function
+    show: boolean
 }
 
-const RecentDialogs: React.FC<RecentDialogsPropsType> = ({dialogs, newMessageCount, pageSize, currentDialogsPage, filter, pageSizeDialogs}) => {
+const RecentDialogs: React.FC<RecentDialogsPropsType> = ({ show, mob_toggleChat, dialogs, newMessageCount, pageSize, currentDialogsPage, filter, pageSizeDialogs }) => {
 
     const usersPage: UsersComponentTypeArrays = useSelector(getUsersPageSelector)
     const dispatch: ThunkDispatch<RootState, void, any> = useDispatch()
     // let pagesCount = Math.ceil(dialogs.length / pageSizeDialogs)
     const startIndex = (currentDialogsPage - 1) * pageSizeDialogs
     const endIndex = startIndex + pageSizeDialogs
-    const displayedDialogs = dialogs.slice(startIndex, endIndex)
+    const displayedDialogs = dialogs.slice(startIndex, endIndex);
 
     const scrollDialogsHandler = (event: React.UIEvent<HTMLDivElement>) => {
         const elementDialogs = event.currentTarget as HTMLDivElement;
@@ -56,7 +57,7 @@ const RecentDialogs: React.FC<RecentDialogsPropsType> = ({dialogs, newMessageCou
     //Filter recent dialogs and users to find or start flood_chat
     const onFilterChanged = (filter: FilterType) => {
         // debugger
-        filter = {...filter, friend: null, term: filter.term}
+        filter = { ...filter, friend: null, term: filter.term }
         dispatch(getUsersThunkCreator(1, pageSize, filter))
         if (filter.term) { //We are searching dialogs locally , because api did not provide req. data
             const filterDialogs = dialogs.filter((dialogs: DialogsArrayType) => dialogs.userName.includes(filter.term))
@@ -71,11 +72,10 @@ const RecentDialogs: React.FC<RecentDialogsPropsType> = ({dialogs, newMessageCou
         }
     };
 
-
     return (
         <>
             <div
-                className="recent_dialogs_container"
+                className={`recent_dialogs_container ${show ? "" : "hide_dialogs_container"}`}
                 onScroll={scrollDialogsHandler}
                 style={{
                     overflowY: "auto"
@@ -83,48 +83,59 @@ const RecentDialogs: React.FC<RecentDialogsPropsType> = ({dialogs, newMessageCou
             >
                 <div className="sticky">
                     <div className="dialogs_formik" >
-                        <UsersSearchForm onFilterChanged={onFilterChanged}/>
+                        <UsersSearchForm onFilterChanged={onFilterChanged} />
                     </div>
                 </div>
 
                 <div className="recent_dialogs_list" >
                     {/*LIST OF DIALOGS*/}
                     {displayedDialogs
-                        .sort((a : any , b : any) => b.hasNewMessages - a.hasNewMessages) //SORTING THE NEW MESSAGES FIRST
+                        .sort((a: any, b: any) => b.hasNewMessages - a.hasNewMessages) //SORTING THE NEW MESSAGES FIRST
                         .map((dialog: DialogsArrayType) => (
-                            <div key={dialog.id}>
-                                <div style={{paddingTop: "10px"}}>
-                                    <div className="dialogs_avatar"><UserAvatarPhoto photos={dialog.photos.small}/></div>
-                                    <div>{dialog.userName} </div>
+                            <div className='recent_dialogs_item' key={dialog.id}>
+                                <div className='user_profile_chat' style={{ paddingTop: "10px" }}>
+                                    <div className="dialogs_avatar"><UserAvatarPhoto photos={dialog.photos.small} /></div>
+                                    <div className="user_credentials">
+                                        <div>{dialog.userName} </div>
 
-                                    <div>
-                                        < NavLink to={'/dialogs/' + dialog.id}>
-                                            <button onClick={() => {
-                                                dispatch(startChatThunk(dialog.id, dialog.userName, dialog.photos.small))
-                                            }}>Start Chat</button>
-                                        </NavLink>
+                                        <div>
+                                            < NavLink to={'/dialogs/' + dialog.id}>
+                                                <button onClick={() => {
+                                                    dispatch(startChatThunk(dialog.id, dialog.userName, dialog.photos.small))
+                                                    mob_toggleChat();
+                                                }}>Start Chat</button>
+                                            </NavLink>
+                                        </div>
+                                        {dialog.hasNewMessages && newMessageCount > 0 ? <div className='newMessage' style={{ color: "red" }}>
+                                            You got {dialog.newMessagesCount} new message
+                                        </div> : <div className='newMessage'>No messages</div>
+                                        }
+
                                     </div>
-                                    <hr className="underline"  />
-                                </div>
 
-                                {dialog.hasNewMessages && newMessageCount > 0 ? <div style={{color: "red"}}>
-                                    You got {dialog.newMessagesCount} new message
-                                </div> : <div></div>
-                                }
+
+                                </div>
                             </div>
                         ))}
                     {/*LIST OF USERS*/}
                     {
                         usersPage.users.map((item: UsersArrayType) =>
-                            <div key={item.id}>
-                                <div style={{paddingTop: "10px"}}>
+                            <div className='recent_dialogs_item' key={item.id}>
+                                <div className='user_profile_chat' style={{ paddingTop: "10px" }}>
 
-                                    <div  className="dialogs_avatar"> <UserAvatarPhoto photos={item.photos.small}/></div>
-                                    <div>Name: {item.name}</div>
-                                    <NavLink to={'/dialogs/' + item.id}>
-                                        <button onClick={() => dispatch(startChatThunk(item.id, item.name, item.photos.small))}>Start Chat</button>
-                                    </NavLink>
-                                    <hr style={{marginTop: "10px"}}/>
+                                    <div className="dialogs_avatar"> <UserAvatarPhoto photos={item.photos.small} /></div>
+
+                                    <div className="user_credentials">
+                                        <div>Name: {item.name}</div>
+                                        <NavLink to={'/dialogs/' + item.id}>
+                                            <button onClick={() => {
+                                                dispatch(startChatThunk(item.id, item.name, item.photos.small))
+                                                mob_toggleChat();
+                                            }}>Start Chat</button>
+                                        </NavLink>
+                                    </div>
+
+                                    <hr style={{ marginTop: "10px" }} />
                                 </div>
                             </div>
                         )}
@@ -135,4 +146,4 @@ const RecentDialogs: React.FC<RecentDialogsPropsType> = ({dialogs, newMessageCou
 };
 
 const RecentDialogsMemoComponent = React.memo(RecentDialogs)
-export default  RecentDialogsMemoComponent
+export default RecentDialogsMemoComponent

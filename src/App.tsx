@@ -1,54 +1,63 @@
 import React, {useEffect} from 'react';
-import { Route, Routes} from "react-router-dom";
-import Login from "./components/login/Login";
+import {Route, Routes, useLocation} from "react-router-dom";
 import HeaderContainer from "./components/header/HeaderContainer";
 import {useDispatch, useSelector} from "react-redux";
 import {initializeApp} from "./redux/AppReducer";
-import FloodChat from "./components/flood_chat/FloodChat";
-import Friends from "./components/friends/FriendsContainer";
-import ProfileContainer from "./components/profile/profileinfo/ProfileContainer";
-import DialogsContainer from "./components/dialogs/DialogsContainer";
-import News from "./components/news/News";
-import AskOpenAi from "./components/openAi/AskOpenAi";
-import PageNotFound from "./components/404/PageNotFound";
 import Preloader from "./common/preloader/Preloader";
 import SideBar from "./components/sidebar/SideBar";
 import "./css/app.css"
 import Footer from "./components/footer/Footer";
-import UsersMobile from "./components/users/UsersMobile";
-import UsersContainer from "./components/users/UsersContainer";
+import checkLocation from './common/helpers/checkLocation';
+import checkInnerWidth from './common/helpers/checkInnerWidth';
+import {navigationRoutes} from "./routes/NavigationRoutes";
 
 const App = () => {
     const initialized = useSelector((state: any) => state.app.initialized)
     const dispatch: any = useDispatch();
+
+    const { pathname } = useLocation();
+    console.log(pathname)
+
     useEffect(() => {
         dispatch(initializeApp());
     }, [dispatch]);
 
     if (!initialized) {
-        return <Preloader isFetching={true}/>
+        return <Preloader isFetching={true} />
     }
 
     return (
         <div className="app_wrapper">
-            <HeaderContainer/>
+            <HeaderContainer />
             <SideBar />
-                <div className="main">
-                    <div className="container_main">
+            <div className="main">
+                <div className="container_main">
                     <Routes>
-                        <Route path="/profile/:id?" element={<ProfileContainer/>}/>
-                        <Route path="/ask_ai" element={<AskOpenAi/>}/>
-                        <Route path="/users" element={<UsersContainer/>}/>
-                        <Route path="/login" element={<Login/>}/>
-                        <Route path="/friends" element={<Friends/>}/>
-                        <Route path="/dialogs/:id?" element={<DialogsContainer/>}/>
-                        <Route path="/news" element={<News/>}/>
-                        <Route path="/flood_chat" element={<FloodChat/>}/>
-                        <Route path="*" element={<PageNotFound/>}/>
+                        {
+                            navigationRoutes.map(item => (
+                                    <Route path={item.path} element={item.element} key={item.name}/>
+                            ))
+                        }
                     </Routes>
-                    </div>
                 </div>
-            <Footer/>
+            </div>
+
+            {
+                // logic to not display footer on mobile devices on certain pages.
+                // Check for screen width
+                checkInnerWidth(850) ?
+
+                    // check for current url path
+                    checkLocation(pathname, ["dialogs", "login", "ask_ai", "flood_chat"]) ?
+                        // show nothing
+                        ""
+                        :
+                        // show footer
+                        <Footer />
+                    :
+                    // show footer
+                    <Footer />
+            }
         </div>
     );
 };

@@ -1,5 +1,4 @@
 .sticky {
-    position: -webkit-sticky;
     position: sticky;
     top: 0;
     background-color: white;
@@ -8,24 +7,26 @@
     padding-left: 20px;
     font-size: 25px;
 }
-.formik_dialogs_container{
+
+.formik_dialogs_container {
     display: flex;
     flex-wrap: wrap;
 }
-.formik_dialogs_title{
+
+.formik_dialogs_title {
     color: black;
 }
 
 
-
 /*-------------------------------------------------------------------------------------------------------------------*/
 
-.dialogs_container{
+.dialogs_container {
     margin-top: 50px;
     margin-bottom: 100px;
-    /*border: 2px solid red;*/
+    overflow: hidden;
 }
-.dialogs_container h2{
+
+.dialogs_container h2 {
     margin-bottom: 50px;
 }
 
@@ -56,9 +57,10 @@
     margin-bottom: 20px;
 }
 
-.formik_dialogs_container{
+.formik_dialogs_container {
     margin: 0;
 }
+
 .underline {
     color: grey;
     margin-top: 10px;
@@ -91,14 +93,16 @@
     border-top: 3px solid rgb(200, 207, 218);
 }
 
-.input-container{
+.input-container {
     display: flex;
     /*padding: 10px;*/
 }
+
 .chat_inner_section textarea {
     box-shadow: rgb(194, 202, 214) 0px 0.2em, rgb(194, 202, 214) 0px -0.2em, rgb(194, 202, 214) 0.2em 0px, rgb(194, 202, 214) -0.2em 0px;
     background-color: lightgrey;
-    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    box-sizing: border-box;
+    /* Include padding and border in the element's total width and height */
     width: 100%;
     height: 180px;
     padding: 10px 90px 10px 10px;
@@ -109,22 +113,32 @@
     resize: none;
 
 }
+
 .chat_inner_section button {
     right: 30px;
     position: absolute;
 }
+
 .send_message_btn button {
     margin-top: 30px;
     background: transparent;
     border: none;
 }
-.restore_message_btn  button {
+
+.restore_message_btn button {
     margin-top: 120px;
 }
-.chat_inner_section img{
+
+.chat_inner_section img {
     background: transparent;
     width: 50px;
 }
+
+.message_section {
+    display: flex;
+    align-items: center;
+}
+
 .message_section button {
     background-color: transparent;
     border: none;
@@ -133,157 +147,332 @@
 }
 
 .message_section img {
-    width: 50px;
+    margin-left: 10px;
 }
 
-.select_user_to_chat{
-    color:  rgb(0, 255, 0);
+.select_user_to_chat {
+    color: rgb(0, 255, 0);
     background-color: black;
     font-weight: bold;
     text-align: center;
     padding: 5px;
 }
 
-.scroll_down_btn{
+.scroll_down_btn {
     position: absolute;
-    bottom: 220px;
-    right: 20px;
+    top: -40%;
+    right: 30px;
 }
+
 .scroll_down_btn button {
     background: transparent;
     border: none;
-    position: -webkit-sticky;
     position: sticky;
 }
-.scroll_down_btn img{
+
+.scroll_down_btn img {
     width: 50px;
     height: 50px;
 }
 
 
 @media (max-width: 850px) {
-    .dialogs_container{
-        margin-top: 10px;
-        margin-bottom: 10px;
-    }
-    .dialogs_container h2{
+
+    .dialogs_container {
+        position: relative;
+
+        margin-top: 0px;
         margin-bottom: 0px;
-        display: none;
-    }
-    .dialogs_section{
-        width: 95%;
-        height: 600px;
+
+        height: calc(100vh - 90px);
+        /* min-height: 700px; */
+
+        display: flex;
+        align-items: center;
     }
 
-    .chat_inner_section textarea{
-        height: 100px;
-        font-size: 15px;
-    }
-
-    .chat_section{
-        height: 480px;
-
-    }
-    .restore_message_btn button{
-        margin-top: 60px;
-        padding: 7px;
-
-    }
-    .send_message_btn button{
-        margin-top: 5px;
-
-    }
-    .chat_inner_section img {
-        width: 35px;
-    }
-    .chat_inner_section button{
-        right: 15px;
-    }
     .dialogs_section {
-        font-size: 15px;
+        width: 100%;
+        height: 100%;
+        box-shadow: none;
     }
-    .formik_title {
-        font-size: 18px;
+
+    .hide_dialogs_container {
+        transform: translateX(-100%);
     }
-    .dialogs_formik input{
-        width: 130px;
+
+    .recent_dialogs_container {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        height: 100%;
+        z-index: 20;
+
+        transition: transform .2s ease-in-out;
     }
-    /*NOTE*/
+
+    .chat_section-top {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    #getToRecentDialogs {
+        background-color: transparent;
+        padding: 10px;
+        padding-left: 0;
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #getToRecentDialogs img {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+.recent_dialogs_container .formik_title {
+    display: none;
+}
+
+.recent_dialogs_container input {
+    width: 80%;
+}
+
+.formik_container {
+    flex-direction: row !important;
+    align-items: center !important;
+    width: 100% !important;
+    justify-content: center !important;
+}
+
+
+.recent_dialogs_list .underline {
+    display: none;
+}
+
+.recent_dialogs_list {
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.recent_dialogs_list .recent_dialogs_item {
+    max-width: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.user_profile_chat {
+    /*padding: 0 10px!important;*/
+    display: flex;
+    align-items: center;
+    background-color: rgb(218, 217, 217);
+    border-radius: 5px;
+    height: 100px;
+    gap: 20px;
+}
+
+.user_profile_chat .newMessage {
+    margin-left: auto;
+}
+
+.dialogs_avatar .user_profile_photo {
+    width: 75px;
+    background-color: rgb(194, 202, 214);
+    border-radius: 50%;
+    box-shadow: none;
+}
+
+.recent_dialogs_list button {
+    margin: 0;
+    border: 2px solid green;
+    padding: 5px;
+}
+
+.user_credentials {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+
+.chat_container {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.chat_section {
+    height: auto;
 
 }
 
-@media(max-width: 590px) {
-    .chat_section{
-        height: 400px;
+.scroll_down_btn {
+    right: 10px;
+}
+
+.scroll_down_btn img {
+    width: 35px;
+    height: 35px !important;
+}
+
+.input-container {
+    background-color: white;
+}
+
+.chat_inner_section textarea {
+    height: auto !important;
+    font-size: 15px;
+    padding-right: 135px;
+}
+
+.input-container-controls {
+    position: absolute;
+    top: 50%;
+    translate: 0 -50%;
+    right: 50px;
+    display: flex;
+    width: 100px;
+    flex-direction: row;
+    align-items: center;
+}
+
+.send_message_btn, .restore_message_btn button {
+    margin: 0px !important;
+}
+
+.chat_inner_section button {
+    position: static;
+}
+
+.scroll_down_btn {
+    top: -80%;
+}
+
+.deleteMessageIcon {
+    width: 20px;
+    height: 20px;
+}
+
+
+.dialogs_container h2 {
+    margin-bottom: 0px;
+    display: none;
+}
+
+.restore_message_btn button {
+    margin-top: 60px;
+    padding: 7px;
+
+}
+
+.send_message_btn button {
+    margin-top: 5px;
+
+}
+
+.chat_inner_section img {
+    width: 35px;
+}
+
+.chat_inner_section button {
+    right: 15px;
+}
+
+.dialogs_section {
+    font-size: 15px;
+}
+
+.formik_title {
+    font-size: 18px;
+}
+
+
+@media (max-width: 590px) {
+    .chat_inner_section textarea {
+        padding-right: 105px;
     }
-    .dialogs_section{
-        height: 500px;
+
+    .input-container-controls {
+        right: 5px;
     }
-    .recent_dialogs_list button{
-        border: 2px solid green;
-        font-size: 13px;
-        padding: 5px;
+
+    .dialogs_section {
+        /* height: 500px; */
     }
+
+
     .dialogs_formik button {
         border: 1px solid green;
         font-size: 13px;
         padding: 5px;
     }
 
-    .dialogs_formik input{
-        width: 100px;
-    }
     .dialogs_section {
         font-size: 13px;
     }
-    h3{
-        /*font-size: 15px;*/
-    }
-    .user_name_chat{
+
+
+    .user_name_chat {
         font-size: 15px;
     }
+
     .selected_user_title {
         font-size: 15px;
     }
-    .chat_inner_section textarea{
+
+    .chat_inner_section textarea {
         font-size: 15px;
         height: 80px;
     }
-    .chat_inner_section button{
+
+    .chat_inner_section button {
         border: none;
         font-size: 13px;
         padding: 5px;
     }
-    .chat_inner_section img{
-        width: 30px;
-    }
-    .dialogs_avatar img {
-        width: 60px;
-    }
-    .restore_message_btn button{
+
+    .restore_message_btn button {
         margin-top: 50px;
     }
 }
 
+@media (max-width: 580px) {
+    .dialogs_container {
+        height: calc(100vh - 70px);
+    }
+}
 
-@media(max-width: 480px) {
-    .dialogs_section{
-        height: 400px;
+
+@media (max-width: 480px) {
+    .dialogs_section {
+        /* height: 400px; */
     }
-    .chat_section{
-        height: 305px;
+
+    .recent_dialogs_list .recent_dialogs_item {
+        max-width: 100%;
     }
-    .dialogs_formik input{
-        width: 60px;
-    }
-    .chat_inner_section textarea{
+
+    .chat_inner_section textarea {
         height: 75px;
     }
-    .dialogs_avatar img{
-        width: 40px;
-    }
-    .recent_dialogs_container{
-        width: 50%;
-    }
 
+    .recent_dialogs_container input {
+        width: 70%;
+    }
 }
+
+@media (max-width: 400px) {
+    .dialogs_container {
+        height: calc(100vh - 67px);
+    }
+}
+

@@ -1,7 +1,6 @@
 import {instance} from "./Api";
 import {DialogsArrayType} from "../redux/DialogsReducer";
 
-
 export const dialogsAPI = {
     fetchDialogs(): Promise<DialogsApiResponse> {
         return instance.get <DialogsArrayType[]>('dialogs')

@@ -1,13 +1,15 @@
-import React, {KeyboardEvent, UIEventHandler, useEffect, useRef, useState} from 'react';
+import React, { KeyboardEvent, UIEventHandler, useEffect, useRef, useState } from 'react';
 import UserAvatarPhoto from "../users/users_avatars/UserAvatarPhoto";
-import {actionsDialogs, deleteMessageThunk, DialogsMessagesArrayType, DialogsStateTypes, refreshMessagesThunk, restoreMessageThunk, sendMessageThunk} from "../../redux/DialogsReducer";
-import {useDispatch, useSelector} from "react-redux";
-import {ThunkDispatch} from "redux-thunk";
-import {RootState} from "../../redux/Redux-Store";
+import { actionsDialogs, deleteMessageThunk, DialogsMessagesArrayType, DialogsStateTypes, refreshMessagesThunk, restoreMessageThunk, sendMessageThunk } from "../../redux/DialogsReducer";
+import { useDispatch, useSelector } from "react-redux";
+import { ThunkDispatch } from "redux-thunk";
+import { RootState } from "../../redux/Redux-Store";
 import recylceBin from "../../assets/images/icons/bin.jpeg"
 import "../../css/dialogs messenger/dialogs.css"
 import sendBtn from "../../assets/images/icons/send.png";
 import scrollDown from "../../assets/images/icons/scroll_down.png"
+
+import checkInnerWidth from '../../common/helpers/checkInnerWidth';
 
 export type DialogsChatPropsType = {
     friendIdLocal: null | any; // Adjust the type accordingly
@@ -19,9 +21,10 @@ export type DialogsChatPropsType = {
         photo: null | string;
     };
     messages: DialogsMessagesArrayType[];
+    mob_toggleChat: Function
 };
 
-const DialogsChat: React.FC<DialogsChatPropsType> = ({friendIdLocal, currentPageChat, pageSize, pagesTotalCount, selectedUser, messages,}) => {
+const DialogsChat: React.FC<DialogsChatPropsType> = ({ mob_toggleChat, friendIdLocal, currentPageChat, pageSize, pagesTotalCount, selectedUser, messages, }) => {
 
     const dispatch: ThunkDispatch<RootState, void, any> = useDispatch()
     const scrollContainerRef = useRef<HTMLInputElement>(null);
@@ -30,8 +33,6 @@ const DialogsChat: React.FC<DialogsChatPropsType> = ({friendIdLocal, currentPage
     const authorizedUserId: number | null = useSelector((state: RootState) => state.userAuthPage.userId)
     const messageId: string = useSelector((state: RootState) => state.messagesPage.messageId)
     const [activeBtn, setActiveBtn] = useState<boolean>(false)
-
-
 
     console.log('currentPageChat', currentPageChat)
     // console.log('messages', messages)
@@ -88,11 +89,18 @@ const DialogsChat: React.FC<DialogsChatPropsType> = ({friendIdLocal, currentPage
                 className="chat_section"
                 ref={scrollContainerRef}
                 onScroll={scrollHandlerMessages}
-                style={{overflowY: "auto"}}>
+                style={{ overflowY: "auto" }}>
 
                 <div className="sticky">
-                    <div className="selected_user_title">{selectedUser.selectedUserName}</div>
-                    <div className="dialogs_avatar"><UserAvatarPhoto photos={selectedUser.photo}/></div>
+                    <div className="chat_section-top">
+                        {
+                            checkInnerWidth(850) ?
+                                <button onClick={() => mob_toggleChat()} id='getToRecentDialogs'><img src="https://cdn-icons-png.flaticon.com/512/59/59121.png" alt="" /></button>
+                                : ""
+                        }
+                        <div className="selected_user_title">{selectedUser.selectedUserName}</div>
+                    </div>
+                    <div className="dialogs_avatar"><UserAvatarPhoto photos={selectedUser.photo} /></div>
                 </div>
 
                 {messages.map((message: DialogsMessagesArrayType) => (
@@ -102,51 +110,54 @@ const DialogsChat: React.FC<DialogsChatPropsType> = ({friendIdLocal, currentPage
                             <button onClick={() => {
                                 dispatch(deleteMessageThunk(message.id))
                             }}>
-                                <img src={recylceBin} alt=""/>
+                                <img className='deleteMessageIcon' src={recylceBin} alt="" />
                                 {/*delete*/}
                             </button>
                         </div>
-                        <hr className="underline"/>
+                        <hr className="underline" />
                     </div>
 
                 ))}
                 <div>
                     {!friendIdLocal && <div className="select_user_to_chat">Select user to chat!</div>}
                 </div>
-
-                <div className="scroll_down_btn">
-                    <button onClick={bottomChatHandler}>
-                        <img src={scrollDown} alt=""/>
-                    </button>
-                </div>
             </div>
 
             {/*CHAT INNER SECTION*/}
             <div className="chat_inner_section">
 
+                <div className="scroll_down_btn">
+                    <button onClick={bottomChatHandler}>
+                        <img src={scrollDown} alt="" />
+                    </button>
+                </div>
+
                 <div className="input-container">
 
-                        <textarea
-                            onKeyDown={handleKeyDown}
-                            disabled={!friendIdLocal}
-                            onChange={handleInputChange}
-                            ref={messageRef}
-                        />
+                    <textarea
+                        onKeyDown={handleKeyDown}
+                        disabled={!friendIdLocal}
+                        onChange={handleInputChange}
+                        ref={messageRef}
+                    />
 
                     {/*DISABLE BUTTON IF FRIEND IS NOT SELECTED*/}
-                    <div className="send_message_btn">
-                        <button disabled={!friendIdLocal || !activeBtn} onClick={sendMessage}>
-                            {/*Send Message*/}
-                            <img src={sendBtn} alt=""/>
-                        </button>
-                    </div>
 
-                    <div className="restore_message_btn">
-                        <button onClick={() => {
-                            dispatch(restoreMessageThunk(messageId))
-                        }}> undo
-                        </button>
+                    <div className="input-container-controls">
+                        <div className="send_message_btn">
+                            <button disabled={!friendIdLocal || !activeBtn} onClick={sendMessage}>
+                                {/*Send Message*/}
+                                <img src={sendBtn} alt="" />
+                            </button>
+                        </div>
 
+                        <div className="restore_message_btn">
+                            <button onClick={() => {
+                                dispatch(restoreMessageThunk(messageId))
+                            }}> undo
+                            </button>
+
+                        </div>
                     </div>
 
                 </div>
