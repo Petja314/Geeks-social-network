@@ -1,6 +1,6 @@
 ![GEEKS SOCIAL NETWORK](https://github.com/Petja314/Geeks-social-network/assets/101811219/778cb5e0-7510-4f91-87bc-b293d354aeed)
 
-# Geeks Social Network: Uniting Geeks Worldwide in a Dynamic Online Community
+# Uniting Geeks Worldwide in a Dynamic Online Community
 
 ## 👽 Introduction
 Geeks Social Network is a React-based project designed to foster connections within the geek community. Within this platform, users can discover and connect with new friends, engage in real-time chat conversations, leverage an AI chatbot for inquiries, personalize their profiles, and share daily updates through posts.
