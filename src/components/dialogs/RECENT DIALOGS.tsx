@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import UsersSearchForm from "../users/UsersSearchForm";
 import UserAvatarPhoto from "../users/users_avatars/UserAvatarPhoto";
 import {NavLink} from "react-router-dom";
@@ -15,56 +15,52 @@ type RecentDialogsPropsType = {
     dialogs: DialogsArrayType[],
     newMessageCount: number,
     pageSize: number,
-    currentDialogsPage: number,
-    filter: {
-        term: string,
-        friend: null | boolean
-    },
-    pageSizeDialogs: number,
     mob_toggleChat: Function
     show: boolean
 }
 
-const RecentDialogs: React.FC<RecentDialogsPropsType> = ({ show, mob_toggleChat, dialogs, newMessageCount, pageSize, currentDialogsPage, filter, pageSizeDialogs }) => {
+const RecentDialogs: React.FC<RecentDialogsPropsType> = ({show, mob_toggleChat, dialogs, newMessageCount, pageSize}) => {
 
     const usersPage: UsersComponentTypeArrays = useSelector(getUsersPageSelector)
     const dispatch: ThunkDispatch<RootState, void, any> = useDispatch()
-    // let pagesCount = Math.ceil(dialogs.length / pageSizeDialogs)
-    const startIndex = (currentDialogsPage - 1) * pageSizeDialogs
-    const endIndex = startIndex + pageSizeDialogs
-    const displayedDialogs = dialogs.slice(startIndex, endIndex);
 
-    const scrollDialogsHandler = (event: React.UIEvent<HTMLDivElement>) => {
+    const [visibleDialogs, setVisibleDialogs] = useState<DialogsArrayType[]>([])
+    const [userFound, setUserFound] = useState(false)
+
+    useEffect(() => {
+        const displayedDialogs = dialogs.slice(0, 10);
+        setVisibleDialogs(displayedDialogs)
+    },[dialogs])
+
+    const onScrollHandler = (event: React.UIEvent<HTMLDivElement>) => {
         const elementDialogs = event.currentTarget as HTMLDivElement;
-        const bottomOfPage: number = elementDialogs.scrollHeight - (elementDialogs.scrollTop + elementDialogs.clientHeight)
-        const topOfPage: number = elementDialogs.scrollTop
-        //DOWN ++
-        if (bottomOfPage === 0) {
-            const nextPage = currentDialogsPage + 1
-            dispatch(actionsDialogs.setCurrentDialogsPageAction(nextPage))
-            dispatch(getUsersThunkCreator(nextPage, pageSize, filter));
-            elementDialogs.scrollTop = 700
+        if (elementDialogs.scrollHeight - (elementDialogs.scrollTop + elementDialogs.clientHeight) < 20) {
+            loadMoreDialogs()
         }
-        //UP --
-        if (currentDialogsPage > 1 && topOfPage === 0) {
-            const prevPage: number = currentDialogsPage - 1
-            dispatch(actionsDialogs.setCurrentDialogsPageAction(prevPage))
-            dispatch(getUsersThunkCreator(prevPage, pageSize, filter));
-            elementDialogs.scrollTop = 20
+    }
+    const loadMoreDialogs = () => {
+        if(visibleDialogs.length === dialogs.length){
+            return;
         }
+        const startIndex = visibleDialogs.length
+        const endIndex = startIndex + 10
+        const nextDialogs = dialogs.slice(startIndex, endIndex)
+        setVisibleDialogs((pevInitialDialogs ) => [...pevInitialDialogs, ...nextDialogs])
     }
 
     //Filter recent dialogs and users to find or start flood_chat
     const onFilterChanged = (filter: FilterType) => {
-        // debugger
-        filter = { ...filter, friend: null, term: filter.term }
+        // console.log('filter' , filter)
+        filter = {...filter, friend: null, term: filter.term}
         dispatch(getUsersThunkCreator(1, pageSize, filter))
         if (filter.term) { //We are searching dialogs locally , because api did not provide req. data
+            setUserFound(true)
             const filterDialogs = dialogs.filter((dialogs: DialogsArrayType) => dialogs.userName.includes(filter.term))
-            console.log('user found')
+            // console.log('user found')
             dispatch(actionsDialogs.setAllDialogsAction(filterDialogs))
         } else {
-            console.log('user not found')
+            setUserFound(false)
+            // console.log('user not found')
             dispatch(fetchDialogsThunk())
         }
         if (filter.term === "") {
@@ -72,29 +68,31 @@ const RecentDialogs: React.FC<RecentDialogsPropsType> = ({ show, mob_toggleChat,
         }
     };
 
+    const filteredUsers = usersPage.users.filter(({id}) => ! dialogs.some((e) => e.id === id) )
     return (
         <>
             <div
                 className={`recent_dialogs_container ${show ? "" : "hide_dialogs_container"}`}
-                onScroll={scrollDialogsHandler}
+                onScroll={onScrollHandler}
                 style={{
                     overflowY: "auto"
                 }}
             >
                 <div className="sticky">
-                    <div className="dialogs_formik" >
-                        <UsersSearchForm onFilterChanged={onFilterChanged} />
+                    <div className="dialogs_formik">
+                        <UsersSearchForm onFilterChanged={onFilterChanged}/>
                     </div>
                 </div>
 
-                <div className="recent_dialogs_list" >
+                <div className="recent_dialogs_list">
                     {/*LIST OF DIALOGS*/}
-                    {displayedDialogs
+
+                    {visibleDialogs
                         .sort((a: any, b: any) => b.hasNewMessages - a.hasNewMessages) //SORTING THE NEW MESSAGES FIRST
                         .map((dialog: DialogsArrayType) => (
                             <div className='recent_dialogs_item' key={dialog.id}>
-                                <div className='user_profile_chat' style={{ paddingTop: "10px" }}>
-                                    <div className="dialogs_avatar"><UserAvatarPhoto photos={dialog.photos.small} /></div>
+                                <div className='user_profile_chat' style={{paddingTop: "10px"}}>
+                                    <div className="dialogs_avatar"><UserAvatarPhoto photos={dialog.photos.small}/></div>
                                     <div className="user_credentials">
                                         <div>{dialog.userName} </div>
 
@@ -103,10 +101,11 @@ const RecentDialogs: React.FC<RecentDialogsPropsType> = ({ show, mob_toggleChat,
                                                 <button onClick={() => {
                                                     dispatch(startChatThunk(dialog.id, dialog.userName, dialog.photos.small))
                                                     mob_toggleChat();
-                                                }}>Start Chat</button>
+                                                }}>Start Chat
+                                                </button>
                                             </NavLink>
                                         </div>
-                                        {dialog.hasNewMessages && newMessageCount > 0 ? <div className='newMessage' style={{ color: "red" }}>
+                                        {dialog.hasNewMessages && newMessageCount > 0 ? <div className='newMessage' style={{color: "red"}}>
                                             You got {dialog.newMessagesCount} new message
                                         </div> : <div className='newMessage'>No messages</div>
                                         }
@@ -117,9 +116,11 @@ const RecentDialogs: React.FC<RecentDialogsPropsType> = ({ show, mob_toggleChat,
                                 </div>
                             </div>
                         ))}
+
+
                     {/*LIST OF USERS*/}
-                    {
-                        usersPage.users.map((item: UsersArrayType) =>
+                    {userFound &&
+                        filteredUsers.map((item: UsersArrayType) =>
                             <div className='recent_dialogs_item' key={item.id}>
                                 <div className='user_profile_chat' style={{ paddingTop: "10px" }}>
 
@@ -139,6 +140,7 @@ const RecentDialogs: React.FC<RecentDialogsPropsType> = ({ show, mob_toggleChat,
                                 </div>
                             </div>
                         )}
+
                 </div>
             </div>
         </>

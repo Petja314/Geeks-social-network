@@ -9,8 +9,7 @@
     box-shadow: rgb(194, 202, 214) 0px 0.2em, rgb(194, 202, 214) 0px -0.2em, rgb(194, 202, 214) 0.2em 0px, rgb(194, 202, 214) -0.2em 0px, rgb(133, 149, 173) 0.2em 0.4em, rgb(133, 149, 173) 0.4em 0.2em, rgb(82, 98, 122) 0.4em 0.6em, rgb(82, 98, 122) 0.6em 0.4em;
     width: 70%;
     height: 600px;
-
-    overflow-y: scroll;
+    /*overflow-y: scroll;*/
 }
 
 .title {
@@ -145,7 +144,6 @@
 .openai-assistantMsg{
     background-color: rgb(218, 217, 217);
     width: fit-content;
-    text-align: right;
     justify-self: flex-end;
     border-bottom-right-radius: 0px;
 }

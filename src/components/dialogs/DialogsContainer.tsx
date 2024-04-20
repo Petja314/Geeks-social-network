@@ -76,12 +76,9 @@ const DialogsContainer = () => {
             <h2>Messenger</h2>
             <div className="dialogs_section">
                 <RecentDialogs
-                    pageSizeDialogs={pageSizeDialogs}
                     dialogs={dialogs}
                     newMessageCount={newMessageCount}
                     pageSize={pageSize}
-                    currentDialogsPage={currentDialogsPage}
-                    filter={filter}
                     mob_toggleChat={mob_toggleChat}
                     show={showRecentDialogs}
                 />

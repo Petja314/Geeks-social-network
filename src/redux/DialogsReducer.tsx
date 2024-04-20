@@ -59,7 +59,7 @@ const initialState: DialogsStateTypes = {
     newMessageCount: 0, //store the new message count from API //newMessageReceived.get
     prevNewMessageValue: 0,
     currentDialogsPage: 1,
-    pageSizeDialogs: 5,
+    pageSizeDialogs: 10, //5
 
 // MESSENGER CHAT
     currentPageChat: 1,

@@ -147,7 +147,11 @@ export const setUnverifiedUserIDThunk = (idUserURL: number | null): ThunkResult<
 }
 export const fetchPostsThunk = (postData: Array<ResponseTestAPIDataType>): ThunkResult<void> => {
     return (dispatch) => {
+        if(postData.length <= 0){
+            return;
+        }
         dispatch(actionsMyPosts.setPostsDataBaseAC(postData))
+
         if( postData[0].userId !== 29260 ) {
             localStorage.setItem('usersPosts', JSON.stringify(postData));
         }

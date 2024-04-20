@@ -4,7 +4,7 @@ import { actionsDialogs, deleteMessageThunk, DialogsMessagesArrayType, DialogsSt
 import { useDispatch, useSelector } from "react-redux";
 import { ThunkDispatch } from "redux-thunk";
 import { RootState } from "../../redux/Redux-Store";
-import recylceBin from "../../assets/images/icons/bin.jpeg"
+import recycleBin from "../../assets/images/icons/bin.jpeg"
 import "../../css/dialogs messenger/dialogs.css"
 import sendBtn from "../../assets/images/icons/send.png";
 import scrollDown from "../../assets/images/icons/scroll_down.png"
@@ -34,9 +34,6 @@ const DialogsChat: React.FC<DialogsChatPropsType> = ({ mob_toggleChat, friendIdL
     const messageId: string = useSelector((state: RootState) => state.messagesPage.messageId)
     const [activeBtn, setActiveBtn] = useState<boolean>(false)
 
-    console.log('currentPageChat', currentPageChat)
-    // console.log('messages', messages)
-    console.log('friendIdLocal', friendIdLocal)
     const scrollHandlerMessages = (event: React.UIEvent<HTMLDivElement>) => {
         const element = event.currentTarget as HTMLDivElement;
         // console.log('element.scrollTop', element.scrollTop)
@@ -56,7 +53,7 @@ const DialogsChat: React.FC<DialogsChatPropsType> = ({ mob_toggleChat, friendIdL
     }
     const sendMessage = () => {
         if (messageRef.current) {
-            dispatch(sendMessageThunk(friendIdLocal, messageRef.current.value))
+            dispatch(sendMessageThunk(friendIdLocal, messageRef.current.value.trim()))
             messageRef.current.value = ""
             setActiveBtn(false)
         }
@@ -67,7 +64,7 @@ const DialogsChat: React.FC<DialogsChatPropsType> = ({ mob_toggleChat, friendIdL
         setActiveBtn(messageRef.current.value.trim() !== "")
     }
     const handleKeyDown = (event: any) => {
-        if (event.keyCode === 13) {
+        if (event.keyCode === 13 && activeBtn) {
             sendMessage()
         }
     }
@@ -106,11 +103,12 @@ const DialogsChat: React.FC<DialogsChatPropsType> = ({ mob_toggleChat, friendIdL
                 {messages.map((message: DialogsMessagesArrayType) => (
                     <div key={message.id} className={authorizedUserId === message.senderId ? "dialogs_right" : "dialogs_left"}>
                         User: {message.senderName}
-                        <div className="message_section">Message : {message.body}
+                        <div className="message_section">
+                            Message: {message.body}
                             <button onClick={() => {
                                 dispatch(deleteMessageThunk(message.id))
                             }}>
-                                <img className='deleteMessageIcon' src={recylceBin} alt="" />
+                                <img className='deleteMessageIcon' src={recycleBin} alt="delete message" />
                                 {/*delete*/}
                             </button>
                         </div>
